@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-opret-udbud-step',
-  templateUrl: './opret-udbud-step.component.html',
-  styleUrls: ['./opret-udbud-step.component.scss']
+  selector: 'app-create-teacher',
+  templateUrl: './create-teacher.component.html',
+  styleUrls: ['./create-teacher.component.scss']
 })
-export class OpretUdbudStepComponent implements OnInit {
+export class CreateTeacherComponent implements OnInit {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -15,12 +15,16 @@ export class OpretUdbudStepComponent implements OnInit {
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
-      firstAge: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.email, Validators.required]],
+      phoneNumber: ['', Validators.required],
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required],
     });
+
+    // this.firstFormGroup.controls['email']
   }
 
 }

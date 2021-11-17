@@ -5,17 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { OpretUdbudComponent } from './page/opret-udbud/opret-udbud.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoursesService } from './service/courses.service';
 import { HttpClientModule } from '@angular/common/http';
-import { OpretUdbudStepComponent } from './component/opret-udbud-step/opret-udbud-step.component';
+import { HomePageComponent } from './page/home-page/home-page.component';
+import { CreateTeacherPageComponent } from './page/create-teacher-page/create-teacher-page.component';
+import { CreateTeacherComponent } from './component/create-teacher/create-teacher.component';
+import { UddannelseService } from './service/uddannelse.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    OpretUdbudComponent,
-    OpretUdbudStepComponent
+    HomePageComponent,
+    CreateTeacherPageComponent,
+    CreateTeacherComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,7 @@ import { OpretUdbudStepComponent } from './component/opret-udbud-step/opret-udbu
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [CoursesService],
+  providers: [CoursesService, UddannelseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

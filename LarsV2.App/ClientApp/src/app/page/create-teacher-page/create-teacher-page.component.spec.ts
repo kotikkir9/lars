@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OpretUdbudStepComponent } from './opret-udbud-step.component';
+import { CreateTeacherPageComponent } from './create-teacher-page.component';
 
-describe('OpretUdbudStepComponent', () => {
-  let component: OpretUdbudStepComponent;
-  let fixture: ComponentFixture<OpretUdbudStepComponent>;
+describe('CreateTeacherPageComponent', () => {
+  let component: CreateTeacherPageComponent;
+  let fixture: ComponentFixture<CreateTeacherPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OpretUdbudStepComponent ]
+      declarations: [ CreateTeacherPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OpretUdbudStepComponent);
+    fixture = TestBed.createComponent(CreateTeacherPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

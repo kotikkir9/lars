@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { OpretUdbudComponent } from './page/opret-udbud/opret-udbud.component';
+import { CreateTeacherPageComponent } from './page/create-teacher-page/create-teacher-page.component';
+import { HomePageComponent } from './page/home-page/home-page.component';
 
 
 const routes: Routes = [
-  {path: "opret", component: OpretUdbudComponent}
+  {path: "", component: HomePageComponent},
+  {path: "opret", component: CreateTeacherPageComponent}
 ];
 
 @NgModule({
