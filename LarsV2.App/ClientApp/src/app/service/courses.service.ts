@@ -18,4 +18,5 @@ export class CoursesService {
   getData(): Observable<iCourses> {
     return this.http.get<iCourses>("/api/courses");
   }
+
 }

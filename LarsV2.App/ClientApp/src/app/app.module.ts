@@ -9,11 +9,13 @@ import { OpretUdbudComponent } from './page/opret-udbud/opret-udbud.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoursesService } from './service/courses.service';
 import { HttpClientModule } from '@angular/common/http';
+import { OpretUdbudStepComponent } from './component/opret-udbud-step/opret-udbud-step.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    OpretUdbudComponent
+    OpretUdbudComponent,
+    OpretUdbudStepComponent
   ],
   imports: [
     BrowserModule,
