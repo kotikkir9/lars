@@ -1,5 +1,5 @@
-using Api.Models.DBContext;
-using Api.Models.Repository;
+using LarsV2.Models.DBContext;
+using LarsV2.Models.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -24,8 +24,8 @@ namespace LarsV2
         {
             services.AddControllersWithViews();
 
-            services.AddDbContextPool<CoursesDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CoursesConnection")));
-            services.AddScoped<ICoursesRepository, CoursesRepository>();
+            services.AddDbContextPool<LecturerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CoursesConnection")));
+            services.AddScoped<ILecturersRepository, LecturersRepository>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
