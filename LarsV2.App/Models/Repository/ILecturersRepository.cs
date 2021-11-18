@@ -14,7 +14,7 @@ namespace LarsV2.Models.Repository
         bool LecturerExists(int id);  
         void AddLecturer(Lecturer lecturer);
         void UpdateLecturer(Lecturer lecturer);
-        void DeleteLecturer(int id);
+        void DeleteLecturer(Lecturer lecturer);
         bool Save();
     }
 }

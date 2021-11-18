@@ -21,12 +21,12 @@ namespace LarsV2.Models.Repository
 
         public Lecturer GetLecturer(int id)
         {
-            return _context.Lecturers.AsNoTracking().FirstOrDefault(e => e.Id == id);
+            return _context.Lecturers.FirstOrDefault(e => e.Id == id);
         }
 
         public bool LecturerExists(int id)
         {
-            return _context.Lecturers.Any(c => c.Id == id);
+            return _context.Lecturers.Any(l => l.Id == id);
         }
 
         public void AddLecturer(Lecturer lecturer)
@@ -39,10 +39,8 @@ namespace LarsV2.Models.Repository
             _context.Lecturers.Add(lecturer);
         }
 
-        public void DeleteLecturer(int id)
+        public void DeleteLecturer(Lecturer lecturer)
         {
-            Lecturer lecturer = GetLecturer(id);
-
             if(lecturer != null)
             {
                 _context.Lecturers.Remove(lecturer);
@@ -56,7 +54,7 @@ namespace LarsV2.Models.Repository
 
         public void UpdateLecturer(Lecturer lecturer)
         {
-            
+            // No implementation needed
         }
     }
 }
