@@ -48,6 +48,11 @@ export class UddannelseInputComponent implements OnInit {
     this.loadData();
   }
 
+  reset(){
+    this.uddannelseFormGroup.controls["fag"].setValue("");
+    this.uddannelseFormGroup.controls["uddannelse"].setValue("");
+  }
+
   private dataIsChanges():void {
     let fag:string = this.uddannelseFormGroup.controls["fag"].value;
     let uddannelse:string = this.uddannelseFormGroup.controls["uddannelse"].value;

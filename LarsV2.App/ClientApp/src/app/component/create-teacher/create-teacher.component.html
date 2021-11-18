@@ -42,6 +42,8 @@
 	<mat-step [stepControl]="secondFormGroup">
 	  <form [formGroup]="secondFormGroup">
 		<ng-template matStepLabel>Undervister Skills</ng-template>
+		<app-uddannelse-input #ugInput></app-uddannelse-input>
+		<button mat-button (click)="ugInput.reset()">reset</button>
 		<mat-form-field>
 		  <mat-label>Address</mat-label>
 		  <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"

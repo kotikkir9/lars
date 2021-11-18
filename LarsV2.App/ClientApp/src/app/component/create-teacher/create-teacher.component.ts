@@ -24,7 +24,6 @@ export class CreateTeacherComponent implements OnInit {
       secondCtrl: ['', Validators.required],
     });
 
-    // this.firstFormGroup.controls['email']
   }
 
 }
