@@ -2,7 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators'
-import { iUddannelse, UddannelseService } from 'src/app/service/uddannelse.service';
+import { iUddannelse } from 'src/app/DTO/uddannelse';
+import { UddannelseService } from 'src/app/service/uddannelse.service';
 
 enum eFilterBy {
   uddannelse,

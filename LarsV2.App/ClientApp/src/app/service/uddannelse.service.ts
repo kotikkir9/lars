@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-
-export interface iUddannelse {
-  uddannelse: string;
-  fag: string;
-}
+import { iUddannelse } from '../DTO/uddannelse';
 
 @Injectable({
   providedIn: 'root'
