@@ -13,7 +13,7 @@ namespace LarsV2.Models.Entities
         [Required(ErrorMessage = "Subject name is required")]
         [MaxLength(255)]
         public string Name { get; set; }
+        public string Education { get; set; }
         public string Description { get; set; }
-        public Education Education { get; set; }
     }
 }

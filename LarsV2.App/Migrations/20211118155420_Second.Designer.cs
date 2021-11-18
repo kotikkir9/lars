@@ -4,14 +4,16 @@ using LarsV2.Models.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LarsV2.Migrations
 {
     [DbContext(typeof(LecturerDbContext))]
-    partial class LecturerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211118155420_Second")]
+    partial class Second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,96 +91,6 @@ namespace LarsV2.Migrations
                             IsExternal = false,
                             LastName = "Efternavn",
                             PhoneNumber = "+4511111111"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Email = "lindemann@eamv.dk",
-                            FirstName = "Till",
-                            IsExternal = false,
-                            LastName = "Lindemann",
-                            PhoneNumber = "+4598765432"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Email = "bob@eamv.dk",
-                            FirstName = "Bob",
-                            IsExternal = false,
-                            LastName = "Ross",
-                            PhoneNumber = "+4544444444"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Email = "putin@eamv.dk",
-                            FirstName = "Vladimir",
-                            IsExternal = false,
-                            LastName = "Putin",
-                            PhoneNumber = "+4555555555"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Email = "trump@eamv.dk",
-                            FirstName = "Donald",
-                            IsExternal = false,
-                            LastName = "Trump",
-                            PhoneNumber = "+4566666666"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Email = "joe@eamv.dk",
-                            FirstName = "Joe",
-                            IsExternal = false,
-                            LastName = "Rogan",
-                            PhoneNumber = "+4577777777"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Email = "max@eamv.dk",
-                            FirstName = "Max",
-                            IsExternal = false,
-                            LastName = "Verstappen",
-                            PhoneNumber = "+4588888888"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Email = "messi@eamv.dk",
-                            FirstName = "Lionel",
-                            IsExternal = false,
-                            LastName = "Messi",
-                            PhoneNumber = "+4599999999"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Email = "ronaldo@eamv.dk",
-                            FirstName = "Cristiano",
-                            IsExternal = false,
-                            LastName = "Ronaldo",
-                            PhoneNumber = "+4512121212"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Email = "maynard@eamv.dk",
-                            FirstName = "Maynard James",
-                            IsExternal = false,
-                            LastName = "Keenan",
-                            PhoneNumber = "+4569696969"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Email = "steven@eamv.dk",
-                            FirstName = "Steven",
-                            IsExternal = false,
-                            LastName = "Wilson",
-                            PhoneNumber = "+4512341234"
                         });
                 });
 

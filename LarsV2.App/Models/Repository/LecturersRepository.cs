@@ -1,7 +1,10 @@
-﻿using LarsV2.Models.DBContext;
+﻿using LarsV2.Helpers;
+using LarsV2.Models.DBContext;
 using LarsV2.Models.Entities;
+using LarsV2.Models.ResourceParameters;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LarsV2.Models.Repository
@@ -14,9 +17,28 @@ namespace LarsV2.Models.Repository
         {
             _context = context;
         }
-        public IQueryable<Lecturer> GetLecturers()
+        public PagedList<Lecturer> GetLecturers(LecturerResourceParameters parameters)
         {
-            return _context.Lecturers;
+            if(parameters == null)
+            {
+                throw new ArgumentNullException(nameof(parameters));
+            }
+
+            var collection = _context.Lecturers as IQueryable<Lecturer>;
+
+            if(!string.IsNullOrWhiteSpace(parameters.Subject))
+            {
+                var subject = parameters.Subject.Trim();
+                collection = collection.Where(l => l.Subjects.Any(e => e.Name == subject));
+            }
+
+            if(!string.IsNullOrWhiteSpace(parameters.SearchQuery))
+            {
+                var searchQuery = parameters.SearchQuery.Trim();
+                collection = collection.Where(l=> l.FirstName.Contains(searchQuery) || l.LastName.Contains(searchQuery) || l.Email.Contains(searchQuery) || l.PhoneNumber.Contains(searchQuery));
+            }
+
+            return PagedList<Lecturer>.Create(collection, parameters.PageNumber, parameters.PageSize);
         }
 
         public Lecturer GetLecturer(int id)
