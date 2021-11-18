@@ -13,6 +13,7 @@ import { CreateTeacherComponent } from './component/create-teacher/create-teache
 import { UddannelseService } from './service/uddannelse.service';
 import { TestPageComponent } from './page/test-page/test-page.component';
 import { UddannelseInputComponent } from './component/uddannelse-input/uddannelse-input.component';
+import { LecturersService } from './service/lecturers.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { UddannelseInputComponent } from './component/uddannelse-input/uddannels
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [UddannelseService],
+  providers: [UddannelseService, LecturersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
