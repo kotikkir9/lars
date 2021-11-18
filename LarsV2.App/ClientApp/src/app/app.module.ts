@@ -12,13 +12,17 @@ import { HomePageComponent } from './page/home-page/home-page.component';
 import { CreateTeacherPageComponent } from './page/create-teacher-page/create-teacher-page.component';
 import { CreateTeacherComponent } from './component/create-teacher/create-teacher.component';
 import { UddannelseService } from './service/uddannelse.service';
+import { TestPageComponent } from './page/test-page/test-page.component';
+import { UddannelseInputComponent } from './component/uddannelse-input/uddannelse-input.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     CreateTeacherPageComponent,
-    CreateTeacherComponent
+    CreateTeacherComponent,
+    TestPageComponent,
+    UddannelseInputComponent
   ],
   imports: [
     BrowserModule,
