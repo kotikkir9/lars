@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators'
 import { iUddannelse, UddannelseService } from 'src/app/service/uddannelse.service';
@@ -15,6 +15,10 @@ enum eFilterBy {
   styleUrls: ['./uddannelse-input.component.scss']
 })
 export class UddannelseInputComponent implements OnInit {
+
+  @Output() changesEvent = new EventEmitter<iUddannelse>();
+
+  tempData: iUddannelse;
 
   uddannelseFormGroup: FormGroup;
   uddannelseAndFagData: iUddannelse[];
@@ -43,6 +47,20 @@ export class UddannelseInputComponent implements OnInit {
     this.loadData();
   }
 
+  private dataIsChanges():void {
+    let fag:string = this.uddannelseFormGroup.controls["fag"].value;
+    let uddannelse:string = this.uddannelseFormGroup.controls["uddannelse"].value;
+
+    let data:iUddannelse = {fag: fag, uddannelse: uddannelse}
+
+    if(fag === "" || uddannelse === "" || this.tempData != undefined && (data.fag === this.tempData.fag && data.uddannelse === this.tempData.uddannelse))
+      return;
+      
+    this.tempData = data;
+
+    this.changesEvent.emit(data);
+  }
+
   private loadData():void {
     this.uddannelseAndFagData = this.us.getData();
 
@@ -67,7 +85,7 @@ export class UddannelseInputComponent implements OnInit {
     if(ugValue === "" && data.length == 1 && data[0].fag.toLowerCase() == filterValue)
       this.uddannelseFormGroup.controls["uddannelse"].setValue(data[0].uddannelse);
 
-    console.log(ugValue, data, filterValue);
+    this.dataIsChanges();
 
     return data;
   }
@@ -76,7 +94,7 @@ export class UddannelseInputComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     this.toucheInput(this.uddannelseFormGroup.controls["fag"]);
-    
+
     return this.uddannelseData.filter(uddannelse => uddannelse.toLowerCase().includes(filterValue));
   }
 

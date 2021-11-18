@@ -12,4 +12,8 @@ export class TestPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  log(data: any){
+    console.log(data);
+  }
+
 }
