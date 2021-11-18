@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators'
 import { iUddannelse, UddannelseService } from 'src/app/service/uddannelse.service';
@@ -17,26 +17,12 @@ enum eFilterBy {
 export class UddannelseInputComponent implements OnInit {
 
   uddannelseFormGroup: FormGroup;
-  uddannelseData: iUddannelse[];
-  filteredUddannelse: Observable<iUddannelse[]>;
+  uddannelseAndFagData: iUddannelse[];
+  uddannelseData: string[] = [];
+  filteredUddannelse: Observable<string[]>;
+  filteredFag: Observable<iUddannelse[]>;
   
-  constructor(private _formBuilder: FormBuilder, private us: UddannelseService) {
-    this.filteredUddannelse = this.uddannelseFormGroup.controls["uddannelse"].valueChanges.pipe(
-      startWith(''),
-      map(uddannelse => (uddannelse ? this._filteredUddannelse(uddannelse, eFilterBy.uddannelse) : this.uddannelseData.slice()))
-    );
-  }
-
-  private _filteredUddannelse(value: string, filterBy: eFilterBy): iUddannelse[] {
-    const filterValue = value.toLowerCase();
-
-    switch(filterBy) {
-      case eFilterBy.uddannelse:
-        return this.uddannelseData.filter(uddannelse => uddannelse.uddannelse.toLowerCase().includes(filterValue));
-      case eFilterBy.fag:
-        return this.uddannelseData.filter(uddannelse => uddannelse.uddannelse.toLowerCase().includes(filterValue));
-    }
-  }
+  constructor(private _formBuilder: FormBuilder, private us: UddannelseService) {}
 
   ngOnInit(): void {
     this.uddannelseFormGroup = this._formBuilder.group({
@@ -44,7 +30,68 @@ export class UddannelseInputComponent implements OnInit {
       fag: [''],
     });
 
-    this.uddannelseData = this.us.getData();
+    this.filteredUddannelse = this.uddannelseFormGroup.controls["uddannelse"].valueChanges.pipe(
+      startWith(''),
+      map(uddannelse => (uddannelse ? this._filteredUddannelse(uddannelse) : this.uddannelseData.slice()))
+    );
+
+    this.filteredFag = this.uddannelseFormGroup.controls["fag"].valueChanges.pipe(
+      startWith(''),
+      map(fag => (fag ? this._filteredFag(fag) : this._getFilteredUddannelse().slice()))
+    );
+
+    this.loadData();
+  }
+
+  private loadData():void {
+    this.uddannelseAndFagData = this.us.getData();
+
+    this.uddannelseAndFagData.forEach(item => {
+      this.uddannelseData.push(item.uddannelse);
+    });
+
+    this.uddannelseData = this.uddannelseData.filter((item, pos, self) => {
+      return self.indexOf(item) == pos;
+    });
+  }
+
+  private _filteredFag(value: string): iUddannelse[] {
+    const filterValue = value.toLowerCase();
+
+    let data: iUddannelse[] = this.uddannelseAndFagData.filter(uddannelse => uddannelse.fag.toLowerCase().includes(filterValue));
+    let ugValue: string = this.uddannelseFormGroup.controls["uddannelse"].value.toLowerCase();
+
+    if(ugValue !== "")
+      data = data.filter(uddannelse => uddannelse.uddannelse.toLowerCase().includes(ugValue));
+
+    if(ugValue === "" && data.length == 1 && data[0].fag.toLowerCase() == filterValue)
+      this.uddannelseFormGroup.controls["uddannelse"].setValue(data[0].uddannelse);
+
+    console.log(ugValue, data, filterValue);
+
+    return data;
+  }
+
+  private _filteredUddannelse(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    this.toucheInput(this.uddannelseFormGroup.controls["fag"]);
+    
+    return this.uddannelseData.filter(uddannelse => uddannelse.toLowerCase().includes(filterValue));
+  }
+
+  private _getFilteredUddannelse(): iUddannelse[] {
+    let data: iUddannelse[] = this.uddannelseAndFagData;
+    let ugValue: string = this.uddannelseFormGroup.controls["uddannelse"].value.toLowerCase();
+
+    if(ugValue !== "")
+      data = data.filter(uddannelse => uddannelse.uddannelse.toLowerCase().includes(ugValue));
+
+    return data;
+  }
+
+  private toucheInput(ctl: AbstractControl){
+    ctl.setValue(ctl.value);
   }
 
 }
