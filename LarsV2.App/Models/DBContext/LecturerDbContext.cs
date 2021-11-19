@@ -42,6 +42,132 @@ namespace LarsV2.Models.DBContext
                     Id = 2,
                     Title = "Styring og regulering",
                     Education = "Automation og drift"
+                },
+                new Subject()
+                {
+                    Id = 3,
+                    Title = "Maskinteknologi industri (industri)",
+                    Education = "Automation og drift"
+                },
+                new Subject()
+                {
+                    Id = 4,
+                    Title = "SCADA, netværk og databaser",
+                    Education = "Automation og drift"
+                },
+                new Subject()
+                {
+                    Id = 5,
+                    Title = "Robot teknologi",
+                    Education = "Automation og drift"
+                },
+                new Subject()
+                {
+                    Id = 6,
+                    Title = "Afgangsprojekt",
+                    Education = "Automation og drift"
+                },
+                new Subject()
+                {
+                    Id = 7,
+                    Title = "Styring og regulering",
+                    Education = "AU i innovation, produkt og produktion"
+                },
+                new Subject()
+                {
+                    Id = 8,
+                    Title = "Projektledelse",
+                    Education = "AU i innovation, produkt og produktion"
+                },
+                new Subject()
+                {
+                    Id = 9,
+                    Title = "Værdikæden i praksis",
+                    Education = "AU i innovation, produkt og produktion"
+                },
+                new Subject()
+                {
+                    Id = 10,
+                    Title = "Kvalitetsoptimering med Six Sigma",
+                    Education = "AU i innovation, produkt og produktion"
+                },
+                new Subject()
+                {
+                    Id = 11,
+                    Title = "Produktionsiotimering",
+                    Education = "AU i innovation, produkt og produktion"
+                },
+                new Subject()
+                {
+                    Id = 12,
+                    Title = "Innovation i praksis",
+                    Education = "AU i innovation, produkt og produktion"
+                },
+                new Subject()
+                {
+                    Id = 13,
+                    Title = "Afgangsprojekt",
+                    Education = "Automation og drift"
+                },
+                new Subject()
+                {
+                    Id = 14,
+                    Title = "Energikonsulent 1",
+                    Education = "AU i Energiteknologi"
+                },
+                new Subject()
+                {
+                    Id = 15,
+                    Title = "Energikonsulent opfølgning (IDV)",
+                    Education = "AU i Energiteknologi"
+                },
+                new Subject()
+                {
+                    Id = 16,
+                    Title = "Varmepumpe (VE)",
+                    Education = "AU i Energiteknologi"
+                },
+                new Subject()
+                {
+                    Id = 17,
+                    Title = "OB1 Boliginstallationer og Teknisk beregning på kredsløb",
+                    Education = "El-installation"
+                },
+                new Subject()
+                {
+                    Id = 18,
+                    Title = "Ob2: Bygningsinstallationer og Teknisk dokumentation",
+                    Education = "El-installation"
+                },
+                new Subject()
+                {
+                    Id = 19,
+                    Title = "Ob3: Mindre industriinstallationer og Teknisk beregning på maskiner",
+                    Education = "El-installation"
+                },
+                new Subject()
+                {
+                    Id = 20,
+                    Title = "Ob4: Større industriinstallationer og elforsyningsanlæg",
+                    Education = "El-installation"
+                },
+                new Subject()
+                {
+                    Id = 21,
+                    Title = "Vf2: Bekendtgørelser og standarder",
+                    Education = "El-installation"
+                },
+                new Subject()
+                {
+                    Id = 22,
+                    Title = "Vf1: Kvalitet, sikkerhed og miljø",
+                    Education = "El-installation"
+                },
+                new Subject()
+                {
+                    Id = 23,
+                    Title = "Afgangsprojekt",
+                    Education = "El-installation"
                 }
             };
 
@@ -164,6 +290,196 @@ namespace LarsV2.Models.DBContext
                 {
                     LecturerId = 1,
                     SubjectId = 2
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 1,
+                    SubjectId = 3
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 1,
+                    SubjectId = 4
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 1,
+                    SubjectId = 5
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 2,
+                    SubjectId = 5
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 2,
+                    SubjectId = 6
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 2,
+                    SubjectId = 7
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 3,
+                    SubjectId = 8
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 3,
+                    SubjectId = 9
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 3,
+                    SubjectId = 10
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 4,
+                    SubjectId = 10
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 4,
+                    SubjectId = 11
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 5,
+                    SubjectId = 12
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 6,
+                    SubjectId = 13
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 6,
+                    SubjectId = 14
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 6,
+                    SubjectId = 15
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 6,
+                    SubjectId = 16
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 7,
+                    SubjectId = 15
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 7,
+                    SubjectId = 16
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 7,
+                    SubjectId = 17
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 7,
+                    SubjectId = 18
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 7,
+                    SubjectId = 19
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 8,
+                    SubjectId = 20
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 8,
+                    SubjectId = 21
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 8,
+                    SubjectId = 22
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 8,
+                    SubjectId = 23
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 9,
+                    SubjectId = 5
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 9,
+                    SubjectId = 8
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 10,
+                    SubjectId = 12
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 10,
+                    SubjectId = 17
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 10,
+                    SubjectId = 20
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 11,
+                    SubjectId = 1
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 11,
+                    SubjectId = 8
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 11,
+                    SubjectId = 13
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 11,
+                    SubjectId = 20
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 11,
+                    SubjectId = 22
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 12,
+                    SubjectId = 2
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 12,
+                    SubjectId = 7
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 12,
+                    SubjectId = 19
                 }
             };
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LarsV2.Models.DTO;
 using LarsV2.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,16 @@ namespace LarsV2.Profiles
     {
         public LecturerProfile()
         {
-            CreateMap<Lecturer, Lecturer>().ForMember(l => l.Id, opt => opt.Ignore());
+            CreateMap<Lecturer, Lecturer>()
+                .ForMember(l => l.Id, opt => opt.Ignore());
+
+            CreateMap<Lecturer, LecturerDto>()
+                .ForMember(l => l.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
+
+            CreateMap<Lecturer, LecturerWithSubjectsDto>()
+                .ForMember(l => l.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                .ForMember(l => l.Subjects, opt => opt.MapFrom(src => src.LecturerSubjects.Select(x => x.Subject)));
+
         }     
     }
 }

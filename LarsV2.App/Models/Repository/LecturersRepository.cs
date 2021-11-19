@@ -39,25 +39,20 @@ namespace LarsV2.Models.Repository
                 collection = collection.Where(l=> l.FirstName.Contains(searchQuery) || l.LastName.Contains(searchQuery) || l.Email.Contains(searchQuery) || l.PhoneNumber.Contains(searchQuery));
             }
 
+            collection = collection.OrderBy(e => e.FirstName);
+
             return PagedList<Lecturer>.Create(collection, parameters.PageNumber, parameters.PageSize);
         }
 
         public Lecturer GetLecturer(int id)
         {
-            return _context.Lecturers.FirstOrDefault(e => e.Id == id);
-        }
+            var lecturer = _context.Lecturers
+                .Where(e => e.Id == id)
+                .Include(e => e.LecturerSubjects)
+                .ThenInclude(e => e.Subject)
+                .FirstOrDefault();
 
-        public LecturerWithSubjectsDto GetLecturerWithSubjects(int id)
-        {
-            var lecturerWithSubjects = _context.Lecturers.Where(l => l.Id == id).Select(l => new LecturerWithSubjectsDto()
-            {
-                Name = l.FirstName + " " + l.LastName,
-                Email = l.Email,
-                PhoneNumber = l.PhoneNumber,
-                Subjects = l.LecturerSubjects.Select(x => x.Subject).ToList()
-            }).FirstOrDefault();
-
-            return lecturerWithSubjects;
+            return lecturer;
         }
 
         public bool LecturerExists(int id)

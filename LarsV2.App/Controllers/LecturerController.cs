@@ -29,9 +29,10 @@ namespace Api.Controllers
 
 
         [HttpGet(Name = "GetLecturers")]
-        public ActionResult<PagedList<Lecturer>> GetLecturers([FromQuery]LecturerResourceParameters param)
+        public ActionResult<PagedList<LecturerDto>> GetLecturers([FromQuery]LecturerResourceParameters param)
         {
             var lecturers = _repository.GetLecturers(param);
+            var lecturersDto = _mapper.Map<IEnumerable<LecturerDto>>(lecturers);
 
             var paginationMetaData = new
             {
@@ -46,7 +47,7 @@ namespace Api.Controllers
             var responseBody = new
             {
                 metadata = paginationMetaData,
-                records = lecturers
+                records = lecturersDto
             };
 
             return Ok(responseBody);
@@ -55,13 +56,15 @@ namespace Api.Controllers
         [HttpGet("{lecturerId:int}", Name = "GetLecturer")]
         public ActionResult<LecturerWithSubjectsDto> GetLecturer(int lecturerId)
         {
-            var lecturer = _repository.GetLecturerWithSubjects(lecturerId);
-
-            if(lecturer == null)
+            var lecturerFromRepo = _repository.GetLecturer(lecturerId);
+            
+            if (lecturerFromRepo == null)
             {
                 return NotFound();
             }
-         
+
+            var lecturer = _mapper.Map<LecturerWithSubjectsDto>(lecturerFromRepo);
+
             return Ok(lecturer);
         }
 
