@@ -11,7 +11,7 @@ import { iLecturersServiceData, LecturersService } from 'src/app/service/lecture
 })
 export class LecturersTableComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phoneNumber'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'isExternal', 'email', 'phoneNumber'];
   dataSource = new MatTableDataSource<iLecturers>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
