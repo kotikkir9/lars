@@ -14,10 +14,39 @@ namespace LarsV2.Models.DBContext
 
         public DbSet<Lecturer> Lecturers { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<LecturerSubject> LecturerSubject { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Lecturer>().HasData(
+            modelBuilder.Entity<LecturerSubject>().HasKey(ls => new { ls.LecturerId, ls.SubjectId });
+            modelBuilder.Entity<LecturerSubject>()
+                .HasOne(ls => ls.Lecturer)
+                .WithMany(l => l.LecturerSubjects)
+                .HasForeignKey(ls => ls.LecturerId);
+
+            modelBuilder.Entity<LecturerSubject>()
+                .HasOne(ls => ls.Subject)
+                .WithMany(s => s.LecturerSubjects)
+                .HasForeignKey(ls => ls.SubjectId);
+
+            var subjectList = new List<Subject>()
+            {
+                new Subject()
+                {
+                    Id = 1,
+                    Title = "Udvikling af automatiske styringer",
+                    Education = "Automation og drift"
+                },
+                new Subject()
+                {
+                    Id = 2,
+                    Title = "Styring og regulering",
+                    Education = "Automation og drift"
+                }
+            };
+
+            var lecturerList = new List<Lecturer>()
+            {
                 new Lecturer()
                 {
                     Id = 1,
@@ -122,7 +151,25 @@ namespace LarsV2.Models.DBContext
                     Email = "steven@eamv.dk",
                     PhoneNumber = "+4512341234"
                 }
-            );
+            };
+
+            var lecturerSubjectList = new List<LecturerSubject>()
+            {
+                new LecturerSubject
+                {
+                    LecturerId = 1,
+                    SubjectId = 1
+                },
+                new LecturerSubject
+                {
+                    LecturerId = 1,
+                    SubjectId = 2
+                }
+            };
+
+            modelBuilder.Entity<Subject>().HasData(subjectList);
+            modelBuilder.Entity<Lecturer>().HasData(lecturerList);
+            modelBuilder.Entity<LecturerSubject>().HasData(lecturerSubjectList);
 
             base.OnModelCreating(modelBuilder);
         }

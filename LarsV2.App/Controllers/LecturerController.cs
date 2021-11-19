@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LarsV2.Helpers;
+using LarsV2.Models.DTO;
 using LarsV2.Models.Entities;
 using LarsV2.Models.Repository;
 using LarsV2.Models.ResourceParameters;
@@ -52,15 +53,15 @@ namespace Api.Controllers
         }
 
         [HttpGet("{lecturerId:int}", Name = "GetLecturer")]
-        public ActionResult<Lecturer> GetSingleLecturer(int lecturerId)
+        public ActionResult<LecturerWithSubjectsDto> GetLecturer(int lecturerId)
         {
-            var lecturer = _repository.GetLecturer(lecturerId);
+            var lecturer = _repository.GetLecturerWithSubjects(lecturerId);
 
             if(lecturer == null)
             {
                 return NotFound();
             }
-
+         
             return Ok(lecturer);
         }
 

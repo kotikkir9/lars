@@ -1,5 +1,6 @@
 ﻿using LarsV2.Helpers;
 using LarsV2.Models.DBContext;
+using LarsV2.Models.DTO;
 using LarsV2.Models.Entities;
 using LarsV2.Models.ResourceParameters;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,7 @@ namespace LarsV2.Models.Repository
             if(!string.IsNullOrWhiteSpace(parameters.Subject))
             {
                 var subject = parameters.Subject.Trim();
-                collection = collection.Where(l => l.Subjects.Any(e => e.Name == subject));
+                //collection = collection.Where(l => l.LecturerSubjects.Any(e => e.Subject.Name == subject));
             }
 
             if(!string.IsNullOrWhiteSpace(parameters.SearchQuery))
@@ -44,6 +45,19 @@ namespace LarsV2.Models.Repository
         public Lecturer GetLecturer(int id)
         {
             return _context.Lecturers.FirstOrDefault(e => e.Id == id);
+        }
+
+        public LecturerWithSubjectsDto GetLecturerWithSubjects(int id)
+        {
+            var lecturerWithSubjects = _context.Lecturers.Where(l => l.Id == id).Select(l => new LecturerWithSubjectsDto()
+            {
+                Name = l.FirstName + " " + l.LastName,
+                Email = l.Email,
+                PhoneNumber = l.PhoneNumber,
+                Subjects = l.LecturerSubjects.Select(x => x.Subject).ToList()
+            }).FirstOrDefault();
+
+            return lecturerWithSubjects;
         }
 
         public bool LecturerExists(int id)

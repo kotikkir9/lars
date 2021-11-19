@@ -3,14 +3,16 @@ using LarsV2.Models.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LarsV2.Migrations
 {
     [DbContext(typeof(LecturerDbContext))]
-    partial class LecturerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211119023123_Test")]
+    partial class Test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,13 +185,20 @@ namespace LarsV2.Migrations
 
             modelBuilder.Entity("LarsV2.Models.Entities.LecturerSubject", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("LecturerId")
                         .HasColumnType("int");
 
                     b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
-                    b.HasKey("LecturerId", "SubjectId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("LecturerId");
 
                     b.HasIndex("SubjectId");
 
@@ -198,11 +207,13 @@ namespace LarsV2.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 1,
                             LecturerId = 1,
                             SubjectId = 1
                         },
                         new
                         {
+                            Id = 2,
                             LecturerId = 1,
                             SubjectId = 2
                         });
@@ -221,7 +232,7 @@ namespace LarsV2.Migrations
                     b.Property<string>("Education")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -235,13 +246,13 @@ namespace LarsV2.Migrations
                         {
                             Id = 1,
                             Education = "Automation og drift",
-                            Title = "Udvikling af automatiske styringer"
+                            Name = "Udvikling af automatiske styringer"
                         },
                         new
                         {
                             Id = 2,
                             Education = "Automation og drift",
-                            Title = "Styring og regulering"
+                            Name = "Styring og regulering"
                         });
                 });
 
