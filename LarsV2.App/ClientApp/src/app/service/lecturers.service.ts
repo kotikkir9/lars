@@ -21,8 +21,8 @@ export class LecturersService {
 
   constructor(private http: HttpClient) { }
 
-
-  getData(): iLecturersServiceData {
+  getData(pageSize: number, pageIndex: number): iLecturersServiceData {
+    console.log(`pageSize: ${pageSize}, pageIndex: ${pageIndex}`);
     return {
       metadata: {
         totalCount: 13,
@@ -36,7 +36,7 @@ export class LecturersService {
           firstName: "Jan Pan",
           lastName: "Nees",
           email: "jan@eamv.dk",
-          phoneNumber: "+4512345678",
+          phoneNumber: "+45 12345678",
           cvPath: null,
           imagePath: null,
           isExternal: false,
@@ -48,7 +48,7 @@ export class LecturersService {
           firstName: "James",
           lastName: "Hetfield",
           email: "jameshetfield@metallica.com",
-          phoneNumber: "+4569696969",
+          phoneNumber: "+45 69696969",
           cvPath: null,
           imagePath: null,
           isExternal: false,
@@ -60,7 +60,7 @@ export class LecturersService {
           firstName: "Flemming",
           lastName: "Efternavn",
           email: "flemming@eamv.dk",
-          phoneNumber: "+4511111111",
+          phoneNumber: "+45 11111111",
           cvPath: null,
           imagePath: null,
           isExternal: false,
@@ -72,7 +72,7 @@ export class LecturersService {
           firstName: "Till",
           lastName: "Lindemann",
           email: "lindemann@eamv.dk",
-          phoneNumber: "+4598765432",
+          phoneNumber: "+45 98765432",
           cvPath: null,
           imagePath: null,
           isExternal: false,
@@ -84,7 +84,7 @@ export class LecturersService {
           firstName: "Bob",
           lastName: "Ross",
           email: "bob@eamv.dk",
-          phoneNumber: "+4544444444",
+          phoneNumber: "+45 44444444",
           cvPath: null,
           imagePath: null,
           isExternal: false,
@@ -96,7 +96,7 @@ export class LecturersService {
           firstName: "Vladimir",
           lastName: "Putin",
           email: "putin@eamv.dk",
-          phoneNumber: "+4555555555",
+          phoneNumber: "+45 55555555",
           cvPath: null,
           imagePath: null,
           isExternal: false,
@@ -108,7 +108,7 @@ export class LecturersService {
           firstName: "Donald",
           lastName: "Trump",
           email: "trump@eamv.dk",
-          phoneNumber: "+4566666666",
+          phoneNumber: "+45 66666666",
           cvPath: null,
           imagePath: null,
           isExternal: false,
@@ -120,7 +120,7 @@ export class LecturersService {
           firstName: "Joe",
           lastName: "Rogan",
           email: "joe@eamv.dk",
-          phoneNumber: "+4577777777",
+          phoneNumber: "+45 77777777",
           cvPath: null,
           imagePath: null,
           isExternal: false,
@@ -132,7 +132,7 @@ export class LecturersService {
           firstName: "Max",
           lastName: "Verstappen",
           email: "max@eamv.dk",
-          phoneNumber: "+4588888888",
+          phoneNumber: "+45 88888888",
           cvPath: null,
           imagePath: null,
           isExternal: false,
@@ -144,7 +144,7 @@ export class LecturersService {
           firstName: "Lionel",
           lastName: "Messi",
           email: "messi@eamv.dk",
-          phoneNumber: "+4599999999",
+          phoneNumber: "+45 99999999",
           cvPath: null,
           imagePath: null,
           isExternal: false,

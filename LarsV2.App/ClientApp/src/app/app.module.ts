@@ -14,6 +14,8 @@ import { UddannelseService } from './service/uddannelse.service';
 import { TestPageComponent } from './page/test-page/test-page.component';
 import { UddannelseInputComponent } from './component/uddannelse-input/uddannelse-input.component';
 import { LecturersService } from './service/lecturers.service';
+import { LecturersTableComponent } from './component/lecturers-table/lecturers-table.component';
+import { PhonePipe } from './pipe/phone.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { LecturersService } from './service/lecturers.service';
     CreateTeacherPageComponent,
     CreateTeacherComponent,
     TestPageComponent,
-    UddannelseInputComponent
+    UddannelseInputComponent,
+    LecturersTableComponent,
+    PhonePipe
   ],
   imports: [
     BrowserModule,
