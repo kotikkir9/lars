@@ -37,7 +37,10 @@ export class UddannelseInputComponent implements OnInit {
 
     this.filteredUddannelse = this.uddannelseFormGroup.controls["uddannelse"].valueChanges.pipe(
       startWith(''),
-      map(uddannelse => (uddannelse ? this._filteredUddannelse(uddannelse) : this.uddannelseData.slice()))
+      map(uddannelse => {
+        this.toucheInput(this.uddannelseFormGroup.controls["fag"]);
+        return uddannelse ? this._filteredUddannelse(uddannelse) : this.uddannelseData.slice()
+      })
     );
 
     this.filteredFag = this.uddannelseFormGroup.controls["fag"].valueChanges.pipe(
@@ -98,8 +101,6 @@ export class UddannelseInputComponent implements OnInit {
 
   private _filteredUddannelse(value: string): string[] {
     const filterValue = value.toLowerCase();
-
-    this.toucheInput(this.uddannelseFormGroup.controls["fag"]);
 
     return this.uddannelseData.filter(uddannelse => uddannelse.toLowerCase().includes(filterValue));
   }
