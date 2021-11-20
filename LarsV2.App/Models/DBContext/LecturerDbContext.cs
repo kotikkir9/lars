@@ -106,66 +106,60 @@ namespace LarsV2.Models.DBContext
                 new Subject()
                 {
                     Id = 13,
-                    Title = "Afgangsprojekt",
-                    Education = "Automation og drift"
-                },
-                new Subject()
-                {
-                    Id = 14,
                     Title = "Energikonsulent 1",
                     Education = "AU i Energiteknologi"
                 },
                 new Subject()
                 {
-                    Id = 15,
+                    Id = 14,
                     Title = "Energikonsulent opfølgning (IDV)",
                     Education = "AU i Energiteknologi"
                 },
                 new Subject()
                 {
-                    Id = 16,
+                    Id = 15,
                     Title = "Varmepumpe (VE)",
                     Education = "AU i Energiteknologi"
                 },
                 new Subject()
                 {
-                    Id = 17,
+                    Id = 16,
                     Title = "OB1 Boliginstallationer og Teknisk beregning på kredsløb",
                     Education = "El-installation"
                 },
                 new Subject()
                 {
-                    Id = 18,
+                    Id = 17,
                     Title = "Ob2: Bygningsinstallationer og Teknisk dokumentation",
                     Education = "El-installation"
                 },
                 new Subject()
                 {
-                    Id = 19,
+                    Id = 18,
                     Title = "Ob3: Mindre industriinstallationer og Teknisk beregning på maskiner",
                     Education = "El-installation"
                 },
                 new Subject()
                 {
-                    Id = 20,
+                    Id = 19,
                     Title = "Ob4: Større industriinstallationer og elforsyningsanlæg",
                     Education = "El-installation"
                 },
                 new Subject()
                 {
-                    Id = 21,
+                    Id = 20,
                     Title = "Vf2: Bekendtgørelser og standarder",
                     Education = "El-installation"
                 },
                 new Subject()
                 {
-                    Id = 22,
+                    Id = 21,
                     Title = "Vf1: Kvalitet, sikkerhed og miljø",
                     Education = "El-installation"
                 },
                 new Subject()
                 {
-                    Id = 23,
+                    Id = 22,
                     Title = "Afgangsprojekt",
                     Education = "El-installation"
                 }
@@ -414,7 +408,7 @@ namespace LarsV2.Models.DBContext
                 new LecturerSubject
                 {
                     LecturerId = 8,
-                    SubjectId = 23
+                    SubjectId = 1
                 },
                 new LecturerSubject
                 {

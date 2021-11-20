@@ -29,6 +29,7 @@ namespace LarsV2
 
             services.AddDbContextPool<LecturerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CoursesConnection")));
             services.AddScoped<ILecturersRepository, LecturersRepository>();
+            services.AddScoped<ISubjectsRepository, SubjectsRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

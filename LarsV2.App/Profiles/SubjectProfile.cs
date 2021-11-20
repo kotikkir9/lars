@@ -14,6 +14,9 @@ namespace LarsV2.Profiles
         public SubjectProfile()
         {
             CreateMap<Subject, SubjectDto>();
+
+            CreateMap<Subject, SubjectWithLecturersDto>()
+                .ForMember(s => s.Lecturers, opt => opt.MapFrom(src => src.LecturerSubjects.Select(x => x.Lecturer)));
         }
     }
 }
