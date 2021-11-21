@@ -27,19 +27,34 @@ namespace LarsV2.Models.Repository
 
             var collection = _context.Lecturers as IQueryable<Lecturer>;
 
-            if(!string.IsNullOrWhiteSpace(parameters.Subject))
+            if (!string.IsNullOrWhiteSpace(parameters.Education) && !string.IsNullOrWhiteSpace(parameters.Subject))
             {
+                var education = parameters.Education.Trim();
                 var subject = parameters.Subject.Trim();
-                //collection = collection.Where(l => l.LecturerSubjects.Any(e => e.Subject.Name == subject));
+                collection = collection.Where(l => l.LecturerSubjects.Any(e => e.Subject.Education == education && e.Subject.Title == subject));
+            }
+            else
+            {             
+                if (!string.IsNullOrWhiteSpace(parameters.Education))
+                {
+                    var education = parameters.Education.Trim();
+                    collection = collection.Where(l => l.LecturerSubjects.Any(e => e.Subject.Education == education));
+                }
+
+                if(!string.IsNullOrWhiteSpace(parameters.Subject))
+                {
+                    var subject = parameters.Subject.Trim();
+                    collection = collection.Where(l => l.LecturerSubjects.Any(e => e.Subject.Title == subject));
+                }
             }
 
-            if(!string.IsNullOrWhiteSpace(parameters.SearchQuery))
+            if (!string.IsNullOrWhiteSpace(parameters.SearchQuery))
             {
                 var searchQuery = parameters.SearchQuery.Trim();
-                collection = collection.Where(l=> l.FirstName.Contains(searchQuery) || l.LastName.Contains(searchQuery) || l.Email.Contains(searchQuery) || l.PhoneNumber.Contains(searchQuery));
+                collection = collection.Where(l => l.FirstName.Contains(searchQuery) || l.LastName.Contains(searchQuery) || l.Email.Contains(searchQuery) || l.PhoneNumber.Contains(searchQuery));
             }
 
-            collection = collection.OrderBy(e => e.FirstName);
+            collection = collection.OrderBy(e => e.FirstName).ThenBy(e => e.LastName);
 
             return PagedList<Lecturer>.Create(collection, parameters.PageNumber, parameters.PageSize);
         }
@@ -86,6 +101,6 @@ namespace LarsV2.Models.Repository
         public void UpdateLecturer(Lecturer lecturer)
         {
             // No implementation needed
-        }
+        }  
     }
 }

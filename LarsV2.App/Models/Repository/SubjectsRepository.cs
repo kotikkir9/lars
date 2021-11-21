@@ -1,5 +1,7 @@
-﻿using LarsV2.Models.DBContext;
+﻿using LarsV2.Helpers;
+using LarsV2.Models.DBContext;
 using LarsV2.Models.Entities;
+using LarsV2.Models.ResourceParameters;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,9 +20,30 @@ namespace LarsV2.Models.Repository
             _context = context;
         }
 
-        public IEnumerable<Subject> GetSubjects()
+        public PagedList<Subject> GetSubjects(SubjectResourceParameters parameters)
         {
-            return _context.Subjects.ToList();
+            if (parameters == null)
+            {
+                throw new ArgumentNullException(nameof(parameters));
+            }
+
+            var collection = _context.Subjects as IQueryable<Subject>;
+
+            if(!string.IsNullOrWhiteSpace(parameters.Education))
+            {
+                var education = parameters.Education.Trim();
+                collection = collection.Where(s => s.Education == education);
+            }
+
+            if(!string.IsNullOrWhiteSpace(parameters.SearchQuery))
+            {
+                var searchQuery = parameters.SearchQuery.Trim();
+                collection = collection.Where(s => s.Title.Contains(searchQuery) || s.Education.Contains(searchQuery));
+            }
+
+            collection = collection.OrderBy(s => s.Education).ThenBy(s => s.Title);
+
+            return PagedList<Subject>.Create(collection, parameters.PageNumber, parameters.PageSize);
         }
 
         public Subject GetSubject(int id)

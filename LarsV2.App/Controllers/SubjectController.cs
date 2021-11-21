@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using LarsV2.Models.DTO;
+using LarsV2.Models.Entities;
 using LarsV2.Models.Repository;
+using LarsV2.Models.ResourceParameters;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace LarsV2.Controllers
@@ -24,13 +27,29 @@ namespace LarsV2.Controllers
         }
 
         [HttpGet(Name = "GetSubjects")]
-        public ActionResult<IEnumerable<SubjectDto>> GetAllSubjects()
+        public ActionResult<IEnumerable<SubjectDto>> GetSubjects([FromQuery] SubjectResourceParameters param)
         {
-            var subjectsFromRepo = _repository.GetSubjects();
-            var subjects = _mapper.Map<IEnumerable<SubjectDto>>(subjectsFromRepo);
+            var subjects = _repository.GetSubjects(param);
+            var subjectsDto = _mapper.Map<IEnumerable<SubjectDto>>(subjects);
 
-            return Ok(subjects);
-        }
+            var paginationMetaData = new
+            {
+                totalCount = subjects.TotalCount,
+                pageSize = subjects.PageSize,
+                currentPage = subjects.CurrentPage,
+                totalPages = subjects.TotalPages
+            };
+
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetaData));
+
+            var responseBody = new
+            {
+                metadata = paginationMetaData,
+                records = subjectsDto
+            };
+
+            return Ok(responseBody);
+        }    
 
         [HttpGet("{subjectId:int}", Name = "GetSubject")]
         public ActionResult<SubjectWithLecturersDto> GetSubject(int subjectId)
@@ -47,6 +66,57 @@ namespace LarsV2.Controllers
             return Ok(subject);
         }
 
+        [HttpPost]
+        public IActionResult CreateSubject(Subject subject)
+        {
+            _repository.AddSubject(subject);
+            _repository.Save();
+
+            return CreatedAtRoute("GetSubject", new { subjectId = subject.Id }, subject);
+        }
+
+        [HttpPut("{subjectId:int}")]
+        public IActionResult UpdateSubject(int subjectId, Subject subject)
+        {
+            var subjectToUpdate = _repository.GetSubject(subjectId);
+
+            if (subjectToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            subject.Id = subjectId;
+            _mapper.Map(subject, subjectToUpdate);
+
+            _repository.UpdateSubject(subjectToUpdate);
+            _repository.Save();
+
+            return NoContent();
+        }
+
+
+        [HttpDelete("{subjectId:int}", Name = "DeleteSubject")]
+        public IActionResult DeleteSubject(int subjectId)
+        {
+            var subjectToDelete = _repository.GetSubject(subjectId);
+
+            if(subjectToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _repository.DeleteSubject(subjectToDelete);
+            _repository.Save();
+
+            return NoContent();
+        }
+
+        [HttpOptions]
+        public IActionResult GetSubjectsOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST,PUT,DELETE");
+            return Ok();
+        }
 
     }
 }

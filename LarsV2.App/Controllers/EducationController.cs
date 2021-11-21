@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LarsV2.Models.DTO;
 using LarsV2.Models.Repository;
+using LarsV2.Models.ResourceParameters;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -27,22 +28,16 @@ namespace LarsV2.Controllers
         public IActionResult GetEducationsWithSubjects()
         {
             var educationsDictionary = new Dictionary<string, List<object>>();
-            var subjects = _subjectRepo.GetSubjects();
 
-
-            var educations = _subjectRepo.GetSubjects()
-                                     .Select(e => e.Education)
-                                     .Distinct()
-                                     .ToList();
-
-
+            var subjectsFromRepo = _subjectRepo.GetSubjects(new SubjectResourceParameters());
+            var educations = subjectsFromRepo.Select(e => e.Education).Distinct().ToList();
 
             foreach(var education in educations)
             {
                 educationsDictionary.Add(education, new List<object>());
             }
 
-            foreach(var subject in subjects)
+            foreach(var subject in subjectsFromRepo)
             {
                 educationsDictionary[subject.Education].Add(new { id = subject.Id, Subject = subject.Title });
             }

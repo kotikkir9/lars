@@ -1,4 +1,6 @@
-﻿using LarsV2.Models.Entities;
+﻿using LarsV2.Helpers;
+using LarsV2.Models.Entities;
+using LarsV2.Models.ResourceParameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ namespace LarsV2.Models.Repository
 {
     public interface ISubjectsRepository
     {
-        IEnumerable<Subject> GetSubjects();
+        PagedList<Subject> GetSubjects(SubjectResourceParameters parameters);
         Subject GetSubject(int id);
         bool SubjectExists(int id);
         void AddSubject(Subject subject);

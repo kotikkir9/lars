@@ -29,7 +29,7 @@ namespace Api.Controllers
 
 
         [HttpGet(Name = "GetLecturers")]
-        public ActionResult<PagedList<LecturerDto>> GetLecturers([FromQuery]LecturerResourceParameters param)
+        public ActionResult<PagedList<LecturerDto>> GetLecturers([FromQuery] LecturerResourceParameters param)
         {
             var lecturers = _repository.GetLecturers(param);
             var lecturersDto = _mapper.Map<IEnumerable<LecturerDto>>(lecturers);
@@ -87,6 +87,7 @@ namespace Api.Controllers
                 return NotFound();
             }
 
+            lecturer.Id = lecturerId;
             _mapper.Map(lecturer, lecturerToUpdate);
             
             _repository.UpdateLecturer(lecturerToUpdate);

@@ -27,6 +27,10 @@ namespace LarsV2.Helpers
         public static PagedList<T> Create(IQueryable<T> source, int pageNumber, int pageSize)
         {
             var count = source.Count();
+            if(pageSize == 0)
+            {
+                pageSize = count;
+            }
             var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
 
             return new PagedList<T>(items, count, pageNumber, pageSize);

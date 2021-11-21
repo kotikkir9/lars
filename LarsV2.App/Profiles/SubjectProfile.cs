@@ -13,6 +13,7 @@ namespace LarsV2.Profiles
     {
         public SubjectProfile()
         {
+            CreateMap<Subject, Subject>().ForMember(x => x.LecturerSubjects, ops => ops.Ignore());
             CreateMap<Subject, SubjectDto>();
 
             CreateMap<Subject, SubjectWithLecturersDto>()
