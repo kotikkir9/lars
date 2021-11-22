@@ -30,7 +30,7 @@ const testData: iLecturersServiceData = {
       phoneNumber: "+45 12345678",
       cvPath: null,
       imagePath: null,
-      isExternal: false,
+      isExternal: true,
       knowledge: null,
       lecturerSubjects: null
     },
