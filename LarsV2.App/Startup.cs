@@ -37,7 +37,7 @@ namespace LarsV2
            
             services.AddScoped<ILecturersRepository, LecturersRepository>();
             services.AddScoped<ISubjectsRepository, SubjectsRepository>();
-
+            services.AddScoped<ILecturerSubjectRepository, LecturerSubjectRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

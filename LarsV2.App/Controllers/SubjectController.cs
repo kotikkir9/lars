@@ -18,11 +18,13 @@ namespace LarsV2.Controllers
     public class SubjectController : Controller
     {
         private readonly ISubjectsRepository _repository;
+        private readonly ILecturerSubjectRepository _LSRepository;
         private readonly IMapper _mapper;
 
-        public SubjectController(ISubjectsRepository repository, IMapper mapper)
+        public SubjectController(ISubjectsRepository repository, ILecturerSubjectRepository LSRepository, IMapper mapper)
         {
             _repository = repository;
+            _LSRepository = LSRepository;
             _mapper = mapper;
         }
 
@@ -108,6 +110,26 @@ namespace LarsV2.Controllers
             _repository.DeleteSubject(subjectToDelete);
             _repository.Save();
 
+            return NoContent();
+        }
+
+        [HttpPost("{subjectId:int}/lecturers")]
+        public IActionResult AddLecturersToSubject(int subjectId, [FromBody]IdContainerDto lecturerIds)
+        {
+            if (!_repository.SubjectExists(subjectId))
+            {
+                return NotFound();
+            }
+
+            foreach (var id in lecturerIds.Ids)
+            {
+                if (!_LSRepository.ToggleLecturerSubjectRelation(id, subjectId))
+                {
+                    return NotFound();
+                }
+            }
+
+            _repository.Save();
             return NoContent();
         }
 

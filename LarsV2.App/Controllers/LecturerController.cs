@@ -19,11 +19,13 @@ namespace Api.Controllers
     public class LecturerController : Controller
     {
         private readonly ILecturersRepository _repository;
+        private readonly ILecturerSubjectRepository _LSRepository;
         private readonly IMapper _mapper;
 
-        public LecturerController(ILecturersRepository repository, IMapper mapper)
+        public LecturerController(ILecturersRepository repository, ILecturerSubjectRepository lsRepository, IMapper mapper)
         {
             _repository = repository;
+            _LSRepository = lsRepository;
             _mapper = mapper;
         }
 
@@ -109,6 +111,26 @@ namespace Api.Controllers
             _repository.DeleteLecturer(lecturerToDelete);
             _repository.Save();
 
+            return NoContent();
+        }
+
+        [HttpPost("{lecturerId:int}/subjects")]
+        public IActionResult AddSubjectsToLecturer(int lecturerId, [FromBody]IdContainerDto subjectIds)
+        {
+            if(!_repository.LecturerExists(lecturerId))
+            {
+                return NotFound();
+            }
+
+            foreach(var id in subjectIds.Ids)
+            {
+                if(!_LSRepository.ToggleLecturerSubjectRelation(lecturerId, id))
+                {
+                    return NotFound();
+                }
+            }
+
+            _repository.Save();
             return NoContent();
         }
 
