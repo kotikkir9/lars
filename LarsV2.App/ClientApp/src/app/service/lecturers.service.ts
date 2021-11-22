@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { iLecturers } from '../DTO/lecturers';
 
 export interface iMetadata {
@@ -152,7 +153,7 @@ export class LecturersService {
 
   constructor(private http: HttpClient) { }
 
-  getData(pageSize: number, pageIndex: number): iLecturersServiceData {
+  getData(pageSize: number, pageIndex: number): Observable<iLecturersServiceData> {
     let buildData: iLecturersServiceData = {
       metadata: testData.metadata,
       records: []
@@ -161,6 +162,8 @@ export class LecturersService {
     buildData.records = testData.records.slice(pageSize * pageIndex, Math.min(testData.records.length , (pageSize * pageIndex + pageSize)));
 
     console.log(`pageSize: ${pageSize}, pageIndex: ${pageIndex}`);
-    return buildData;
+    return new Observable(subscriber => {
+      subscriber.next(buildData);
+    });
   }
 }
