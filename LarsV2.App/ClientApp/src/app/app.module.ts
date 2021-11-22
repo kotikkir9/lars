@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomePageComponent } from './page/home-page/home-page.component';
 import { CreateTeacherPageComponent } from './page/create-teacher-page/create-teacher-page.component';
 import { CreateTeacherComponent } from './component/create-teacher/create-teacher.component';
-import { UddannelseService } from './service/uddannelse.service';
+import { EducationService } from './service/education.service';
 import { TestPageComponent } from './page/test-page/test-page.component';
 import { UddannelseInputComponent } from './component/uddannelse-input/uddannelse-input.component';
 import { LecturersService } from './service/lecturers.service';
@@ -37,7 +37,7 @@ import { PhonePipe } from './pipe/phone.pipe';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [UddannelseService, LecturersService],
+  providers: [EducationService, LecturersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

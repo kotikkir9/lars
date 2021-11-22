@@ -2,8 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators'
-import { iUddannelse } from 'src/app/DTO/uddannelse';
-import { UddannelseService } from 'src/app/service/uddannelse.service';
+import { EducationSubject, iEducationSubject } from 'src/app/DTO/education';
+import { iEducationServiceData, EducationService } from 'src/app/service/education.service';
 
 enum eFilterBy {
   uddannelse,
@@ -17,17 +17,16 @@ enum eFilterBy {
 })
 export class UddannelseInputComponent implements OnInit {
 
-  @Output() changesEvent = new EventEmitter<iUddannelse>();
+  @Output() changesEvent = new EventEmitter<iEducationSubject>();
 
-  tempData: iUddannelse;
+  tempData: iEducationSubject;
 
   uddannelseFormGroup: FormGroup;
-  uddannelseAndFagData: iUddannelse[];
-  uddannelseData: string[] = [];
+  data: iEducationServiceData;
   filteredUddannelse: Observable<string[]>;
-  filteredFag: Observable<iUddannelse[]>;
+  filteredFag: Observable<iEducationSubject[]>;
   
-  constructor(private _formBuilder: FormBuilder, private us: UddannelseService) {}
+  constructor(private _formBuilder: FormBuilder, private us: EducationService) {}
 
   ngOnInit(): void {
     this.uddannelseFormGroup = this._formBuilder.group({
@@ -39,7 +38,7 @@ export class UddannelseInputComponent implements OnInit {
       startWith(''),
       map(uddannelse => {
         this.toucheInput(this.uddannelseFormGroup.controls["fag"]);
-        return uddannelse ? this._filteredUddannelse(uddannelse) : this.uddannelseData.slice()
+        return uddannelse ? this._filteredUddannelse(uddannelse) : this.data.Education.slice()
       })
     );
 
@@ -60,39 +59,40 @@ export class UddannelseInputComponent implements OnInit {
     let fag:string = this.uddannelseFormGroup.controls["fag"].value;
     let uddannelse:string = this.uddannelseFormGroup.controls["uddannelse"].value;
 
-    let data:iUddannelse = {fag: fag, uddannelse: uddannelse}
+    let data:iEducationSubject = new EducationSubject(uddannelse, fag);
 
-    if(fag === "" || uddannelse === "" || this.tempData != undefined && (data.fag === this.tempData.fag && data.uddannelse === this.tempData.uddannelse))
+    if(fag === "" || uddannelse === "" || this.tempData != undefined && (data.subject.subject === this.tempData.subject.subject && data.education === this.tempData.education))
       return;
       
+    let formList = this.data.EducationSubject.find(item => {
+      return data.education === item.education && data.subject.subject === item.subject.subject;
+    })
+
+    if(formList)
+      data = formList;
+
     this.tempData = data;
 
     this.changesEvent.emit(data);
   }
 
   private loadData():void {
-    this.uddannelseAndFagData = this.us.getData();
-
-    this.uddannelseAndFagData.forEach(item => {
-      this.uddannelseData.push(item.uddannelse);
-    });
-
-    this.uddannelseData = this.uddannelseData.filter((item, pos, self) => {
-      return self.indexOf(item) == pos;
+    this.us.getData().subscribe(data => {
+      this.data = data;
     });
   }
 
-  private _filteredFag(value: string): iUddannelse[] {
+  private _filteredFag(value: string): iEducationSubject[] {
     const filterValue = value.toLowerCase();
 
-    let data: iUddannelse[] = this.uddannelseAndFagData.filter(uddannelse => uddannelse.fag.toLowerCase().includes(filterValue));
+    let data: iEducationSubject[] = this.data.EducationSubject.filter(uddannelse => uddannelse.subject.subject.toLowerCase().includes(filterValue));
     let ugValue: string = this.uddannelseFormGroup.controls["uddannelse"].value.toLowerCase();
 
     if(ugValue !== "")
-      data = data.filter(uddannelse => uddannelse.uddannelse.toLowerCase().includes(ugValue));
+      data = data.filter(uddannelse => uddannelse.education.toLowerCase().includes(ugValue));
 
-    if(ugValue === "" && data.length == 1 && data[0].fag.toLowerCase() == filterValue)
-      this.uddannelseFormGroup.controls["uddannelse"].setValue(data[0].uddannelse);
+    if(ugValue === "" && data.length == 1 && data[0].subject.subject.toLowerCase() == filterValue)
+      this.uddannelseFormGroup.controls["uddannelse"].setValue(data[0].education);
 
     this.dataIsChanges();
 
@@ -102,15 +102,15 @@ export class UddannelseInputComponent implements OnInit {
   private _filteredUddannelse(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.uddannelseData.filter(uddannelse => uddannelse.toLowerCase().includes(filterValue));
+    return this.data.Education.filter(uddannelse => uddannelse.toLowerCase().includes(filterValue));
   }
 
-  private _getFilteredUddannelse(): iUddannelse[] {
-    let data: iUddannelse[] = this.uddannelseAndFagData;
+  private _getFilteredUddannelse(): iEducationSubject[] {
+    let data: iEducationSubject[] = this.data.EducationSubject;
     let ugValue: string = this.uddannelseFormGroup.controls["uddannelse"].value.toLowerCase();
 
     if(ugValue !== "")
-      data = data.filter(uddannelse => uddannelse.uddannelse.toLowerCase().includes(ugValue));
+      data = data.filter(uddannelse => uddannelse.education.toLowerCase().includes(ugValue));
 
     return data;
   }

@@ -12,9 +12,9 @@
 	  <mat-label>Fag</mat-label>
 	  <input matInput [matAutocomplete]="auto1" formControlName="fag">
 	  <mat-autocomplete #auto1="matAutocomplete">
-		<mat-option class="big-option" *ngFor="let ug of filteredFag | async" [value]="ug.fag">
-		  <span>{{ug.fag}}</span><br>
-		  <small>{{ug.uddannelse}}</small>
+		<mat-option class="big-option" *ngFor="let ug of filteredFag | async" [value]="ug.subject.subject">
+		  <span>{{ug.subject.subject}}</span><br>
+		  <small>{{ug.education}}</small>
 		</mat-option>
 	  </mat-autocomplete>
 	</mat-form-field>
