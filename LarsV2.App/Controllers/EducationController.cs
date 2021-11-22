@@ -30,22 +30,23 @@ namespace LarsV2.Controllers
         [HttpGet]
         public IActionResult GetEducationsWithSubjects()
         {
-            var educationsDictionary = new Dictionary<string, List<object>>();
+            ICollection<EducationDto> educationsList = new List<EducationDto>();
 
             var subjectsFromRepo = _subjectRepo.GetSubjects(new SubjectResourceParameters());
             var educations = subjectsFromRepo.Select(e => e.Education).Distinct().ToList();
 
             foreach(var education in educations)
             {
-                educationsDictionary.Add(education, new List<object>());
+                educationsList.Add(new EducationDto(education));
             }
 
             foreach(var subject in subjectsFromRepo)
             {
-                educationsDictionary[subject.Education].Add(new { id = subject.Id, Subject = subject.Title });
+                educationsList.Where(e => e.Education == subject.Education).FirstOrDefault()?.AddSubject(subject.Id, subject.Title);
             }
 
-            return Ok(educationsDictionary);
+            return Ok(educationsList);
         }
     }
+
 }

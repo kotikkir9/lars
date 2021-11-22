@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace LarsV2.Models.DTO
 {
-    public class PasswordChangeDto
+    public class UserCreateDto
     {
-        [Required()]
-        public string CurrentPassword { get; set; }
         [Required]
-        public string NewPassword { get; set; }
+        public string Username { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
+        public string Password { get; set; }
     }
 }

@@ -42,6 +42,13 @@
 					"path": [
 						"api",
 						"lecturers"
+					],
+					"query": [
+						{
+							"key": "PageSize",
+							"value": "3",
+							"disabled": true
+						}
 					]
 				},
 				"description": "Gets all lecturers in database"
@@ -149,7 +156,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/lecturers?Subject=Afgangsprojekt&Education=El-installation",
+					"raw": "http://localhost:5000/api/lecturers?Subject=Afgangsprojekt",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -166,7 +173,8 @@
 						},
 						{
 							"key": "Education",
-							"value": "El-installation"
+							"value": "El-installation",
+							"disabled": true
 						},
 						{
 							"key": "Education",
@@ -350,7 +358,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/subjects/4",
+					"raw": "http://localhost:5000/api/subjects/6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -359,7 +367,7 @@
 					"path": [
 						"api",
 						"subjects",
-						"4"
+						"6"
 					]
 				}
 			},
@@ -713,14 +721,114 @@
 			"response": []
 		},
 		{
-			"name": "POST Identity (ChangePassword)",
+			"name": "GET Identity (Users)",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJqdGkiOiJmYmY2ODM5Yi0wOGRkLTQ0NzMtODg1MS03MDI3NjBmOTVkOGIiLCJ1bmlxdWVfbmFtZSI6IkFkbWluIiwiZXhwIjoxNjM3NTQ1MjMwLCJpc3MiOiJtYWNoaW5lIiwiYXVkIjoicGVvcGxlIn0.0nFZbxBBHQWVVN-c13wM12OAjfIKwPrEARe5eV2Kzw78Dx-tw2Sl_0IBlNui97BU0BusAT8pPM1bbSkTKoUL7Q",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJqdGkiOiIyMDRkNTE4Mi01NDIyLTQyZDMtYTVkZi1iNzRmYzM0ZWI5YWUiLCJ1bmlxdWVfbmFtZSI6IkFkbWluIiwiZXhwIjoxNjM3NTkzMDYxLCJpc3MiOiJtYWNoaW5lIiwiYXVkIjoicGVvcGxlIn0.MVAsmktM8zB8fS2C8V9YHoS9j-JdYJTY2FpPXSMdYn5vYwBUe_ce-jLUo28oxRZE2TqKXOp6i1IyzNa2BQcTzQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Identity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Identity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Identity (Create User)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJqdGkiOiIzNjc4ZDc1Yi05YTJlLTQ0MTctYWExNC03Yzk3NWFjNjNlNDUiLCJ1bmlxdWVfbmFtZSI6IkFkbWluIiwiZXhwIjoxNjM3NTkxMzg2LCJpc3MiOiJtYWNoaW5lIiwiYXVkIjoicGVvcGxlIn0.L2ttEJZrSmjTQysLjKqCu8h81A607sCVC411Ts-l3lfAM3tf5EVJGiVJrFzuY-yOv9GlLDhAq_PzUam63ICMDQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Username\": \"Bob\",\r\n    \"Email\": \"bob@email.com\",\r\n    \"Password\": \"Password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Identity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Identity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Identity (Delete User)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJqdGkiOiIyMDRkNTE4Mi01NDIyLTQyZDMtYTVkZi1iNzRmYzM0ZWI5YWUiLCJ1bmlxdWVfbmFtZSI6IkFkbWluIiwiZXhwIjoxNjM3NTkzMDYxLCJpc3MiOiJtYWNoaW5lIiwiYXVkIjoicGVvcGxlIn0.MVAsmktM8zB8fS2C8V9YHoS9j-JdYJTY2FpPXSMdYn5vYwBUe_ce-jLUo28oxRZE2TqKXOp6i1IyzNa2BQcTzQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Identity/8c85b819-f063-4850-bc31-04982601b874",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Identity",
+						"8c85b819-f063-4850-bc31-04982601b874"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Identity (ChangePassword)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJqdGkiOiIzNjc4ZDc1Yi05YTJlLTQ0MTctYWExNC03Yzk3NWFjNjNlNDUiLCJ1bmlxdWVfbmFtZSI6IkFkbWluIiwiZXhwIjoxNjM3NTkxMzg2LCJpc3MiOiJtYWNoaW5lIiwiYXVkIjoicGVvcGxlIn0.L2ttEJZrSmjTQysLjKqCu8h81A607sCVC411Ts-l3lfAM3tf5EVJGiVJrFzuY-yOv9GlLDhAq_PzUam63ICMDQ",
 							"type": "string"
 						}
 					]
@@ -728,15 +836,15 @@
 				"method": "PUT",
 				"header": [
 					{
+						"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
 						"key": "Authorization",
-						"value": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJqdGkiOiJlMzllOWMyZC1jODUwLTQyZDYtOTg2Zi0wNTUyZjc3OWRkMmUiLCJ1bmlxdWVfbmFtZSI6IkFkbWluIiwiZXhwIjoxNjM3NTQ1NDI4LCJpc3MiOiJtYWNoaW5lIiwiYXVkIjoicGVvcGxlIn0.849jZYfeZ8UJB3SKrLWD8QRkSDIgRwb1kecLGFVaUchSFBMTIXWe7tSsWg69Mlrbe45kakGUTRbNosGSOwNZ_Q",
-						"type": "text",
-						"disabled": true
+						"value": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJqdGkiOiI5ZTc3NDU3Ni01Y2RmLTQ3Y2MtOTljOC1jMjlmYTUwZjcwNzMiLCJ1bmlxdWVfbmFtZSI6IkFkbWluIiwiZXhwIjoxNjM3NTc2NTQxLCJpc3MiOiJtYWNoaW5lIiwiYXVkIjoicGVvcGxlIn0.O8rWvsN_QvwMJe62Z8TGP5ae_F8oPnkNknkXGrNup_jALFWNf-UUPK00v-f8JGiAwMqJMtDqGVIMV9VVvJq6wQ",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"CurrentPassword\": \"Password\",\r\n    \"NewPassword\": \"NewPassword\",\r\n    \"NewPasswordConfirm\": \"NewPassword\"\r\n}",
+					"raw": "{\r\n    \"CurrentPassword\": \"Password\",\r\n    \"NewPassword\": \"NewPassword\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -760,14 +868,14 @@
 			"response": []
 		},
 		{
-			"name": "POST Identity (ChangePassword) Revert",
+			"name": "PUT Identity (ChangePassword) Revert",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJqdGkiOiJmYmY2ODM5Yi0wOGRkLTQ0NzMtODg1MS03MDI3NjBmOTVkOGIiLCJ1bmlxdWVfbmFtZSI6IkFkbWluIiwiZXhwIjoxNjM3NTQ1MjMwLCJpc3MiOiJtYWNoaW5lIiwiYXVkIjoicGVvcGxlIn0.0nFZbxBBHQWVVN-c13wM12OAjfIKwPrEARe5eV2Kzw78Dx-tw2Sl_0IBlNui97BU0BusAT8pPM1bbSkTKoUL7Q",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJqdGkiOiIzNjc4ZDc1Yi05YTJlLTQ0MTctYWExNC03Yzk3NWFjNjNlNDUiLCJ1bmlxdWVfbmFtZSI6IkFkbWluIiwiZXhwIjoxNjM3NTkxMzg2LCJpc3MiOiJtYWNoaW5lIiwiYXVkIjoicGVvcGxlIn0.L2ttEJZrSmjTQysLjKqCu8h81A607sCVC411Ts-l3lfAM3tf5EVJGiVJrFzuY-yOv9GlLDhAq_PzUam63ICMDQ",
 							"type": "string"
 						}
 					]
@@ -776,7 +884,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"CurrentPassword\": \"NewPassword\",\r\n    \"NewPassword\": \"Password\",\r\n    \"NewPasswordConfirm\": \"Password\"\r\n}",
+					"raw": "{\r\n    \"CurrentPassword\": \"NewPassword\",\r\n    \"NewPassword\": \"Password\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

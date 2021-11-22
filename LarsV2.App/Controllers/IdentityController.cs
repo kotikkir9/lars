@@ -1,6 +1,8 @@
-﻿using LarsV2.Models.DTO;
+﻿using AutoMapper;
+using LarsV2.Models.DTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -17,20 +19,71 @@ namespace LarsV2.Controllers
 {
     [ApiController]
     [Route("api/identity")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class IdentityController : Controller
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
 
-        public IdentityController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public IdentityController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IConfiguration configuration, IMapper mapper)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet]
+        public IActionResult GetAllUsers()
+        {
+            var usersDto = _mapper.Map<IEnumerable<UserDto>>(_userManager.Users);
+
+            return Ok(usersDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUser([FromBody]UserCreateDto newUser)
+        {
+            if(ModelState.IsValid)
+            {
+                IdentityUser user = new IdentityUser { UserName = newUser.Username, Email = newUser.Email };
+                IdentityResult result = await _userManager.CreateAsync(user, newUser.Password);
+
+                if (result.Succeeded)
+                {
+                    return NoContent();
+                }
+
+                foreach (IdentityError err in result.Errors)
+                {
+                    ModelState.AddModelError("", err.Description);
+                }
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            IdentityUser user = await _userManager.FindByIdAsync(userId);
+
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+            if(user.UserName.ToLower() ==  "admin")
+            {
+                return StatusCode(StatusCodes.Status405MethodNotAllowed);
+            }
+
+            await _userManager.DeleteAsync(user);
+            return NoContent();       
+        }
+  
         [HttpPut("Password")]
         public async Task<IActionResult> ChangePassword([FromBody]PasswordChangeDto passwordDto)
         {
@@ -53,8 +106,8 @@ namespace LarsV2.Controllers
             return BadRequest(ModelState);
         }
         
-
         [HttpPost("CreateToken")]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateToken([FromBody]LoginDto login)
         {
 

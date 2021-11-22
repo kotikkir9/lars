@@ -8,8 +8,18 @@ namespace LarsV2.Models.DTO
 {
     public class EducationDto
     {
-        public string EducationTitle { get; set; }
-        public List<SubjectDto> Subjects { get; set; } = new List<SubjectDto>();
+        public string Education { get; set; }
+        public ICollection<object> Subjects { get; set; } = new List<object>();
+
+        public EducationDto(string education)
+        {
+            Education = education;
+        }
+
+        public void AddSubject(int id, string subjectTitle)
+        {
+            Subjects.Add(new { Id = id, Subject = subjectTitle });
+        }
 
     }
 }
