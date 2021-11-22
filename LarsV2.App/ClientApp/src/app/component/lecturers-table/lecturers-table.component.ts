@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { merge } from 'rxjs';
+import { merge, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { iLecturers } from 'src/app/DTO/lecturers';
 import { iLecturersServiceData, LecturersService } from 'src/app/service/lecturers.service';
@@ -44,14 +44,5 @@ export class LecturersTableComponent implements AfterViewInit {
       .subscribe(data => {this.dataSource.data = data});
   }
 
-  // loadData() {
-  //   let data: iLecturersServiceData = this.lecturersService.getData(this.paginator.pageSize,this.paginator.pageIndex);
-  //   this.dataSource.data = data.records;
-  //   this.paginator.length = data.metadata.totalCount;
-  // }
-
-}
-function observableOf(arg0: null): any {
-  throw new Error('Function not implemented.');
 }
 
