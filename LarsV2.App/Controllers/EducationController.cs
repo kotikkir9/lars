@@ -2,6 +2,8 @@
 using LarsV2.Models.DTO;
 using LarsV2.Models.Repository;
 using LarsV2.Models.ResourceParameters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,7 @@ namespace LarsV2.Controllers
 {
     [ApiController]
     [Route("api/educations")]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class EducationController : Controller
     {
         private readonly ISubjectsRepository _subjectRepo;

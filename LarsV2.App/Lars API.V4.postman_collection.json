@@ -656,8 +656,17 @@
 		{
 			"name": "GET Educations (All)",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJqdGkiOiJlMzllOWMyZC1jODUwLTQyZDYtOTg2Zi0wNTUyZjc3OWRkMmUiLCJ1bmlxdWVfbmFtZSI6IkFkbWluIiwiZXhwIjoxNjM3NTQ1NDI4LCJpc3MiOiJtYWNoaW5lIiwiYXVkIjoicGVvcGxlIn0.849jZYfeZ8UJB3SKrLWD8QRkSDIgRwb1kecLGFVaUchSFBMTIXWe7tSsWg69Mlrbe45kakGUTRbNosGSOwNZ_Q",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:5000/api/educations",
 					"protocol": "http",
@@ -668,6 +677,123 @@
 					"path": [
 						"api",
 						"educations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Identity (CreateToken)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Username\": \"Admin\",\r\n    \"Password\": \"Password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Identity/CreateToken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Identity",
+						"CreateToken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Identity (ChangePassword)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJqdGkiOiJmYmY2ODM5Yi0wOGRkLTQ0NzMtODg1MS03MDI3NjBmOTVkOGIiLCJ1bmlxdWVfbmFtZSI6IkFkbWluIiwiZXhwIjoxNjM3NTQ1MjMwLCJpc3MiOiJtYWNoaW5lIiwiYXVkIjoicGVvcGxlIn0.0nFZbxBBHQWVVN-c13wM12OAjfIKwPrEARe5eV2Kzw78Dx-tw2Sl_0IBlNui97BU0BusAT8pPM1bbSkTKoUL7Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJqdGkiOiJlMzllOWMyZC1jODUwLTQyZDYtOTg2Zi0wNTUyZjc3OWRkMmUiLCJ1bmlxdWVfbmFtZSI6IkFkbWluIiwiZXhwIjoxNjM3NTQ1NDI4LCJpc3MiOiJtYWNoaW5lIiwiYXVkIjoicGVvcGxlIn0.849jZYfeZ8UJB3SKrLWD8QRkSDIgRwb1kecLGFVaUchSFBMTIXWe7tSsWg69Mlrbe45kakGUTRbNosGSOwNZ_Q",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"CurrentPassword\": \"Password\",\r\n    \"NewPassword\": \"NewPassword\",\r\n    \"NewPasswordConfirm\": \"NewPassword\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Identity/Password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Identity",
+						"Password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Identity (ChangePassword) Revert",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJqdGkiOiJmYmY2ODM5Yi0wOGRkLTQ0NzMtODg1MS03MDI3NjBmOTVkOGIiLCJ1bmlxdWVfbmFtZSI6IkFkbWluIiwiZXhwIjoxNjM3NTQ1MjMwLCJpc3MiOiJtYWNoaW5lIiwiYXVkIjoicGVvcGxlIn0.0nFZbxBBHQWVVN-c13wM12OAjfIKwPrEARe5eV2Kzw78Dx-tw2Sl_0IBlNui97BU0BusAT8pPM1bbSkTKoUL7Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"CurrentPassword\": \"NewPassword\",\r\n    \"NewPassword\": \"Password\",\r\n    \"NewPasswordConfirm\": \"Password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Identity/Password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Identity",
+						"Password"
 					]
 				}
 			},
