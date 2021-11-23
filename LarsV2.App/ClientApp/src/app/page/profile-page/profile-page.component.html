@@ -1,0 +1,26 @@
+<div id="main-profile">
+	<div id="side-profile">
+		<mat-card id="profile-card">
+			<div id="external-profile" *ngIf="lecturesData.isExternal">External</div>
+			<img mat-card-image src="/assets/default-profile-icon-16.jpg" alt="Default profile">
+			<mat-card-content>
+				<table>
+					<tr>
+						<td></td>
+						<td><h2 id="name-profile">{{lecturesData.firstName}} {{lecturesData.lastName}}</h2></td>
+					</tr>
+					<tr>
+						<td><mat-icon>email</mat-icon></td>
+						<td>{{lecturesData.email}}</td>
+					</tr>
+					<tr>
+						<td><mat-icon>phone</mat-icon></td>
+						<td>{{lecturesData.phoneNumber | phone}}</td>
+					</tr>
+				</table>
+				<a mat-raised-button color="primary">CV</a>
+			</mat-card-content>
+		</mat-card>
+	</div>
+	<div></div>
+</div>

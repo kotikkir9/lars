@@ -166,4 +166,10 @@ export class LecturersService {
       subscriber.next(buildData);
     });
   }
+
+  getThisLecturers(id: number): Observable<iLecturers> {
+    return new Observable(subscriber => {
+      subscriber.next(testData.records[id]);
+    });
+  }
 }
