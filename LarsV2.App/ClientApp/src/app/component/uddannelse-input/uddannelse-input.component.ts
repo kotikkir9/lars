@@ -48,6 +48,11 @@ export class UddannelseInputComponent implements OnInit {
     this.loadData();
   }
 
+  selectionChangeFag(data: iEducationSubject) {
+    this.uddannelseFormGroup.controls["uddannelse"].setValue(data.education);
+    this.uddannelseFormGroup.controls["fag"].setValue(data.subject.subject);
+  }
+
   reset(){
     this.uddannelseFormGroup.controls["fag"].setValue("");
     this.uddannelseFormGroup.controls["uddannelse"].setValue("");
@@ -87,9 +92,6 @@ export class UddannelseInputComponent implements OnInit {
 
     if(ugValue !== "")
       data = data.filter(uddannelse => uddannelse.education.toLowerCase().includes(ugValue));
-
-    if(ugValue === "" && data.length == 1 && data[0].subject.subject.toLowerCase() == filterValue)
-      this.uddannelseFormGroup.controls["uddannelse"].setValue(data[0].education);
 
     return data;
   }
