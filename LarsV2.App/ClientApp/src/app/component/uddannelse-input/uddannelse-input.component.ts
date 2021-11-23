@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { MatOptionSelectionChange } from '@angular/material/core';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators'
 import { EducationSubject, iEducationSubject } from 'src/app/DTO/education';
@@ -48,8 +49,10 @@ export class UddannelseInputComponent implements OnInit {
     this.loadData();
   }
 
-  selectionChangeFag(data: iEducationSubject) {
-    console.log(data);
+  selectionChangeFag(data: iEducationSubject, event: MatOptionSelectionChange) {
+    if(!event.isUserInput)
+      return;
+
     this.uddannelseFormGroup.controls["uddannelse"].setValue(data.education);
     this.uddannelseFormGroup.controls["fag"].setValue(data.subject.subject);
   }
