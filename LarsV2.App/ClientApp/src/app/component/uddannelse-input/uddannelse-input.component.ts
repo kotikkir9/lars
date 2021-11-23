@@ -17,9 +17,7 @@ enum eFilterBy {
 })
 export class UddannelseInputComponent implements OnInit {
 
-  @Output() changesEvent = new EventEmitter<iEducationSubject>();
-
-  tempData: iEducationSubject;
+  @Output() addEducationSubjectEvent = new EventEmitter<iEducationSubject>();
 
   uddannelseFormGroup: FormGroup;
   data: iEducationServiceData;
@@ -55,13 +53,13 @@ export class UddannelseInputComponent implements OnInit {
     this.uddannelseFormGroup.controls["uddannelse"].setValue("");
   }
 
-  private dataIsChanges():void {
+  getDataFormInput():void {
     let fag:string = this.uddannelseFormGroup.controls["fag"].value;
     let uddannelse:string = this.uddannelseFormGroup.controls["uddannelse"].value;
 
     let data:iEducationSubject = new EducationSubject(uddannelse, fag);
 
-    if(fag === "" || uddannelse === "" || this.tempData != undefined && (data.subject.subject === this.tempData.subject.subject && data.education === this.tempData.education))
+    if(fag === "" || uddannelse === "")
       return;
       
     let formList = this.data.EducationSubject.find(item => {
@@ -71,9 +69,8 @@ export class UddannelseInputComponent implements OnInit {
     if(formList)
       data = formList;
 
-    this.tempData = data;
-
-    this.changesEvent.emit(data);
+    this.addEducationSubjectEvent.emit(data);
+    this.reset();
   }
 
   private loadData():void {
@@ -93,8 +90,6 @@ export class UddannelseInputComponent implements OnInit {
 
     if(ugValue === "" && data.length == 1 && data[0].subject.subject.toLowerCase() == filterValue)
       this.uddannelseFormGroup.controls["uddannelse"].setValue(data[0].education);
-
-    this.dataIsChanges();
 
     return data;
   }

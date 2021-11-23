@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { iEducationSubject } from 'src/app/DTO/education';
 
 @Component({
   selector: 'app-create-teacher',
@@ -9,9 +10,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class CreateTeacherComponent implements OnInit {
 
   firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+
+  educationSubject: iEducationSubject[] = [];
 
   constructor(private _formBuilder: FormBuilder) {}
+
+  addEducationSubject(data: iEducationSubject): void {
+    this.educationSubject.push(data);
+  }
+
+  removeEducationSubject(data: iEducationSubject): void {
+    let index: number = this.educationSubject.indexOf(data);
+
+    this.educationSubject.splice(index,1);
+  }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -20,10 +32,6 @@ export class CreateTeacherComponent implements OnInit {
       email: ['', [Validators.email, Validators.required]],
       phoneNumber: ['', Validators.required],
     });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
-    });
-
   }
 
 }

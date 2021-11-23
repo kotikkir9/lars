@@ -39,21 +39,24 @@
 		</div>
 	  </form>
 	</mat-step>
-	<mat-step [stepControl]="secondFormGroup">
-	  <form [formGroup]="secondFormGroup">
+	<mat-step>
+	  <!-- <form> -->
 		<ng-template matStepLabel>Undervister Skills</ng-template>
-		<app-uddannelse-input #ugInput></app-uddannelse-input>
-		<button mat-button (click)="ugInput.reset()">reset</button>
-		<mat-form-field>
-		  <mat-label>Address</mat-label>
-		  <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-				 required>
-		</mat-form-field>
+		<app-uddannelse-input (addEducationSubjectEvent)="addEducationSubject($event)"></app-uddannelse-input>
+
+		<!-- <div>
+			<p *ngFor="let ug of educationSubject">{{ug.subject.subject}} <br> <small>{{ug.education}}</small></p>
+		</div> -->
+
+		<ul>
+			<li *ngFor="let ug of educationSubject"> <button (click)="removeEducationSubject(ug)">del</button> {{ug.subject.subject}} <br> <small>{{ug.education}}</small></li>
+		</ul>
+
 		<div>
 		  <button mat-button matStepperPrevious>Tilbage</button>
 		  <button mat-button matStepperNext>Næste</button>
 		</div>
-	  </form>
+	  <!-- </form> -->
 	</mat-step>
 	<mat-step>
 	  <ng-template matStepLabel>Done</ng-template>

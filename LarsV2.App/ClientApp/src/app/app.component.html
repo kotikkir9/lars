@@ -4,4 +4,10 @@
 	<a [routerLink]="['/opret']" mat-button>Create teacher</a>
 	<a [routerLink]="['/test']" mat-button>test</a>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<div [id]="'body'">
+	<div></div>
+	<div>
+		<router-outlet></router-outlet>
+	</div>
+	<div></div>
+</div>
