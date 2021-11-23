@@ -49,6 +49,7 @@ export class UddannelseInputComponent implements OnInit {
   }
 
   selectionChangeFag(data: iEducationSubject) {
+    console.log(data);
     this.uddannelseFormGroup.controls["uddannelse"].setValue(data.education);
     this.uddannelseFormGroup.controls["fag"].setValue(data.subject.subject);
   }
