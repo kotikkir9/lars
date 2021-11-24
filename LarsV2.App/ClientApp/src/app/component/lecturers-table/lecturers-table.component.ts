@@ -15,7 +15,7 @@ export class LecturersTableComponent implements AfterViewInit {
 
   isLoadingResults: boolean = false;
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'isExternal', 'email', 'phoneNumber'];
+  displayedColumns: string[] = ['name', 'isExternal', 'email', 'phoneNumber'];
   dataSource = new MatTableDataSource<iLecturers>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

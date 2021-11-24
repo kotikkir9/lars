@@ -1,44 +1,41 @@
+import { iSubject } from "./subject";
+
 export interface iLecturers {
 	id: number
-	firstName: string;
-	lastName: string;
+	name: string;
 	email: string;
 	phoneNumber: string;
 	cvPath: string;
 	imagePath: string;
 	isExternal: boolean;
-	knowledge: string;
-	lecturerSubjects: string;
+	subjects: iSubject[];
 }
 
 export class Lecturers implements iLecturers {
 	id: number;
-	firstName: string;
-	lastName: string;
+	name: string;
 	email: string;
 	phoneNumber: string;
 	cvPath: string;
 	imagePath: string;
 	isExternal: boolean;
-	knowledge: string;
-	lecturerSubjects: string;
+	subjects: iSubject[];
 
-	constructor(id: number, firstName: string, lastName: string, email: string, phoneNumber: string, isExternal: boolean, cvPath: string, imagePath: string, knowledge: string, lecturerSubjects: string) {
+	constructor(id: number, name: string, email: string, phoneNumber: string, isExternal: boolean, cvPath: string, imagePath: string, subjects: iSubject[]) {
 		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.name = name;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.cvPath = cvPath;
 		this.imagePath = imagePath;
 		this.isExternal = isExternal;
-		this.knowledge = knowledge;
-		this.lecturerSubjects = lecturerSubjects;
+		this.subjects = subjects;
 	}
+	
 }
 
 export class NullLecturers extends Lecturers {
 	constructor(){
-		super(-1,"","","","",false, null, null, null, null);
+		super(-1,"","","",false, "", "", []);
 	}
 }

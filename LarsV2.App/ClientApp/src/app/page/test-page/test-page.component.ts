@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LecturersService } from 'src/app/service/lecturers.service';
 
 @Component({
   selector: 'app-test-page',
@@ -7,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private socket: LecturersService) { }
 
   ngOnInit(): void {
   }
 
-  log(data: any){
-    console.log(data);
+  async buttonPush(){
+    console.log(await this.socket.getThisLecturers(1).toPromise());
   }
 
 }

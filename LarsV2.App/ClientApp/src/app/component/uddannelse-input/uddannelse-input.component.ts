@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators'
-import { EducationSubject, iEducationSubject } from 'src/app/DTO/education';
+import { EducationSubject, iEducationSubject } from 'src/app/DTO/educationSubject';
 import { iEducationServiceData, EducationService } from 'src/app/service/education.service';
 
 enum eFilterBy {

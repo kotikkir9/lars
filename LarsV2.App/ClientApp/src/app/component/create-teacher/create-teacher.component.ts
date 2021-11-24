@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { iEducationSubject } from 'src/app/DTO/education';
+import { iEducationSubject } from 'src/app/DTO/educationSubject';
 
 @Component({
   selector: 'app-create-teacher',
