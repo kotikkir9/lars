@@ -15,7 +15,7 @@ export class ProfilePageComponent implements OnInit {
   constructor(private socket: LecturersService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('')!
+    const id = +this.route.snapshot.paramMap.get('id')!
 
     this.socket.getThisLecturers(id).subscribe(data => {
       this.lecturesData = data;
