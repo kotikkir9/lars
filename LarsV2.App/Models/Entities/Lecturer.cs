@@ -1,4 +1,5 @@
 ﻿using LarsV2.Models.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,7 @@ namespace LarsV2.Models.Entities
 {
     public class Lecturer
     {
+        [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "FirstName is required")]
         [MaxLength(100)]
@@ -26,7 +28,8 @@ namespace LarsV2.Models.Entities
         public string CVPath { get; set; }
         public string ImagePath { get; set; }
         public bool IsExternal { get; set; } = false;
-        public IEnumerable<Subject> Subjects { get; set; } = new List<Subject>();
         public string Knowledge { get; set; }
+        public ICollection<LecturerSubject> LecturerSubjects { get; set; }
+        public ICollection<Course> Courses { get; set; }
     }
 }
