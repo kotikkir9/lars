@@ -1,10 +1,6 @@
 #main-profile {
 	display: grid;
-	grid-template-columns: auto auto;
-}
-
-#side-profile {
-	max-width: 300px;
+	grid-template-columns: 300px auto;
 }
 
 #name-profile {
@@ -25,4 +21,8 @@
 	width: 200px;
 	transform: translate(-63px, 8px) rotate(-35deg);
 	z-index: 1;
+}
+
+#time-profile {
+	padding: 0 25px;
 }

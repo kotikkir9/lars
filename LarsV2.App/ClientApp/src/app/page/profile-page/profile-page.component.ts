@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs/operators';
 import { iLecturers, NullLecturers } from 'src/app/DTO/lecturers';
 import { LecturersService } from 'src/app/service/lecturers.service';
 
@@ -15,11 +16,12 @@ export class ProfilePageComponent implements OnInit {
   constructor(private socket: LecturersService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id')!
-
-    this.socket.getThisLecturers(id).subscribe(data => {
-      this.lecturesData = data;
-    })
+    this.route.paramMap.subscribe(param => {
+      const id = +param.get('id');
+      this.socket.getThisLecturers(id).pipe(take(1)).subscribe(data => {
+        this.lecturesData = data;
+      })
+    });
   }
 
 }

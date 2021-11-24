@@ -1,3 +1,4 @@
+import { iLecturersSubject } from "./lecturersSubject";
 import { iSubject } from "./subject";
 
 export interface iLecturers {
@@ -8,7 +9,7 @@ export interface iLecturers {
 	cvPath: string;
 	imagePath: string;
 	isExternal: boolean;
-	subjects: iSubject[];
+	subjects: iLecturersSubject[];
 }
 
 export class Lecturers implements iLecturers {
@@ -19,9 +20,9 @@ export class Lecturers implements iLecturers {
 	cvPath: string;
 	imagePath: string;
 	isExternal: boolean;
-	subjects: iSubject[];
+	subjects: iLecturersSubject[];
 
-	constructor(id: number, name: string, email: string, phoneNumber: string, isExternal: boolean, cvPath: string, imagePath: string, subjects: iSubject[]) {
+	constructor(id: number, name: string, email: string, phoneNumber: string, isExternal: boolean, cvPath: string, imagePath: string, subjects: iLecturersSubject[]) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
