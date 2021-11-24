@@ -4,11 +4,10 @@
 			<div id="external-profile" *ngIf="lecturesData.isExternal">Ekstern</div>
 			<img mat-card-image src="/assets/default-profile-icon-16.jpg" alt="Default profile">
 			<mat-card-content>
-				<table>
+				<table id="profile-table">
 					<tr>
-						<td></td>
-						<td>
-							<h2 id="name-profile">{{lecturesData.name}}</h2>
+						<td colspan="2">
+							<h2>{{lecturesData.name}}</h2>
 						</td>
 					</tr>
 					<tr>
@@ -28,14 +27,20 @@
 			</mat-card-content>
 		</mat-card>
 	</div>
-	<div class="container" id="time-profile">
-		<mat-card *ngFor="let ug of lecturesData.subjects">
+	<div id="time-profile">
+		<mat-card >
 			<mat-card-header>
-				<mat-card-title>{{ug.title}}</mat-card-title>
-				<mat-card-subtitle>{{ug.education}}</mat-card-subtitle>
+				<mat-card-title>Fag</mat-card-title>
+				<mat-card-subtitle>Uddannelse</mat-card-subtitle>
 			</mat-card-header>
-			<mat-card-content>
-				<p>{{ug.description}}</p>
+			<mat-card-content class="container">
+				<table id="fag-table">
+					<tr *ngFor="let ug of lecturesData.subjects">
+						<td>
+							<b>{{ug.title}}</b> <br> <small>{{ug.education}}</small>
+						</td>
+					</tr>
+				</table>
 			</mat-card-content>
 		</mat-card>
 	</div>

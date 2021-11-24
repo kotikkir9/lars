@@ -3,10 +3,6 @@
 	grid-template-columns: 300px auto;
 }
 
-#name-profile {
-	margin: 0;
-}
-
 #profile-card {
 	position: relative;
 	overflow: hidden;
@@ -25,4 +21,33 @@
 
 #time-profile {
 	padding: 0 25px;
+}
+
+#profile-table{
+	width: 100%;
+	border-collapse: collapse;
+	h2 {
+		margin: 0;
+		text-align: center;
+	}
+}
+
+#fag-table {
+	border-collapse: collapse;
+	width: 100%;
+	th, td {
+		border-bottom: 1px solid #ddd;
+		padding: 10px 5px;
+	}
+
+	tr:last-child td {
+		border: none;
+	}
+
+	td {
+		font-size: 1.2rem;
+		small {
+			font-size: 0.8em;
+		}
+	}
 }
