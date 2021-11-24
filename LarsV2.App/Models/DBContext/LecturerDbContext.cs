@@ -15,6 +15,8 @@ namespace LarsV2.Models.DBContext
         public DbSet<Lecturer> Lecturers { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<LecturerSubject> LecturerSubject { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<CourseDateTimeOffset> CourseDataTimeOffsets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +30,25 @@ namespace LarsV2.Models.DBContext
                 .HasOne(ls => ls.Subject)
                 .WithMany(s => s.LecturerSubjects)
                 .HasForeignKey(ls => ls.SubjectId);
+
+            modelBuilder.Entity<Course>()
+                .HasOne(c => c.Subject)
+                .WithMany(s => s.Courses)
+                .HasForeignKey(c => c.SubjectId);
+
+            modelBuilder.Entity<Course>()
+                .HasOne(c => c.Lecturer)
+                .WithMany(l => l.Courses)
+                .HasForeignKey(c => c.LecturerId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<CourseDateTimeOffset>()
+                .HasOne(d => d.Course)
+                .WithMany(c => c.CourseDates)
+                .HasForeignKey(d => d.CourseId);
+
+            modelBuilder.Entity<CourseDateTimeOffset>().HasKey(d => new { d.CourseId, d.CourseDateTime });
+              
 
             var subjectList = new List<Subject>()
             {
@@ -477,9 +498,35 @@ namespace LarsV2.Models.DBContext
                 }
             };
 
+            var courseList = new List<Course>()
+            {
+                new Course
+                {
+                    Id = 1,
+                    SubjectId = 1,
+                    LecturerId = 1
+                }
+            };
+
+            var courseDatesList = new List<CourseDateTimeOffset>()
+            {
+                new CourseDateTimeOffset
+                {
+                    CourseId = 1,
+                    CourseDateTime = DateTimeOffset.Parse("24/12/2021")
+                },
+                new CourseDateTimeOffset
+                {
+                    CourseId = 1,
+                    CourseDateTime = DateTimeOffset.Parse("31/12/2021")
+                }
+            };
+
             modelBuilder.Entity<Subject>().HasData(subjectList);
             modelBuilder.Entity<Lecturer>().HasData(lecturerList);
             modelBuilder.Entity<LecturerSubject>().HasData(lecturerSubjectList);
+            modelBuilder.Entity<Course>().HasData(courseList);
+            modelBuilder.Entity<CourseDateTimeOffset>().HasData(courseDatesList);
 
             base.OnModelCreating(modelBuilder);
         }

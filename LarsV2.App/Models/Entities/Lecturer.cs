@@ -30,5 +30,6 @@ namespace LarsV2.Models.Entities
         public bool IsExternal { get; set; } = false;
         public string Knowledge { get; set; }
         public ICollection<LecturerSubject> LecturerSubjects { get; set; }
+        public ICollection<Course> Courses { get; set; }
     }
 }

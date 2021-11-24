@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LarsV2.Migrations
 {
@@ -42,6 +43,33 @@ namespace LarsV2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Courses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SubjectId = table.Column<int>(type: "int", nullable: false),
+                    LecturerId = table.Column<int>(type: "int", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Courses_Lecturers_LecturerId",
+                        column: x => x.LecturerId,
+                        principalTable: "Lecturers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Courses_Subjects_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LecturerSubject",
                 columns: table => new
                 {
@@ -61,6 +89,24 @@ namespace LarsV2.Migrations
                         name: "FK_LecturerSubject_Subjects_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CourseDataTimeOffsets",
+                columns: table => new
+                {
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    CourseDateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseDataTimeOffsets", x => new { x.CourseId, x.CourseDateTime });
+                    table.ForeignKey(
+                        name: "FK_CourseDataTimeOffsets_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -90,37 +136,42 @@ namespace LarsV2.Migrations
                 columns: new[] { "Id", "Description", "Education", "Title" },
                 values: new object[,]
                 {
-                    { 13, null, "Automation og drift", "Afgangsprojekt" },
-                    { 21, null, "El-installation", "Vf2: Bekendtgørelser og standarder" },
-                    { 20, null, "El-installation", "Ob4: Større industriinstallationer og elforsyningsanlæg" },
-                    { 19, null, "El-installation", "Ob3: Mindre industriinstallationer og Teknisk beregning på maskiner" },
-                    { 18, null, "El-installation", "Ob2: Bygningsinstallationer og Teknisk dokumentation" },
-                    { 17, null, "El-installation", "OB1 Boliginstallationer og Teknisk beregning på kredsløb" },
-                    { 16, null, "AU i Energiteknologi", "Varmepumpe (VE)" },
-                    { 15, null, "AU i Energiteknologi", "Energikonsulent opfølgning (IDV)" },
-                    { 14, null, "AU i Energiteknologi", "Energikonsulent 1" },
                     { 12, null, "AU i innovation, produkt og produktion", "Innovation i praksis" },
+                    { 20, null, "El-installation", "Vf2: Bekendtgørelser og standarder" },
+                    { 19, null, "El-installation", "Ob4: Større industriinstallationer og elforsyningsanlæg" },
+                    { 18, null, "El-installation", "Ob3: Mindre industriinstallationer og Teknisk beregning på maskiner" },
+                    { 17, null, "El-installation", "Ob2: Bygningsinstallationer og Teknisk dokumentation" },
+                    { 16, null, "El-installation", "OB1 Boliginstallationer og Teknisk beregning på kredsløb" },
+                    { 15, null, "AU i Energiteknologi", "Varmepumpe (VE)" },
+                    { 14, null, "AU i Energiteknologi", "Energikonsulent opfølgning (IDV)" },
+                    { 13, null, "AU i Energiteknologi", "Energikonsulent 1" },
+                    { 11, null, "AU i innovation, produkt og produktion", "Produktionsiotimering" },
                     { 5, null, "Automation og drift", "Robot teknologi" },
-                    { 10, null, "AU i innovation, produkt og produktion", "Kvalitetsoptimering med Six Sigma" },
                     { 9, null, "AU i innovation, produkt og produktion", "Værdikæden i praksis" },
                     { 8, null, "AU i innovation, produkt og produktion", "Projektledelse" },
                     { 7, null, "AU i innovation, produkt og produktion", "Styring og regulering" },
                     { 6, null, "Automation og drift", "Afgangsprojekt" },
-                    { 22, null, "El-installation", "Vf1: Kvalitet, sikkerhed og miljø" },
+                    { 21, null, "El-installation", "Vf1: Kvalitet, sikkerhed og miljø" },
                     { 4, null, "Automation og drift", "SCADA, netværk og databaser" },
                     { 3, null, "Automation og drift", "Maskinteknologi industri (industri)" },
                     { 2, null, "Automation og drift", "Styring og regulering" },
                     { 1, null, "Automation og drift", "Udvikling af automatiske styringer" },
-                    { 11, null, "AU i innovation, produkt og produktion", "Produktionsiotimering" },
-                    { 23, null, "El-installation", "Afgangsprojekt" }
+                    { 10, null, "AU i innovation, produkt og produktion", "Kvalitetsoptimering med Six Sigma" },
+                    { 22, null, "El-installation", "Afgangsprojekt" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Courses",
+                columns: new[] { "Id", "Description", "LecturerId", "SubjectId" },
+                values: new object[] { 1, null, 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "LecturerSubject",
                 columns: new[] { "LecturerId", "SubjectId" },
                 values: new object[,]
                 {
-                    { 1, 1 },
+                    { 10, 12 },
+                    { 6, 13 },
                     { 11, 13 },
                     { 6, 14 },
                     { 6, 15 },
@@ -128,19 +179,20 @@ namespace LarsV2.Migrations
                     { 6, 16 },
                     { 7, 16 },
                     { 7, 17 },
-                    { 6, 13 },
                     { 10, 17 },
+                    { 7, 18 },
                     { 7, 19 },
                     { 12, 19 },
                     { 8, 20 },
                     { 10, 20 },
                     { 11, 20 },
                     { 8, 21 },
-                    { 8, 22 },
-                    { 7, 18 },
-                    { 10, 12 },
                     { 5, 12 },
+                    { 8, 22 },
                     { 4, 11 },
+                    { 3, 10 },
+                    { 1, 1 },
+                    { 8, 1 },
                     { 11, 1 },
                     { 1, 2 },
                     { 12, 2 },
@@ -156,11 +208,29 @@ namespace LarsV2.Migrations
                     { 9, 8 },
                     { 11, 8 },
                     { 3, 9 },
-                    { 3, 10 },
                     { 4, 10 },
-                    { 11, 22 },
-                    { 8, 23 }
+                    { 11, 22 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "CourseDataTimeOffsets",
+                columns: new[] { "CourseDateTime", "CourseId" },
+                values: new object[] { new DateTimeOffset(new DateTime(2021, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)), 1 });
+
+            migrationBuilder.InsertData(
+                table: "CourseDataTimeOffsets",
+                columns: new[] { "CourseDateTime", "CourseId" },
+                values: new object[] { new DateTimeOffset(new DateTime(2021, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)), 1 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_LecturerId",
+                table: "Courses",
+                column: "LecturerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_SubjectId",
+                table: "Courses",
+                column: "SubjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LecturerSubject_SubjectId",
@@ -171,7 +241,13 @@ namespace LarsV2.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "CourseDataTimeOffsets");
+
+            migrationBuilder.DropTable(
                 name: "LecturerSubject");
+
+            migrationBuilder.DropTable(
+                name: "Courses");
 
             migrationBuilder.DropTable(
                 name: "Lecturers");

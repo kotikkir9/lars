@@ -24,8 +24,6 @@ namespace LarsV2.Models.DBContext
             string ADMIN_ID = "3bb4b222-f47e-43fa-9d9e-66989c3aa296";
             string PASSWORD = "Password";
 
-            
-
             IdentityUser user = new IdentityUser()
             {
                 Id = ADMIN_ID,
