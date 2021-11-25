@@ -26,15 +26,6 @@ export class LecturersService {
   constructor(private http: HttpClient) { }
 
   getData(pageSize: number, pageIndex: number, filter:iEducationSubject = new NullEducationSubject, search: string = ""): Observable<iLecturersServiceData> {
-
-    if(filter instanceof NullEducationSubject){
-      return this.http.get<iLecturersServiceData>(this.url, {
-        params: new HttpParams()
-          .set("PageSize", pageSize.toString())
-          .set("PageNumber", (pageIndex + 1).toString())
-          .set("SearchQuery", search)
-      });
-    } else {
       return this.http.get<iLecturersServiceData>(this.url, {
         params: new HttpParams()
           .set("PageSize", pageSize.toString())
@@ -43,8 +34,6 @@ export class LecturersService {
           .set("Education", filter.education)
           .set("SearchQuery", search)
       });
-    }
-
   }
 
   getThisLecturers(id: number): Observable<iLecturers> {

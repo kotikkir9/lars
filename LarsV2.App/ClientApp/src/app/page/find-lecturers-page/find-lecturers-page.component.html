@@ -1,7 +1,7 @@
 <div id="uddannelseInput">
 	<app-uddannelse-input #uddannelseInput (addEducationSubjectEvent)="addEducationSubject($event)"></app-uddannelse-input>
 	<div class="button-gruppe">
-		<button (click)="uddannelseInput.getDataFormInput(false)" mat-icon-button>
+		<button (click)="uddannelseInput.getDataFormInput(false, false)" mat-icon-button>
 			<mat-icon>filter_alt</mat-icon>
 		</button>
 		<button (click)="resetFilter()" mat-icon-button>

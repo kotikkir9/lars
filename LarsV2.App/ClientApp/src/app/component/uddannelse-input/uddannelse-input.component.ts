@@ -63,13 +63,13 @@ export class UddannelseInputComponent implements OnInit {
     this.uddannelseFormGroup.controls["uddannelse"].setValue("");
   }
 
-  getDataFormInput(reset: boolean = true):void {
+  getDataFormInput(reset: boolean = true, checkAllSet: boolean = true):void {
     let fag:string = this.uddannelseFormGroup.controls["fag"].value;
     let uddannelse:string = this.uddannelseFormGroup.controls["uddannelse"].value;
 
     let data:iEducationSubject = new EducationSubject(uddannelse, fag);
 
-    if(fag === "" || uddannelse === "")
+    if(checkAllSet && (fag === "" || uddannelse === ""))
       return;
       
     let formList = this.data.EducationSubject.find(item => {
