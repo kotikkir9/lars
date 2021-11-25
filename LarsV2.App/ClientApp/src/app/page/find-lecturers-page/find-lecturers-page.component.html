@@ -1,2 +1,12 @@
-<app-uddannelse-input></app-uddannelse-input>
-<app-lecturers-table></app-lecturers-table>
+<div id="uddannelseInput">
+	<app-uddannelse-input #uddannelseInput (addEducationSubjectEvent)="addEducationSubject($event)"></app-uddannelse-input>
+	<div class="button-gruppe">
+		<button (click)="uddannelseInput.getDataFormInput(false)" mat-icon-button>
+			<mat-icon>filter_alt</mat-icon>
+		</button>
+		<button (click)="resetFilter()" mat-icon-button>
+			<mat-icon>close</mat-icon>
+		</button>
+	</div>
+</div>
+<app-lecturers-table [_filterData]="filterData"></app-lecturers-table>

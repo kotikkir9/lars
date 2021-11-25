@@ -19,3 +19,9 @@ export class EducationSubject implements iEducationSubject {
 		};
 	}
 }
+
+export class NullEducationSubject extends EducationSubject {
+	constructor(){
+		super("","", -1);
+	}
+}

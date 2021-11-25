@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { iEducationSubject, NullEducationSubject } from '../DTO/educationSubject';
 import { iLecturers } from '../DTO/lecturers';
 
 export interface iMetadata {
@@ -24,13 +25,26 @@ export class LecturersService {
 
   constructor(private http: HttpClient) { }
 
-  getData(pageSize: number, pageIndex: number): Observable<iLecturersServiceData> {
+  getData(pageSize: number, pageIndex: number, filter:iEducationSubject = new NullEducationSubject, search: string = ""): Observable<iLecturersServiceData> {
 
-    return this.http.get<iLecturersServiceData>(this.url, {
-      params: new HttpParams()
-        .set("PageSize", pageSize.toString())
-        .set("PageNumber", (pageIndex + 1).toString())
-    });
+    if(filter instanceof NullEducationSubject){
+      return this.http.get<iLecturersServiceData>(this.url, {
+        params: new HttpParams()
+          .set("PageSize", pageSize.toString())
+          .set("PageNumber", (pageIndex + 1).toString())
+          .set("SearchQuery", search)
+      });
+    } else {
+      return this.http.get<iLecturersServiceData>(this.url, {
+        params: new HttpParams()
+          .set("PageSize", pageSize.toString())
+          .set("PageNumber", (pageIndex + 1).toString())
+          .set("Subject", filter.subject.subject)
+          .set("Education", filter.education)
+          .set("SearchQuery", search)
+      });
+    }
+
   }
 
   getThisLecturers(id: number): Observable<iLecturers> {
