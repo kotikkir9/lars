@@ -6,7 +6,9 @@ using LarsV2.Models.ResourceParameters;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace LarsV2.Models.Repository
 {
@@ -51,7 +53,9 @@ namespace LarsV2.Models.Repository
             if (!string.IsNullOrWhiteSpace(parameters.SearchQuery))
             {
                 var searchQuery = parameters.SearchQuery.Trim();
-                collection = collection.Where(l => l.FirstName.Contains(searchQuery) || l.LastName.Contains(searchQuery) || l.Email.Contains(searchQuery) || l.PhoneNumber.Contains(searchQuery));
+                searchQuery = Regex.Replace(searchQuery, @"\s+", " ");
+
+                collection = collection.Where(l => string.Concat(l.FirstName + " ", l.LastName).Contains(searchQuery) || l.Email.Contains(searchQuery) || l.PhoneNumber.Contains(searchQuery));
             }
 
             collection = collection.OrderBy(e => e.FirstName).ThenBy(e => e.LastName);

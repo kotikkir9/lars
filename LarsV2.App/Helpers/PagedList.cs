@@ -20,7 +20,7 @@ namespace LarsV2.Helpers
             TotalCount = count;
             PageSize = pageSize;
             CurrentPage = pageNumber;
-            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            TotalPages = count == 0 ? 0 : (int)Math.Ceiling(count / (double)pageSize);
             AddRange(items);
         }
 
@@ -31,7 +31,16 @@ namespace LarsV2.Helpers
             {
                 pageSize = count;
             }
-            var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+            List<T> items;
+            if(count != 0)
+            {
+                items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            }
+            else
+            {
+                items = new List<T>();
+            }
 
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
