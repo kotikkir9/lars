@@ -27,12 +27,15 @@ export class UddannelseInputComponent implements OnInit {
   
   constructor(private _formBuilder: FormBuilder, private us: EducationService) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    
     this.uddannelseFormGroup = this._formBuilder.group({
       uddannelse: [''],
       fag: [''],
     });
 
+    this.data = await this.us.getData().toPromise();
+    
     this.filteredUddannelse = this.uddannelseFormGroup.controls["uddannelse"].valueChanges.pipe(
       startWith(''),
       map(uddannelse => {
@@ -45,8 +48,6 @@ export class UddannelseInputComponent implements OnInit {
       startWith(''),
       map(fag => (fag ? this._filteredFag(fag) : this._getFilteredUddannelse().slice()))
     );
-
-    this.loadData();
   }
 
   selectionChangeFag(data: iEducationSubject, event: MatOptionSelectionChange) {
@@ -80,12 +81,6 @@ export class UddannelseInputComponent implements OnInit {
 
     this.addEducationSubjectEvent.emit(data);
     this.reset();
-  }
-
-  private loadData():void {
-    this.us.getData().subscribe(data => {
-      this.data = data;
-    });
   }
 
   private _filteredFag(value: string): iEducationSubject[] {
