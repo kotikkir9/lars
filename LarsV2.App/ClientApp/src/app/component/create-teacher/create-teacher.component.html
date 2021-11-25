@@ -30,6 +30,7 @@
 			</mat-form-field>
 			<mat-form-field>
 				<mat-label>Telefonnummer</mat-label>
+				<span matPrefix>+45 &nbsp;</span>
 				<input matInput type="tel" formControlName="phoneNumber" required>
 				<mat-error *ngIf="firstFormGroup.controls['phoneNumber'].hasError('required')">
 					Telefonnummer er <strong>påkrævet</strong>
@@ -44,7 +45,7 @@
 		<ng-template matStepLabel>Undervister Skills</ng-template>
 		<div id="uddannelseInput">
 			<app-uddannelse-input #uddannelseInput (addEducationSubjectEvent)="addEducationSubject($event)"></app-uddannelse-input>
-			
+			<span class="spacer"></span>
 			<div class="button-gruppe">
 				<button mat-button (click)="uddannelseInput.getDataFormInput()">Add</button>
 				<button mat-button (click)="uddannelseInput.reset()">Reset</button>

@@ -3,10 +3,10 @@
 }
 
 #uddannelseInput {
-	position: relative;
-	.button-gruppe {
-		position: absolute;
-		right: 50px;
-		top: 15px;
-	}
+	display: flex;
+	align-items: center;
+}
+
+.spacer {
+	flex: 1 1 auto;
 }
