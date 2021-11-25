@@ -519,6 +519,16 @@ namespace LarsV2.Models.DBContext
                 {
                     CourseId = 1,
                     CourseDateTime = DateTimeOffset.Parse("31/12/2021")
+                },
+                new CourseDateTimeOffset
+                {
+                    CourseId = 1,
+                    CourseDateTime = DateTimeOffset.Parse("27/12/2021")
+                },
+                new CourseDateTimeOffset
+                {
+                    CourseId = 1,
+                    CourseDateTime = DateTimeOffset.Parse("1/12/2021")
                 }
             };
 

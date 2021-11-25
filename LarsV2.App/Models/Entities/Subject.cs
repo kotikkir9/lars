@@ -19,5 +19,6 @@ namespace LarsV2.Models.Entities
         public string Description { get; set; }
         public ICollection<LecturerSubject> LecturerSubjects { get; set; }
         public ICollection<Course> Courses { get; set; }
+        
     }
 }

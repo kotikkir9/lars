@@ -13,6 +13,7 @@ namespace LarsV2.Models.DTO
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string CVPath { get; set; }
+        public string ImagePath { get; set; }
         public bool IsExternal { get; set; } = false;
     }
 }
