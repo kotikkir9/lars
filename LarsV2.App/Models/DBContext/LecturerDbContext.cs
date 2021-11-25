@@ -194,7 +194,7 @@ namespace LarsV2.Models.DBContext
                     FirstName = "Jan Pan",
                     LastName = "Nees",
                     Email = "jan@eamv.dk",
-                    PhoneNumber = "+4512345678"
+                    PhoneNumber = "12345678"
                 },
                 new Lecturer()
                 {
@@ -202,7 +202,7 @@ namespace LarsV2.Models.DBContext
                     FirstName = "James",
                     LastName = "Hetfield",
                     Email = "jameshetfield@metallica.com",
-                    PhoneNumber = "+4569696969"
+                    PhoneNumber = "69696969"
                 },
                 new Lecturer()
                 {
@@ -210,7 +210,7 @@ namespace LarsV2.Models.DBContext
                     FirstName = "Flemming",
                     LastName = "Efternavn",
                     Email = "flemming@eamv.dk",
-                    PhoneNumber = "+4511111111"
+                    PhoneNumber = "11111111"
                 },
                 new Lecturer()
                 {
@@ -218,7 +218,7 @@ namespace LarsV2.Models.DBContext
                     FirstName = "Till",
                     LastName = "Lindemann",
                     Email = "lindemann@eamv.dk",
-                    PhoneNumber = "+4598765432"
+                    PhoneNumber = "98765432"
                 },
                 new Lecturer()
                 {
@@ -226,7 +226,7 @@ namespace LarsV2.Models.DBContext
                     FirstName = "Bob",
                     LastName = "Ross",
                     Email = "bob@eamv.dk",
-                    PhoneNumber = "+4544444444"
+                    PhoneNumber = "44444444"
                 },
                 new Lecturer()
                 {
@@ -234,7 +234,7 @@ namespace LarsV2.Models.DBContext
                     FirstName = "Vladimir",
                     LastName = "Putin",
                     Email = "putin@eamv.dk",
-                    PhoneNumber = "+4555555555"
+                    PhoneNumber = "55555555"
                 },
                 new Lecturer()
                 {
@@ -242,7 +242,7 @@ namespace LarsV2.Models.DBContext
                     FirstName = "Donald",
                     LastName = "Trump",
                     Email = "trump@eamv.dk",
-                    PhoneNumber = "+4566666666"
+                    PhoneNumber = "66666666"
                 },
                 new Lecturer()
                 {
@@ -250,7 +250,7 @@ namespace LarsV2.Models.DBContext
                     FirstName = "Joe",
                     LastName = "Rogan",
                     Email = "joe@eamv.dk",
-                    PhoneNumber = "+4577777777"
+                    PhoneNumber = "77777777"
                 },
                 new Lecturer()
                 {
@@ -258,7 +258,7 @@ namespace LarsV2.Models.DBContext
                     FirstName = "Max",
                     LastName = "Verstappen",
                     Email = "max@eamv.dk",
-                    PhoneNumber = "+4588888888"
+                    PhoneNumber = "88888888"
                 },
                 new Lecturer()
                 {
@@ -266,7 +266,7 @@ namespace LarsV2.Models.DBContext
                     FirstName = "Lionel",
                     LastName = "Messi",
                     Email = "messi@eamv.dk",
-                    PhoneNumber = "+4599999999"
+                    PhoneNumber = "99999999"
                 },
                 new Lecturer()
                 {
@@ -274,7 +274,7 @@ namespace LarsV2.Models.DBContext
                     FirstName = "Cristiano",
                     LastName = "Ronaldo",
                     Email = "ronaldo@eamv.dk",
-                    PhoneNumber = "+4512121212"
+                    PhoneNumber = "12121212"
                 },
                 new Lecturer()
                 {
@@ -282,7 +282,7 @@ namespace LarsV2.Models.DBContext
                     FirstName = "Maynard James",
                     LastName = "Keenan",
                     Email = "maynard@eamv.dk",
-                    PhoneNumber = "+4569696969"
+                    PhoneNumber = "69696969"
                 },
                 new Lecturer()
                 {
@@ -290,7 +290,7 @@ namespace LarsV2.Models.DBContext
                     FirstName = "Steven",
                     LastName = "Wilson",
                     Email = "steven@eamv.dk",
-                    PhoneNumber = "+4512341234"
+                    PhoneNumber = "12341234"
                 }
             };
 
