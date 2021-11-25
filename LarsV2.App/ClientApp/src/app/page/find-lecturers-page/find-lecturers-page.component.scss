@@ -1,8 +1,12 @@
 #uddannelseInput {
-	position: relative;
-	.button-gruppe {
-		position: absolute;
-		right: 160px;
-		top: 15px;
-	}
+	display: flex;
+	align-items: center;
+}
+
+#searchInput {
+	width: 100%;
+}
+
+.spacer {
+	flex: 1 1 auto;
 }

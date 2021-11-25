@@ -47,7 +47,7 @@ export class LecturersTableComponent implements AfterViewInit, AfterViewChecked 
         switchMap(() => {
           this.isLoadingResults = true;
 
-          return this.lecturersService.getData(this.paginator.pageSize, this.paginator.pageIndex, this.filterData)
+          return this.lecturersService.getData(this.paginator.pageSize, this.paginator.pageIndex, this.filterData, this.searchData)
             .pipe(catchError(() => observableOf(null)));
 
         }),

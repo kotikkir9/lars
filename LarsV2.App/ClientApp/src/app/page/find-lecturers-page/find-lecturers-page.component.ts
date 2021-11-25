@@ -11,6 +11,10 @@ export class FindLecturersPageComponent implements OnInit {
 
   filterData: iEducationSubject = new NullEducationSubject;
 
+  searchData: string = "";
+
+  searchInputRef: string;
+
   @ViewChild('uddannelseInput') filterInputRef: UddannelseInputComponent;
 
   constructor() { }
@@ -25,6 +29,13 @@ export class FindLecturersPageComponent implements OnInit {
   resetFilter(): void {
     this.filterInputRef.reset();
     this.filterData = new NullEducationSubject;
+    this.searchData = "";
+    this.searchInputRef = "";
+  }
+
+  searchButton(): void {
+    this.filterInputRef.getDataFormInput(false, false);
+    this.searchData = this.searchInputRef;
   }
 
 }
