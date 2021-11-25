@@ -17,6 +17,7 @@ import { LecturersService } from './service/lecturers.service';
 import { LecturersTableComponent } from './component/lecturers-table/lecturers-table.component';
 import { PhonePipe } from './pipe/phone.pipe';
 import { ProfilePageComponent } from './page/profile-page/profile-page.component';
+import { FindLecturersPageComponent } from './page/find-lecturers-page/find-lecturers-page.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ProfilePageComponent } from './page/profile-page/profile-page.component
     UddannelseInputComponent,
     LecturersTableComponent,
     PhonePipe,
-    ProfilePageComponent
+    ProfilePageComponent,
+    FindLecturersPageComponent
   ],
   imports: [
     BrowserModule,
