@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { merge, of as observableOf } from 'rxjs';
@@ -11,7 +11,7 @@ import { iLecturersServiceData, LecturersService } from 'src/app/service/lecture
   templateUrl: './lecturers-table.component.html',
   styleUrls: ['./lecturers-table.component.scss']
 })
-export class LecturersTableComponent implements AfterViewInit {
+export class LecturersTableComponent implements AfterViewInit, AfterViewChecked {
 
   isLoadingResults: boolean = false;
 
@@ -20,7 +20,12 @@ export class LecturersTableComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private lecturersService: LecturersService) { }
+  constructor(private lecturersService: LecturersService, private changeRef: ChangeDetectorRef) { }
+  
+  
+  ngAfterViewChecked(): void {
+    this.changeRef.detectChanges();
+  }
 
   ngAfterViewInit(): void {
     merge(this.paginator.page)
@@ -36,7 +41,6 @@ export class LecturersTableComponent implements AfterViewInit {
             this.isLoadingResults = false;
 
             this.paginator.length = data.metadata.totalCount;
-
             return data.records;
           }
         )
