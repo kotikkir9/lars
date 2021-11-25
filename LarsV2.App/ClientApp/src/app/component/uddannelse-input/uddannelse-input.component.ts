@@ -63,7 +63,7 @@ export class UddannelseInputComponent implements OnInit {
     this.uddannelseFormGroup.controls["uddannelse"].setValue("");
   }
 
-  getDataFormInput():void {
+  getDataFormInput(reset: boolean = true):void {
     let fag:string = this.uddannelseFormGroup.controls["fag"].value;
     let uddannelse:string = this.uddannelseFormGroup.controls["uddannelse"].value;
 
@@ -80,7 +80,8 @@ export class UddannelseInputComponent implements OnInit {
       data = formList;
 
     this.addEducationSubjectEvent.emit(data);
-    this.reset();
+    if(reset)
+      this.reset();
   }
 
   private _filteredFag(value: string): iEducationSubject[] {
