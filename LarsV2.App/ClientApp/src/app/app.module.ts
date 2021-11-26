@@ -18,6 +18,7 @@ import { LecturersTableComponent } from './component/lecturers-table/lecturers-t
 import { PhonePipe } from './pipe/phone.pipe';
 import { ProfilePageComponent } from './page/profile-page/profile-page.component';
 import { FindLecturersPageComponent } from './page/find-lecturers-page/find-lecturers-page.component';
+import { PageNotFoundComponent } from './page/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FindLecturersPageComponent } from './page/find-lecturers-page/find-lect
     LecturersTableComponent,
     PhonePipe,
     ProfilePageComponent,
-    FindLecturersPageComponent
+    FindLecturersPageComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
