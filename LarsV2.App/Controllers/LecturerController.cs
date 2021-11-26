@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -56,10 +55,10 @@ namespace Api.Controllers
         }
 
         [HttpGet("{lecturerId:int}", Name = "GetLecturer")]
-        public ActionResult<LecturerWithSubjectsDto> GetLecturer(int lecturerId)
+        public async Task<ActionResult<LecturerWithSubjectsDto>> GetLecturer(int lecturerId)
         {
-            var lecturerFromRepo = _repository.GetLecturer(lecturerId);
-            
+            var lecturerFromRepo = await _repository.GetFullLecturer(lecturerId); 
+
             if (lecturerFromRepo == null)
             {
                 return NotFound();
@@ -84,14 +83,14 @@ namespace Api.Controllers
         {
             var lecturerToUpdate = _repository.GetLecturer(lecturerId);
 
-            if(lecturerToUpdate == null)
+            if (lecturerToUpdate == null)
             {
                 return NotFound();
             }
 
             lecturer.Id = lecturerId;
             _mapper.Map(lecturer, lecturerToUpdate);
-            
+
             _repository.UpdateLecturer(lecturerToUpdate);
             _repository.Save();
 
@@ -103,7 +102,7 @@ namespace Api.Controllers
         {
             var lecturerToDelete = _repository.GetLecturer(lecturerId);
 
-            if(lecturerToDelete == null)
+            if (lecturerToDelete == null)
             {
                 return NotFound();
             }
@@ -115,16 +114,16 @@ namespace Api.Controllers
         }
 
         [HttpPost("{lecturerId:int}/subjects")]
-        public IActionResult AddSubjectsToLecturer(int lecturerId, [FromBody]IdContainerDto subjectIds)
+        public IActionResult AddSubjectsToLecturer(int lecturerId, [FromBody] IdContainerDto subjectIds)
         {
-            if(!_repository.LecturerExists(lecturerId))
+            if (!_repository.LecturerExists(lecturerId))
             {
                 return NotFound();
             }
 
-            foreach(var id in subjectIds.Ids)
+            foreach (var id in subjectIds.Ids)
             {
-                if(!_LSRepository.ToggleLecturerSubjectRelation(lecturerId, id))
+                if (!_LSRepository.ToggleLecturerSubjectRelation(lecturerId, id))
                 {
                     return NotFound();
                 }
@@ -133,6 +132,33 @@ namespace Api.Controllers
             _repository.Save();
             return NoContent();
         }
+
+        [HttpGet("{lecturerId:int}/dates")]
+        public ActionResult<IEnumerable<ReservedDateDto>>CheckDatesForLecturer(int lecturerId, [FromBody]DatesToCheck datesToCheck)
+        {
+            var courses = _repository.GetCoursesForLecturer(lecturerId);
+
+            var listOfTakenDates = new List<ReservedDateDto>();
+
+            foreach (var date in datesToCheck.Dates)
+            {
+                DateTimeOffset parsedDate;
+                if (DateTimeOffset.TryParse(date, out parsedDate))
+                {
+                    foreach (var course in courses)
+                    {
+                        if (course.CourseDates.Any(e => e.CourseDateTime == parsedDate))
+                        {
+                            var subjectDto = _mapper.Map<SubjectDto>(course.Subject);
+                            listOfTakenDates.Add(new ReservedDateDto { CourseId = course.Id, Subject = subjectDto, ReservedDate = parsedDate });
+                        }
+                    }
+                }
+            }
+
+            return Ok(new { ReservedDates = listOfTakenDates });
+        }
+
 
         [HttpOptions]
         public IActionResult GetLecturersOptions()

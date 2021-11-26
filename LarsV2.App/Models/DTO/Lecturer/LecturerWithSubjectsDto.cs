@@ -17,5 +17,6 @@ namespace LarsV2.Models.DTO
         public string ImagePath { get; set; }
         public bool IsExternal { get; set; }
         public IEnumerable<SubjectDto> Subjects { get; set; }
+        public IEnumerable<CourseWithoutLecturerDto> Courses { get; set; }
     }
 }

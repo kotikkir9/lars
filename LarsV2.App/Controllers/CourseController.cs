@@ -6,10 +6,7 @@ using LarsV2.Models.ResourceParameters;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace LarsV2.Controllers
 {
@@ -56,14 +53,32 @@ namespace LarsV2.Controllers
         public ActionResult<CourseWithDatesDto> GetCourse(int courseId)
         {
             var courseFromRepo = _repository.GetCourse(courseId);
+            if(courseFromRepo == null)
+            {
+                return NotFound();
+            }
+
             var courseDto = _mapper.Map<CourseWithDatesDto>(courseFromRepo);
 
-            return courseDto;
+            return Ok(courseDto);
         }
 
         [HttpPost]
         public IActionResult CreateCourse(CourseToCreateDto course)
         {
+            if(!_repository.SubjectExists((int)course.SubjectId))
+            {
+                return NotFound();
+            }
+
+            if (course.LecturerId != null)
+            {
+                if (!_repository.LecturerExists((int)course.LecturerId))
+                {
+                    return NotFound();
+                }
+            }
+
             var courseToCreate = _mapper.Map<Course>(course);
 
             _repository.CreateCourse(courseToCreate);
@@ -82,9 +97,53 @@ namespace LarsV2.Controllers
             }
 
             _repository.Save();
+            return CreatedAtRoute("GetCourse", new { courseId = courseToCreate.Id }, courseToCreate);
+        }
 
-            return Ok(courseToCreate);
-            //return CreatedAtRoute("GetCourse", new { courseId = courseToCreate.Id }, courseToCreate);
+        [HttpPut("{courseId:int}")]
+        public IActionResult UpdateCourse(int courseId, CourseToCreateDto course)
+        {
+            var courseToUpdate = _repository.GetCourse(courseId);
+
+            if(courseToUpdate == null)
+            {
+                return NotFound();
+            }
+ 
+            _mapper.Map(course, courseToUpdate);
+
+            if(course.Dates != null)
+            {
+                foreach(var date in course.Dates)
+                {
+                    DateTimeOffset parsedDate;
+                    if (DateTimeOffset.TryParse(date, out parsedDate))
+                    {
+                        _repository.ToggleDate(new CourseDateTimeOffset { CourseId = courseId, CourseDateTime = parsedDate });
+                    }
+                }
+            }
+
+            _repository.UpdateCourse(courseToUpdate);
+            _repository.Save();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{courseId:int}")]
+        public IActionResult DeleteCourse(int courseId)
+        {
+            var courseToDelete = _repository.GetCourse(courseId);
+
+            if(courseToDelete == null)
+            {
+                return NotFound();
+            }
+
+            _repository.DeleteCourse(courseToDelete);
+            _repository.Save();
+
+            return NoContent();
         }
 
     }

@@ -1,23 +1,18 @@
-﻿using LarsV2.Models.DBContext;
+﻿using LarsV2.Helpers;
+using LarsV2.Models.DBContext;
 using LarsV2.Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using LarsV2.Helpers;
 using LarsV2.Models.ResourceParameters;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 
 namespace LarsV2.Models.Repository
 {
-    public class CoursesRepository : ICoursesRepository
+    public class CoursesRepository : Repository, ICoursesRepository
     {
-        private readonly LecturerDbContext _context;
-
-        public CoursesRepository(LecturerDbContext context)
+        public CoursesRepository(LecturerDbContext context) : base(context)
         {
-            _context = context;
+            
         }
 
         public Course GetCourse(int id)
@@ -42,11 +37,6 @@ namespace LarsV2.Models.Repository
             var collection = _context.Courses.Include(e => e.Subject).Include(e => e.Lecturer) as IQueryable<Course>;
 
             return PagedList<Course>.Create(collection, parameters.PageNumber, parameters.PageSize);
-        }
-
-        public bool CourseExists(int id)
-        {
-            return _context.Courses.Any(e => e.Id == id);
         }
 
         public void CreateCourse(Course course)
@@ -79,11 +69,6 @@ namespace LarsV2.Models.Repository
             {
                 _context.CourseDataTimeOffsets.Remove(courseDate);
             }
-        }
-
-        public bool Save()
-        {
-            return (_context.SaveChanges() >= 0);
         }
 
         public void UpdateCourse(Course course)

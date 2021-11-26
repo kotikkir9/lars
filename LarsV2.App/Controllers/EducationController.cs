@@ -2,14 +2,9 @@
 using LarsV2.Models.DTO;
 using LarsV2.Models.Repository;
 using LarsV2.Models.ResourceParameters;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LarsV2.Controllers
 {
