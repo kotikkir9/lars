@@ -1,6 +1,6 @@
-/** Insterface til fag*/
-export interface iSubject {
+export interface iSubject{
 	id: number;
-	/** Fag */
-	subject: string;
+	title: string;
+	education: string;
+	description: string;
 }

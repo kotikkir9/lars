@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { iEducation } from '../DTO/education';
-import { iEducationSubject } from '../DTO/educationSubject';
+import { iEducationSubject, iEducationSubjectArray } from '../DTO/educationSubject';
 
 export interface iEducationServiceData {
 	EducationSubject: iEducationSubject[];
@@ -20,7 +19,7 @@ export class EducationService {
 	constructor(private http: HttpClient) { }
 
 	getData(): Observable<iEducationServiceData> {
-		return this.http.get<iEducation>(this.url).pipe(
+		return this.http.get<iEducationSubjectArray>(this.url).pipe(
 			map(datas => this.convetHttpData(datas))
 		);
 	}
@@ -39,7 +38,7 @@ export class EducationService {
 		return data;
 	}
 
-	private convetEducationData(data: iEducation): iEducationSubject[] {
+	private convetEducationData(data: iEducationSubjectArray): iEducationSubject[] {
 		let newData: iEducationSubject[] = [];
 
 		data.subjects.forEach(subject => {

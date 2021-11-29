@@ -3,13 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { iEducationSubject, NullEducationSubject } from '../DTO/educationSubject';
 import { iLecturers } from '../DTO/lecturers';
-
-export interface iMetadata {
-  totalCount: number;
-  pageSize: number;
-  currentPage: number;
-  totalPages: number;
-}
+import { iMetadata } from '../DTO/metadata';
 
 export interface iLecturersServiceData {
   metadata: iMetadata;
