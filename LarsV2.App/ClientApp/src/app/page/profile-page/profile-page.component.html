@@ -50,7 +50,7 @@
 					</mat-panel-title>
 				</mat-expansion-panel-header>
 				<table id="fag-table">
-					<tr *ngFor="let c of lecturesData.courses">
+					<tr *ngFor="let c of lecturesData.courses" [routerLink]="['/udbud-profile', c.id]">
 						<td>
 							<b>{{c.subject.title}}</b> <br> <small>{{c.subject.education}}</small>
 						</td>
