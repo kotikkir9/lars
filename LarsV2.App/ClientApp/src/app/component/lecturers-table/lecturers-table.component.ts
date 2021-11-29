@@ -1,7 +1,7 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { merge, of as observableOf } from 'rxjs';
+import { merge, of } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { iEducationSubject, NullEducationSubject } from 'src/app/DTO/educationSubject';
 import { iLecturers } from 'src/app/DTO/lecturers';
@@ -48,7 +48,7 @@ export class LecturersTableComponent implements AfterViewInit, AfterViewChecked 
           this.isLoadingResults = true;
 
           return this.lecturersService.getData(this.paginator.pageSize, this.paginator.pageIndex, this.filterData, this.searchData)
-            .pipe(catchError(() => observableOf(null)));
+            .pipe(catchError(() => of(null)));
 
         }),
         map((data: iLecturersServiceData) => {

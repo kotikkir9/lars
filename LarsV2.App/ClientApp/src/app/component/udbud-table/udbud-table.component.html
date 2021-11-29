@@ -4,31 +4,38 @@
 	</div>
 	<table class="table-container" mat-table [dataSource]="dataSource">
 
-		<ng-container matColumnDef="name">
-			<th mat-header-cell *matHeaderCellDef> Navn </th>
-			<td mat-cell *matCellDef="let element"> {{element.name}} </td>
+		<ng-container matColumnDef="fag">
+			<th mat-header-cell *matHeaderCellDef> Fag </th>
+			<td mat-cell *matCellDef="let element"> {{element.subject.title}} </td>
 		</ng-container>
 
-		<ng-container matColumnDef="email">
-			<th mat-header-cell *matHeaderCellDef> Email </th>
-			<td mat-cell *matCellDef="let element"> {{element.email}} </td>
+		<ng-container matColumnDef="uddannelse">
+			<th mat-header-cell *matHeaderCellDef> Uddannelse </th>
+			<td mat-cell *matCellDef="let element"> {{element.subject.education}} </td>
 		</ng-container>
 
-		<ng-container matColumnDef="isExternal">
-			<th mat-header-cell *matHeaderCellDef> Ekstern </th>
-			<td mat-cell *matCellDef="let element">
-				<mat-icon aria-hidden="false" matTooltip="Underviser er ekstern" [matTooltipShowDelay]="500"
-					*ngIf="element.isExternal">done</mat-icon>
-			</td>
+		<ng-container matColumnDef="underviser">
+			<th mat-header-cell *matHeaderCellDef> Underviser </th>
+			<td mat-cell *matCellDef="let element"> {{element.lecturer.name}} </td>
 		</ng-container>
 
-		<ng-container matColumnDef="phoneNumber">
-			<th mat-header-cell *matHeaderCellDef> Telefonnummer </th>
-			<td mat-cell *matCellDef="let element"> {{element.phoneNumber | phone}} </td>
+		<ng-container matColumnDef="status">
+			<th mat-header-cell *matHeaderCellDef> Status </th>
+			<td mat-cell *matCellDef="let element"> {{"Ved ikke"}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="startdato">
+			<th mat-header-cell *matHeaderCellDef> Startdato </th>
+			<td mat-cell *matCellDef="let element"> {{element.startDate | date}} </td>
+		</ng-container>
+
+		<ng-container matColumnDef="slutdato">
+			<th mat-header-cell *matHeaderCellDef> Slutdato </th>
+			<td mat-cell *matCellDef="let element"> {{element.endDate | date}} </td>
 		</ng-container>
 
 		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-		<tr  [routerLink]="['/profile', row.id]" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 	</table>
 	<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
 	</mat-paginator>

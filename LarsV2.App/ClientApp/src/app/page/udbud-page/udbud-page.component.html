@@ -1,1 +1,20 @@
-<p>udbud-page works!</p>
+<div id="uddannelseInput">
+	<app-uddannelse-input #uddannelseInput (addEducationSubjectEvent)="addEducationSubject($event)">
+	</app-uddannelse-input>
+
+	<button (click)="resetFilter()" mat-icon-button>
+		<mat-icon>close</mat-icon>
+	</button>
+	<span class="spacer"></span>
+	<div>
+		<button (click)="searchButton()" mat-mini-fab color="primary"
+			aria-label="Example icon button with a delete icon">
+			<mat-icon>search</mat-icon>
+		</button>
+	</div>
+</div>
+<mat-form-field Id="searchInput">
+	<mat-label>Søg</mat-label>
+	<input [(ngModel)]="searchInputRef" matInput type="text">
+</mat-form-field>
+<app-udbud-table [_searchData]="searchData" [_filterData]="filterData"></app-udbud-table>
