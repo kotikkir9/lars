@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { iCourses } from '../DTO/courses';
+import { iCoursesSearchParmas } from '../DTO/coursesSearchParmas';
 import { iEducationSubject, NullEducationSubject } from '../DTO/educationSubject';
 import { iMetadata } from '../DTO/metadata';
 
@@ -19,14 +20,16 @@ export class CoursesService {
 
   constructor(private http: HttpClient) { }
 
-  getData(pageSize: number, pageIndex: number, filter:iEducationSubject = new NullEducationSubject, search: string = ""): Observable<iCoursesServiceData> {
+  getData(data: iCoursesSearchParmas): Observable<iCoursesServiceData> {
     return this.http.get<iCoursesServiceData>(this.url, {
       params: new HttpParams()
-        .set("PageSize", pageSize.toString())
-        .set("PageNumber", (pageIndex + 1).toString())
-        .set("Subject", filter.subject.subject)
-        .set("Education", filter.education)
-        .set("SearchQuery", search)
+        .set("PageSize", data.pageSize.toString())
+        .set("PageNumber", (data.pageIndex + 1).toString())
+        .set("Subject", data.filter.subject.subject)
+        .set("Education", data.filter.education)
+        .set("SearchQuery", data.search)
+        .set("FromDate", data.fromDate)
+        .set("ToDate", data.toDate)
     });
   }
 }

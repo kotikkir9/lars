@@ -4,8 +4,30 @@ import { MatTableDataSource } from '@angular/material/table';
 import { merge, of } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { iCourses } from 'src/app/DTO/courses';
+import { iCoursesSearchParmas } from 'src/app/DTO/coursesSearchParmas';
 import { iEducationSubject, NullEducationSubject } from 'src/app/DTO/educationSubject';
 import { CoursesService, iCoursesServiceData } from 'src/app/service/courses.service';
+
+export interface iUdbudTableInput {
+  filterData: iEducationSubject;
+  searchData: string;
+  fromDate: string;
+  toDate: string;
+}
+
+export class NullUdbudTableInput implements iUdbudTableInput {
+  filterData: iEducationSubject;
+  searchData: string;
+  fromDate: string;
+  toDate: string;
+
+  constructor() {
+    this.filterData = new NullEducationSubject;
+    this.fromDate = "";
+    this.toDate = "";
+    this.searchData = "";
+  }
+}
 
 @Component({
   selector: 'app-udbud-table',
@@ -14,18 +36,13 @@ import { CoursesService, iCoursesServiceData } from 'src/app/service/courses.ser
 })
 export class UdbudTableComponent implements AfterViewInit, AfterViewChecked {
 
-  filterData: iEducationSubject = new NullEducationSubject;
-  searchData: string = "";
-  filerOrSearchChanges = new EventEmitter<void>();
+  udbudTableInput: iUdbudTableInput = new NullUdbudTableInput;
 
-  @Input() set _filterData(data: iEducationSubject) {
-    this.filterData = data;
-    this.filerOrSearchChanges.emit();
-  };
+  inputDataChanges = new EventEmitter<void>();
 
-  @Input() set _searchData(data: string) {
-    this.searchData = data;
-    this.filerOrSearchChanges.emit();
+  @Input() set _udbudTableInputData(data: iUdbudTableInput) {
+    this.udbudTableInput = data;
+    this.inputDataChanges.emit();
   };
 
   displayedColumns: string[] = ['fag', 'uddannelse', 'underviser', 'status', 'startdato', 'slutdato'];
@@ -42,13 +59,22 @@ export class UdbudTableComponent implements AfterViewInit, AfterViewChecked {
   }
 
   ngAfterViewInit(): void {
-    merge(this.paginator.page, this.filerOrSearchChanges)
+    merge(this.paginator.page, this.inputDataChanges)
       .pipe(
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
 
-          return this.coursesService.getData(this.paginator.pageSize, this.paginator.pageIndex, this.filterData, this.searchData)
+          let parmeter: iCoursesSearchParmas = {
+            pageSize: this.paginator.pageSize,
+            pageIndex: this.paginator.pageIndex,
+            filter: this.udbudTableInput.filterData,
+            search: this.udbudTableInput.searchData,
+            fromDate: this.udbudTableInput.fromDate,
+            toDate: this.udbudTableInput.toDate
+          }
+
+          return this.coursesService.getData(parmeter)
             .pipe(catchError(() => of(null)));
 
         }),

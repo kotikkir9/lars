@@ -17,4 +17,26 @@
 	<mat-label>Søg</mat-label>
 	<input [(ngModel)]="searchInputRef" matInput type="text">
 </mat-form-field>
-<app-udbud-table [_searchData]="searchData" [_filterData]="filterData"></app-udbud-table>
+<mat-form-field id="Startdato">
+	<mat-label>Startdato</mat-label>
+	<input matInput [(ngModel)]="startdatoInputRef" [matDatepicker]="datepickerStart">
+	<mat-datepicker-toggle matSuffix [for]="datepickerStart"></mat-datepicker-toggle>
+	<mat-datepicker #datepickerStart>
+		<mat-datepicker-actions>
+			<button mat-button matDatepickerCancel>Cancel</button>
+			<button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+		</mat-datepicker-actions>
+	</mat-datepicker>
+</mat-form-field>
+<mat-form-field id="Slutdato">
+	<mat-label>Slutdato</mat-label>
+	<input matInput [(ngModel)]="slutdatoInputRef" [matDatepicker]="datepickerSlut">
+	<mat-datepicker-toggle matSuffix [for]="datepickerSlut"></mat-datepicker-toggle>
+	<mat-datepicker #datepickerSlut>
+		<mat-datepicker-actions>
+			<button mat-button matDatepickerCancel>Cancel</button>
+			<button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+		</mat-datepicker-actions>
+	</mat-datepicker>
+</mat-form-field>
+<app-udbud-table [_udbudTableInputData]="udbudTableInputData"></app-udbud-table>

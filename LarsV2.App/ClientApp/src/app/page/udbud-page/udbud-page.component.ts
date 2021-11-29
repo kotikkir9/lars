@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { iUdbudTableInput, NullUdbudTableInput } from 'src/app/component/udbud-table/udbud-table.component';
 import { UddannelseInputComponent } from 'src/app/component/uddannelse-input/uddannelse-input.component';
-import { iEducationSubject, NullEducationSubject } from 'src/app/DTO/educationSubject';
+import { iEducationSubject } from 'src/app/DTO/educationSubject';
 
 @Component({
   selector: 'app-udbud-page',
@@ -9,11 +10,11 @@ import { iEducationSubject, NullEducationSubject } from 'src/app/DTO/educationSu
 })
 export class UdbudPageComponent implements OnInit {
 
-  filterData: iEducationSubject = new NullEducationSubject;
-
-  searchData: string = "";
+  udbudTableInputData: iUdbudTableInput = new NullUdbudTableInput
 
   searchInputRef: string;
+  startdatoInputRef: string;
+  slutdatoInputRef: string;
 
   @ViewChild('uddannelseInput') filterInputRef: UddannelseInputComponent;
 
@@ -23,19 +24,23 @@ export class UdbudPageComponent implements OnInit {
   }
 
   addEducationSubject(data: iEducationSubject): void {
-    this.filterData = data;
+    this.udbudTableInputData.filterData = data;
   }
 
   resetFilter(): void {
     this.filterInputRef.reset();
-    this.filterData = new NullEducationSubject;
-    this.searchData = "";
+
+    this.udbudTableInputData = new NullUdbudTableInput;
     this.searchInputRef = "";
+    this.slutdatoInputRef = "";
+    this.startdatoInputRef = "";
   }
 
   searchButton(): void {
     this.filterInputRef.getDataFormInput(false, false);
-    this.searchData = this.searchInputRef;
+    this.udbudTableInputData.searchData = this.searchInputRef;
+    this.udbudTableInputData.toDate = this.slutdatoInputRef;
+    this.udbudTableInputData.fromDate = this.startdatoInputRef;
   }
 
 }
