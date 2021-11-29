@@ -32,7 +32,7 @@
 	}
 }
 
-#fag-table {
+#fag-table, #udbud-table {
 	border-collapse: collapse;
 	width: 100%;
 	th, td {
@@ -44,10 +44,16 @@
 		border: none;
 	}
 
+	tr:hover {background-color: darken($color: #fff, $amount: 10);}
+
 	td {
 		font-size: 1.2rem;
 		small {
 			font-size: 0.8em;
 		}
 	}
+}
+
+#udbud-table tr {
+	cursor: pointer;
 }
