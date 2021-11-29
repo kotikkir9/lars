@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LarsV2.Migrations
 {
     [DbContext(typeof(LecturerDbContext))]
-    [Migration("20211127124905_AddedStartAndEndDateToCourse")]
-    partial class AddedStartAndEndDateToCourse
+    [Migration("20211129104923_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
