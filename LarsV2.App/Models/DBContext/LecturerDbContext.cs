@@ -501,7 +501,9 @@ namespace LarsV2.Models.DBContext
                 {
                     Id = 1,
                     SubjectId = 1,
-                    LecturerId = 1
+                    LecturerId = 1,
+                    StartDate = DateTimeOffset.Parse("01/12/2021"),
+                    EndDate = DateTimeOffset.Parse("27/12/2031")
                 }
             };
 
