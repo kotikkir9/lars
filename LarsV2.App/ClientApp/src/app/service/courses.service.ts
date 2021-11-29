@@ -32,4 +32,8 @@ export class CoursesService {
         .set("ToDate", data.toDate)
     });
   }
+
+  getThisCourses(id: number): Observable<iCourses> {
+    return this.http.get<iCourses>(this.url + `/${id}`);
+  }
 }

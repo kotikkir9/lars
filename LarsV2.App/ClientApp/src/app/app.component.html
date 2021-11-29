@@ -1,11 +1,15 @@
 <mat-toolbar color="primary">
     <span [routerLink]="['/']">Lars Application</span>
 	<span class="spacer"></span>
-	<a [routerLink]="['/opret']" mat-button>Opret Underviser</a>
-	<a [routerLink]="['/profile', 1]" mat-button>Underviser profile</a>
-	<a [routerLink]="['/find']" mat-button>Find Underviser</a>
-	<a [routerLink]="['/udbud']" mat-button>Udbud</a>
-	<a [routerLink]="['/test']" mat-button>test</a>
+	<button mat-button [matMenuTriggerFor]="menu">Debug menu</button>
+	<mat-menu #menu="matMenu">
+		<a mat-menu-item [routerLink]="['/opret']">Opret Underviser</a>
+		<a mat-menu-item [routerLink]="['/profile', 1]">Underviser profile</a>
+		<a mat-menu-item [routerLink]="['/udbud-profile', 1]">Udbud profile</a>
+		<a mat-menu-item [routerLink]="['/find']">Find Underviser</a>
+		<a mat-menu-item [routerLink]="['/udbud']">Udbud</a>
+		<a mat-menu-item [routerLink]="['/test']">test</a>
+	</mat-menu>
 </mat-toolbar>
 <div id="body">
 	<div></div>

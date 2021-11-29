@@ -22,6 +22,7 @@ import { PageNotFoundComponent } from './page/page-not-found/page-not-found.comp
 import { UdbudPageComponent } from './page/udbud-page/udbud-page.component';
 import { UdbudTableComponent } from './component/udbud-table/udbud-table.component';
 import { CoursesService } from './service/courses.service';
+import { UdbudProfilePageComponent } from './page/udbud-profile-page/udbud-profile-page.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CoursesService } from './service/courses.service';
     FindLecturersPageComponent,
     PageNotFoundComponent,
     UdbudPageComponent,
-    UdbudTableComponent
+    UdbudTableComponent,
+    UdbudProfilePageComponent
   ],
   imports: [
     BrowserModule,

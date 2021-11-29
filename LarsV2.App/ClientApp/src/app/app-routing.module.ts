@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from './page/page-not-found/page-not-found.comp
 import { ProfilePageComponent } from './page/profile-page/profile-page.component';
 import { TestPageComponent } from './page/test-page/test-page.component';
 import { UdbudPageComponent } from './page/udbud-page/udbud-page.component';
+import { UdbudProfilePageComponent } from './page/udbud-profile-page/udbud-profile-page.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: "find", component: FindLecturersPageComponent},
   {path: "test", component: TestPageComponent},
   {path: "udbud", component: UdbudPageComponent},
+  {path: "udbud-profile/:id", component: UdbudProfilePageComponent},
   {path: "**", component: PageNotFoundComponent}
 ];
 
