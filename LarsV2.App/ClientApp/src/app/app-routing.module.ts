@@ -6,6 +6,7 @@ import { HomePageComponent } from './page/home-page/home-page.component';
 import { PageNotFoundComponent } from './page/page-not-found/page-not-found.component';
 import { ProfilePageComponent } from './page/profile-page/profile-page.component';
 import { TestPageComponent } from './page/test-page/test-page.component';
+import { UdbudPageComponent } from './page/udbud-page/udbud-page.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: "profile/:id", component: ProfilePageComponent},
   {path: "find", component: FindLecturersPageComponent},
   {path: "test", component: TestPageComponent},
+  {path: "udbud", component: UdbudPageComponent},
   {path: "**", component: PageNotFoundComponent}
 ];
 

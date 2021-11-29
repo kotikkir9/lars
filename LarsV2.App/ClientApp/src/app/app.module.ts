@@ -19,6 +19,8 @@ import { PhonePipe } from './pipe/phone.pipe';
 import { ProfilePageComponent } from './page/profile-page/profile-page.component';
 import { FindLecturersPageComponent } from './page/find-lecturers-page/find-lecturers-page.component';
 import { PageNotFoundComponent } from './page/page-not-found/page-not-found.component';
+import { UdbudPageComponent } from './page/udbud-page/udbud-page.component';
+import { UdbudTableComponent } from './component/udbud-table/udbud-table.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { PageNotFoundComponent } from './page/page-not-found/page-not-found.comp
     PhonePipe,
     ProfilePageComponent,
     FindLecturersPageComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    UdbudPageComponent,
+    UdbudTableComponent
   ],
   imports: [
     BrowserModule,
