@@ -116,19 +116,19 @@ namespace LarsV2.Migrations
                 columns: new[] { "Id", "CVPath", "Email", "FirstName", "ImagePath", "IsExternal", "Knowledge", "LastName", "PhoneNumber" },
                 values: new object[,]
                 {
-                    { 1, null, "jan@eamv.dk", "Jan Pan", null, false, null, "Nees", "+4512345678" },
-                    { 13, null, "steven@eamv.dk", "Steven", null, false, null, "Wilson", "+4512341234" },
-                    { 11, null, "ronaldo@eamv.dk", "Cristiano", null, false, null, "Ronaldo", "+4512121212" },
-                    { 10, null, "messi@eamv.dk", "Lionel", null, false, null, "Messi", "+4599999999" },
-                    { 9, null, "max@eamv.dk", "Max", null, false, null, "Verstappen", "+4588888888" },
-                    { 8, null, "joe@eamv.dk", "Joe", null, false, null, "Rogan", "+4577777777" },
-                    { 12, null, "maynard@eamv.dk", "Maynard James", null, false, null, "Keenan", "+4569696969" },
-                    { 6, null, "putin@eamv.dk", "Vladimir", null, false, null, "Putin", "+4555555555" },
-                    { 5, null, "bob@eamv.dk", "Bob", null, false, null, "Ross", "+4544444444" },
-                    { 4, null, "lindemann@eamv.dk", "Till", null, false, null, "Lindemann", "+4598765432" },
-                    { 3, null, "flemming@eamv.dk", "Flemming", null, false, null, "Efternavn", "+4511111111" },
-                    { 2, null, "jameshetfield@metallica.com", "James", null, false, null, "Hetfield", "+4569696969" },
-                    { 7, null, "trump@eamv.dk", "Donald", null, false, null, "Trump", "+4566666666" }
+                    { 1, null, "jan@eamv.dk", "Jan Pan", null, false, null, "Nees", "12345678" },
+                    { 13, null, "steven@eamv.dk", "Steven", null, false, null, "Wilson", "12341234" },
+                    { 11, null, "ronaldo@eamv.dk", "Cristiano", null, false, null, "Ronaldo", "12121212" },
+                    { 10, null, "messi@eamv.dk", "Lionel", null, false, null, "Messi", "99999999" },
+                    { 9, null, "max@eamv.dk", "Max", null, false, null, "Verstappen", "88888888" },
+                    { 8, null, "joe@eamv.dk", "Joe", null, false, null, "Rogan", "77777777" },
+                    { 12, null, "maynard@eamv.dk", "Maynard James", null, false, null, "Keenan", "69696969" },
+                    { 6, null, "putin@eamv.dk", "Vladimir", null, false, null, "Putin", "55555555" },
+                    { 5, null, "bob@eamv.dk", "Bob", null, false, null, "Ross", "44444444" },
+                    { 4, null, "lindemann@eamv.dk", "Till", null, false, null, "Lindemann", "98765432" },
+                    { 3, null, "flemming@eamv.dk", "Flemming", null, false, null, "Efternavn", "11111111" },
+                    { 2, null, "jameshetfield@metallica.com", "James", null, false, null, "Hetfield", "69696969" },
+                    { 7, null, "trump@eamv.dk", "Donald", null, false, null, "Trump", "66666666" }
                 });
 
             migrationBuilder.InsertData(
@@ -215,12 +215,13 @@ namespace LarsV2.Migrations
             migrationBuilder.InsertData(
                 table: "CourseDataTimeOffsets",
                 columns: new[] { "CourseDateTime", "CourseId" },
-                values: new object[] { new DateTimeOffset(new DateTime(2021, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)), 1 });
-
-            migrationBuilder.InsertData(
-                table: "CourseDataTimeOffsets",
-                columns: new[] { "CourseDateTime", "CourseId" },
-                values: new object[] { new DateTimeOffset(new DateTime(2021, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)), 1 });
+                values: new object[,]
+                {
+                    { new DateTimeOffset(new DateTime(2021, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)), 1 },
+                    { new DateTimeOffset(new DateTime(2021, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)), 1 },
+                    { new DateTimeOffset(new DateTime(2021, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)), 1 },
+                    { new DateTimeOffset(new DateTime(2021, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)), 1 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_LecturerId",

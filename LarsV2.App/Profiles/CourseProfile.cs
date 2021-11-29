@@ -15,6 +15,7 @@ namespace LarsV2.Profiles
         {
             CreateMap<Course, CourseWithDatesDto>();
             CreateMap<Course, CourseDto>();
+            CreateMap<Course, CourseWithoutLecturerDto>();
             CreateMap<CourseToCreateDto, Course>();
             CreateMap<CourseDateTimeOffset, CourseDateTimeOffsetsDto>(); 
         }

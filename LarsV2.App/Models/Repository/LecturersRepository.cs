@@ -1,25 +1,23 @@
 ﻿using LarsV2.Helpers;
 using LarsV2.Models.DBContext;
-using LarsV2.Models.DTO;
 using LarsV2.Models.Entities;
 using LarsV2.Models.ResourceParameters;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace LarsV2.Models.Repository
 {
-    public class LecturersRepository : ILecturersRepository
+    public class LecturersRepository : Repository, ILecturersRepository
     {
-        private readonly LecturerDbContext _context;
-
-        public LecturersRepository(LecturerDbContext context)
+        public LecturersRepository(LecturerDbContext context) : base(context)
         {
-            _context = context;
+
         }
+
         public PagedList<Lecturer> GetLecturers(LecturerResourceParameters parameters)
         {
             if(parameters == null)
@@ -65,18 +63,19 @@ namespace LarsV2.Models.Repository
 
         public Lecturer GetLecturer(int id)
         {
-            var lecturer = _context.Lecturers
-                .Where(e => e.Id == id)
-                .Include(e => e.LecturerSubjects)
-                .ThenInclude(e => e.Subject)
-                .FirstOrDefault();
-
-            return lecturer;
+            return _context.Lecturers.FirstOrDefault(e => e.Id == id);
         }
 
-        public bool LecturerExists(int id)
+        public async Task<Lecturer> GetFullLecturer(int id)
         {
-            return _context.Lecturers.Any(l => l.Id == id);
+            var lecturer = await _context.Lecturers
+                .Include(e => e.LecturerSubjects).ThenInclude(e => e.Subject)
+                .Include(e => e.Courses).ThenInclude(e => e.Subject)
+                .Where(e => e.Id == id)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync();
+             
+            return lecturer;
         }
 
         public void AddLecturer(Lecturer lecturer)
@@ -97,9 +96,14 @@ namespace LarsV2.Models.Repository
             }   
         }
 
-        public bool Save()
+        public IEnumerable<Course> GetCoursesForLecturer(int id)
         {
-            return (_context.SaveChanges() >= 0);
+            var coursesForLecturer = _context.Courses
+                .Where(e => e.LecturerId == id)
+                .Include(e => e.Subject)
+                .Include(e => e.CourseDates);
+            
+            return coursesForLecturer;
         }
 
         public void UpdateLecturer(Lecturer lecturer)

@@ -29,10 +29,17 @@ namespace LarsV2.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset?>("EndDate")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<int?>("LecturerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubjectId")
+                    b.Property<DateTimeOffset?>("StartDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int?>("SubjectId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");

@@ -4,20 +4,16 @@ using LarsV2.Models.Entities;
 using LarsV2.Models.ResourceParameters;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LarsV2.Models.Repository
 {
-    public class SubjectsRepository : ISubjectsRepository
+    public class SubjectsRepository : Repository, ISubjectsRepository
     {
-        private readonly LecturerDbContext _context;
 
-        public SubjectsRepository(LecturerDbContext context)
+        public SubjectsRepository(LecturerDbContext context) : base(context)
         {
-            _context = context;
+
         }
 
         public PagedList<Subject> GetSubjects(SubjectResourceParameters parameters)
@@ -56,11 +52,6 @@ namespace LarsV2.Models.Repository
 
             return subject;
         }
-
-        public bool SubjectExists(int id)
-        {
-            return _context.Subjects.Any(s => s.Id == id);
-        }
         
         public void AddSubject(Subject subject)
         {
@@ -78,11 +69,6 @@ namespace LarsV2.Models.Repository
             {
                 _context.Subjects.Remove(subject);
             }
-        }
-
-        public bool Save()
-        {
-            return (_context.SaveChanges() >= 0);
         }
 
         public void UpdateSubject(Subject subject)
