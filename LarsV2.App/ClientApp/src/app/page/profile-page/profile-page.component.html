@@ -23,17 +23,18 @@
 						<td>{{lecturesData.phoneNumber | phone}}</td>
 					</tr>
 				</table>
-				<a mat-raised-button color="primary">CV</a>
+				<a mat-raised-button target="_blank" [href]="lecturesData.cvPath" color="primary">CV</a>
 			</mat-card-content>
 		</mat-card>
 	</div>
 	<div id="time-profile">
-		<mat-card >
-			<mat-card-header>
-				<mat-card-title>Fag</mat-card-title>
-				<mat-card-subtitle>Uddannelse</mat-card-subtitle>
-			</mat-card-header>
-			<mat-card-content class="container">
+		<mat-accordion multi>
+			<mat-expansion-panel>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						Fag og Uddannelse
+					</mat-panel-title>
+				</mat-expansion-panel-header>
 				<table id="fag-table">
 					<tr *ngFor="let ug of lecturesData.subjects">
 						<td>
@@ -41,7 +42,21 @@
 						</td>
 					</tr>
 				</table>
-			</mat-card-content>
-		</mat-card>
+			</mat-expansion-panel>
+			<mat-expansion-panel>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						Udbud
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<table id="fag-table">
+					<tr *ngFor="let c of lecturesData.courses">
+						<td>
+							<b>{{c.subject.title}}</b> <br> <small>{{c.subject.education}}</small>
+						</td>
+					</tr>
+				</table>
+			</mat-expansion-panel>
+		</mat-accordion>
 	</div>
 </div>
