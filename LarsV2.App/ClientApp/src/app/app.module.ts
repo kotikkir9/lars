@@ -21,6 +21,7 @@ import { FindLecturersPageComponent } from './page/find-lecturers-page/find-lect
 import { PageNotFoundComponent } from './page/page-not-found/page-not-found.component';
 import { UdbudPageComponent } from './page/udbud-page/udbud-page.component';
 import { UdbudTableComponent } from './component/udbud-table/udbud-table.component';
+import { CoursesService } from './service/courses.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { UdbudTableComponent } from './component/udbud-table/udbud-table.compone
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [EducationService, LecturersService],
+  providers: [EducationService, LecturersService, CoursesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
