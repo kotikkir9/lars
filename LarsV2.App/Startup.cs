@@ -1,5 +1,7 @@
 using LarsV2.Models.DBContext;
 using LarsV2.Models.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -7,9 +9,13 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.IO;
+using System.Net;
 using System.Text;
 
 namespace LarsV2
@@ -28,9 +34,9 @@ namespace LarsV2
         {
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(cfg => cfg.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-                
-
-            services.AddDbContextPool<LecturerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CoursesConnection")));
+               
+            services.AddDbContextPool<LecturerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CoursesConnection"))
+                                                                           .LogTo(Console.WriteLine, LogLevel.Information));
             services.AddDbContextPool<IdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
 
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<IdentityDbContext>().AddDefaultTokenProviders();
@@ -67,6 +73,14 @@ namespace LarsV2
                 cfg.Password.RequireDigit = false;
                 cfg.User.RequireUniqueEmail = true;
             });
+
+            //services.AddAuthorization(options =>
+            //{
+            //    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+            //        .RequireAuthenticatedUser()
+            //        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+            //        .Build();
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,6 +96,7 @@ namespace LarsV2
             }
 
             app.UseStaticFiles();
+
             if (!env.IsDevelopment())
             {
                 //app.UseSpaStaticFiles();
@@ -91,6 +106,13 @@ namespace LarsV2
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //         Path.Combine(env.ContentRootPath, "Files")),
+            //    RequestPath = "/documents"
+            //});
 
             app.UseEndpoints(endpoints =>
             {

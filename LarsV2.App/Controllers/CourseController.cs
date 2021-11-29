@@ -80,18 +80,15 @@ namespace LarsV2.Controllers
             }
 
             var courseToCreate = _mapper.Map<Course>(course);
-
             _repository.CreateCourse(courseToCreate);
-            _repository.Save();
 
             if (course.Dates != null)
             {
                 foreach (var date in course.Dates)
                 {
-                    DateTimeOffset parsedDate;
-                    if(DateTimeOffset.TryParse(date, out parsedDate))
+                    if(DateTimeOffset.TryParse(date, out var parsedDate))
                     {
-                        _repository.ToggleDate(new CourseDateTimeOffset{ CourseId = courseToCreate.Id, CourseDateTime = parsedDate });
+                        _repository.ToggleDate(courseToCreate, parsedDate);
                     }
                 }
             }
@@ -116,10 +113,9 @@ namespace LarsV2.Controllers
             {
                 foreach(var date in course.Dates)
                 {
-                    DateTimeOffset parsedDate;
-                    if (DateTimeOffset.TryParse(date, out parsedDate))
+                    if (DateTimeOffset.TryParse(date, out var parsedDate))
                     {
-                        _repository.ToggleDate(new CourseDateTimeOffset { CourseId = courseId, CourseDateTime = parsedDate });
+                        _repository.ToggleDate(courseToUpdate, parsedDate);
                     }
                 }
             }

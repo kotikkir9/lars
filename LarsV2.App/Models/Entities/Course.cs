@@ -17,6 +17,8 @@ namespace LarsV2.Models.Entities
         public int? LecturerId { get; set; }
         public Lecturer Lecturer { get; set; }
         public string Description { get; set; }
-        public ICollection<CourseDateTimeOffset> CourseDates { get; set; }
+        public DateTimeOffset? StartDate { get; set; }
+        public DateTimeOffset? EndDate { get; set; }
+        public ICollection<CourseDateTimeOffset> CourseDates { get; set; } 
     }
 }

@@ -10,8 +10,10 @@ namespace LarsV2.Models.ResourceParameters
     {
         public string Education { get; set; }
         public string Subject { get; set; }
-        public string Lecturer { get; set; }
         public string SearchQuery { get; set; }
+        public bool? Active { get; set; }
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
         public int PageNumber { get; set; } = 1;
 
         private int _pageSize;

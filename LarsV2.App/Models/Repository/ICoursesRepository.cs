@@ -1,6 +1,7 @@
 ﻿using LarsV2.Helpers;
 using LarsV2.Models.Entities;
 using LarsV2.Models.ResourceParameters;
+using System;
 
 namespace LarsV2.Models.Repository
 {
@@ -11,6 +12,6 @@ namespace LarsV2.Models.Repository
         void CreateCourse(Course course);
         void UpdateCourse(Course course);
         void DeleteCourse(Course course);
-        void ToggleDate(CourseDateTimeOffset date);
+        void ToggleDate(Course course, DateTimeOffset date);
     }
 }

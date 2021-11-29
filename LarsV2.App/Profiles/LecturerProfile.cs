@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LarsV2.Models.DTO;
 using LarsV2.Models.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace LarsV2.Profiles
         public LecturerProfile()
         {
             CreateMap<Lecturer, Lecturer>();
+
+            CreateMap<LecturerToCreateDto, Lecturer>().ReverseMap();
 
             CreateMap<Lecturer, LecturerDto>()
                 .ForMember(l => l.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));

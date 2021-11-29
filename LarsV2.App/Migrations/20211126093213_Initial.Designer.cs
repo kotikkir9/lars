@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LarsV2.Migrations
 {
     [DbContext(typeof(LecturerDbContext))]
-    [Migration("20211124011536_Initial")]
+    [Migration("20211126093213_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,8 @@ namespace LarsV2.Migrations
                     b.Property<int?>("LecturerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubjectId")
+                    b.Property<int?>("SubjectId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -76,6 +77,16 @@ namespace LarsV2.Migrations
                         {
                             CourseId = 1,
                             CourseDateTime = new DateTimeOffset(new DateTime(2021, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0))
+                        },
+                        new
+                        {
+                            CourseId = 1,
+                            CourseDateTime = new DateTimeOffset(new DateTime(2021, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0))
+                        },
+                        new
+                        {
+                            CourseId = 1,
+                            CourseDateTime = new DateTimeOffset(new DateTime(2021, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0))
                         });
                 });
 
@@ -130,7 +141,7 @@ namespace LarsV2.Migrations
                             FirstName = "Jan Pan",
                             IsExternal = false,
                             LastName = "Nees",
-                            PhoneNumber = "+4512345678"
+                            PhoneNumber = "12345678"
                         },
                         new
                         {
@@ -139,7 +150,7 @@ namespace LarsV2.Migrations
                             FirstName = "James",
                             IsExternal = false,
                             LastName = "Hetfield",
-                            PhoneNumber = "+4569696969"
+                            PhoneNumber = "69696969"
                         },
                         new
                         {
@@ -148,7 +159,7 @@ namespace LarsV2.Migrations
                             FirstName = "Flemming",
                             IsExternal = false,
                             LastName = "Efternavn",
-                            PhoneNumber = "+4511111111"
+                            PhoneNumber = "11111111"
                         },
                         new
                         {
@@ -157,7 +168,7 @@ namespace LarsV2.Migrations
                             FirstName = "Till",
                             IsExternal = false,
                             LastName = "Lindemann",
-                            PhoneNumber = "+4598765432"
+                            PhoneNumber = "98765432"
                         },
                         new
                         {
@@ -166,7 +177,7 @@ namespace LarsV2.Migrations
                             FirstName = "Bob",
                             IsExternal = false,
                             LastName = "Ross",
-                            PhoneNumber = "+4544444444"
+                            PhoneNumber = "44444444"
                         },
                         new
                         {
@@ -175,7 +186,7 @@ namespace LarsV2.Migrations
                             FirstName = "Vladimir",
                             IsExternal = false,
                             LastName = "Putin",
-                            PhoneNumber = "+4555555555"
+                            PhoneNumber = "55555555"
                         },
                         new
                         {
@@ -184,7 +195,7 @@ namespace LarsV2.Migrations
                             FirstName = "Donald",
                             IsExternal = false,
                             LastName = "Trump",
-                            PhoneNumber = "+4566666666"
+                            PhoneNumber = "66666666"
                         },
                         new
                         {
@@ -193,7 +204,7 @@ namespace LarsV2.Migrations
                             FirstName = "Joe",
                             IsExternal = false,
                             LastName = "Rogan",
-                            PhoneNumber = "+4577777777"
+                            PhoneNumber = "77777777"
                         },
                         new
                         {
@@ -202,7 +213,7 @@ namespace LarsV2.Migrations
                             FirstName = "Max",
                             IsExternal = false,
                             LastName = "Verstappen",
-                            PhoneNumber = "+4588888888"
+                            PhoneNumber = "88888888"
                         },
                         new
                         {
@@ -211,7 +222,7 @@ namespace LarsV2.Migrations
                             FirstName = "Lionel",
                             IsExternal = false,
                             LastName = "Messi",
-                            PhoneNumber = "+4599999999"
+                            PhoneNumber = "99999999"
                         },
                         new
                         {
@@ -220,7 +231,7 @@ namespace LarsV2.Migrations
                             FirstName = "Cristiano",
                             IsExternal = false,
                             LastName = "Ronaldo",
-                            PhoneNumber = "+4512121212"
+                            PhoneNumber = "12121212"
                         },
                         new
                         {
@@ -229,7 +240,7 @@ namespace LarsV2.Migrations
                             FirstName = "Maynard James",
                             IsExternal = false,
                             LastName = "Keenan",
-                            PhoneNumber = "+4569696969"
+                            PhoneNumber = "69696969"
                         },
                         new
                         {
@@ -238,7 +249,7 @@ namespace LarsV2.Migrations
                             FirstName = "Steven",
                             IsExternal = false,
                             LastName = "Wilson",
-                            PhoneNumber = "+4512341234"
+                            PhoneNumber = "12341234"
                         });
                 });
 

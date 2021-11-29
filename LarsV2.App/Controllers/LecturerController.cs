@@ -4,9 +4,12 @@ using LarsV2.Models.DTO;
 using LarsV2.Models.Entities;
 using LarsV2.Models.Repository;
 using LarsV2.Models.ResourceParameters;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -20,12 +23,15 @@ namespace Api.Controllers
         private readonly ILecturersRepository _repository;
         private readonly ILecturerSubjectRepository _LSRepository;
         private readonly IMapper _mapper;
+        private readonly FileHandler _fileHandler;
+        private readonly string CVPath = "files/cv";
 
-        public LecturerController(ILecturersRepository repository, ILecturerSubjectRepository lsRepository, IMapper mapper)
+        public LecturerController(ILecturersRepository repository, ILecturerSubjectRepository lsRepository, IMapper mapper, IWebHostEnvironment hostEnv)
         {
             _repository = repository;
             _LSRepository = lsRepository;
             _mapper = mapper;
+            _fileHandler = new FileHandler(hostEnv);
         }
 
 
@@ -65,18 +71,29 @@ namespace Api.Controllers
             }
 
             var lecturer = _mapper.Map<LecturerWithSubjectsDto>(lecturerFromRepo);
+            if(!string.IsNullOrEmpty(lecturer.CVPath))
+            {
+                lecturer.CVPath = $"http://{Request.Host}/{lecturer.CVPath}";
+            }
 
             return Ok(lecturer);
         }
 
         [HttpPost]
-        public IActionResult CreateLecturer(Lecturer lecturer)
+        public async Task<IActionResult> CreateLecturer(LecturerToCreateDto lecturerDto)
         {
+            var lecturer = _mapper.Map<Lecturer>(lecturerDto);
+            if (lecturerDto.CVFile != null)
+            {
+                lecturer.CVPath = await _fileHandler.UploadDocument(lecturerDto.CVFile, CVPath);
+            }
+
             _repository.AddLecturer(lecturer);
             _repository.Save();
 
             return CreatedAtRoute("GetLecturer", new { lecturerId = lecturer.Id }, lecturer);
         }
+
 
         [HttpPut("{lecturerId:int}")]
         public IActionResult UpdateLecturer(int lecturerId, Lecturer lecturer)
@@ -158,13 +175,47 @@ namespace Api.Controllers
 
             return Ok(new { ReservedDates = listOfTakenDates });
         }
-
-
-        [HttpOptions]
-        public IActionResult GetLecturersOptions()
+        
+        [HttpPut("{lecturerId}/CV")]
+        public async Task<IActionResult> UploadCV(int lecturerId, [Required]IFormFile file)
         {
-            Response.Headers.Add("Allow", "GET,OPTIONS,POST,PUT,DELETE");
-            return Ok();
+            var lecturer = _repository.GetLecturer(lecturerId);
+
+            if(lecturer == null)
+            {
+                return NotFound();
+            }
+
+            if(lecturer.CVPath != null)
+            {
+                _fileHandler.DeleteFile(lecturer.CVPath);
+            }
+
+            lecturer.CVPath = await _fileHandler.UploadDocument(file, CVPath);
+            _repository.Save();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{lecturerId}/CV")]
+        public IActionResult DeleteCV(int lecturerId)
+        {
+            var lecturer = _repository.GetLecturer(lecturerId);
+
+            if(lecturer == null)
+            {
+                return NotFound();
+            }
+            
+            if(lecturer.CVPath != null)
+            {
+                _fileHandler.DeleteFile(lecturer.CVPath);
+                lecturer.CVPath = null;
+            }
+
+            _repository.Save();
+
+            return NoContent();       
         }
 
     }
