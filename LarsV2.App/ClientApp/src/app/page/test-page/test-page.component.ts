@@ -14,7 +14,7 @@ export class TestPageComponent implements OnInit {
   }
 
   async buttonPush(){
-    console.log(await this.socket.getThisLecturers(1).toPromise());
+    console.log(await this.socket.getThisLecturer(1).toPromise());
   }
 
 }

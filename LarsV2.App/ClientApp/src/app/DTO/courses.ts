@@ -1,9 +1,9 @@
-import { iLecturers, NullLecturers } from "./lecturers";
+import { iLecturer, NullLecturer } from "./lecturers";
 import { iSubject, NullSubject } from "./subject";
 export interface iCourses {
 	id: number;
 	subject: iSubject;
-	lecturer: iLecturers;
+	lecturer: iLecturer;
 	description: string;
 	startDate: string;
 	endDate: string;
@@ -18,13 +18,13 @@ export interface iCourseDate {
 class Courses implements iCourses {
 	id: number;
 	subject: iSubject;
-	lecturer: iLecturers;
+	lecturer: iLecturer;
 	description: string;
 	startDate: string;
 	endDate: string;
 	courseDates: iCourseDate[];
 
-	constructor(id: number, subject: iSubject, lecturer: iLecturers, description: string, startDate: string, endDate: string, courseDates: iCourseDate[]){
+	constructor(id: number, subject: iSubject, lecturer: iLecturer, description: string, startDate: string, endDate: string, courseDates: iCourseDate[]){
 		this.id = id;
 		this.subject = subject;
 		this.lecturer = lecturer;
@@ -37,6 +37,6 @@ class Courses implements iCourses {
 
 export class NullCourses extends Courses {
 	constructor(){
-		super(-1, new NullSubject, new NullLecturers, "", "", "", []);
+		super(-1, new NullSubject, new NullLecturer, "", "", "", []);
 	}
 }

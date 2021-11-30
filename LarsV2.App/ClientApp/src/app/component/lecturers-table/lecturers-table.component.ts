@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { merge, of } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { iEducationSubject, NullEducationSubject } from 'src/app/DTO/educationSubject';
-import { iLecturers } from 'src/app/DTO/lecturers';
+import { iLecturer } from 'src/app/DTO/lecturers';
 import { iLecturersServiceData, LecturersService } from 'src/app/service/lecturers.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class LecturersTableComponent implements AfterViewInit, AfterViewChecked 
   isLoadingResults: boolean = false;
 
   displayedColumns: string[] = ['name', 'isExternal', 'email', 'phoneNumber'];
-  dataSource = new MatTableDataSource<iLecturers>();
+  dataSource = new MatTableDataSource<iLecturer>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

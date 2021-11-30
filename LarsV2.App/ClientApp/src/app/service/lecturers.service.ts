@@ -2,12 +2,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { iEducationSubject, NullEducationSubject } from '../DTO/educationSubject';
-import { iLecturers } from '../DTO/lecturers';
+import { iLecturer } from '../DTO/lecturers';
 import { iMetadata } from '../DTO/metadata';
 
 export interface iLecturersServiceData {
   metadata: iMetadata;
-  records: iLecturers[];
+  records: iLecturer[];
 }
 
 @Injectable({
@@ -30,7 +30,11 @@ export class LecturersService {
       });
   }
 
-  getThisLecturers(id: number): Observable<iLecturers> {
-    return this.http.get<iLecturers>(this.url + `/${id}`);
+  getThisLecturer(id: number): Observable<iLecturer> {
+    return this.http.get<iLecturer>(this.url + `/${id}`);
   }
+
+  // createLecturer(data: iLecturer): void {
+  //   this.http.post(this.url, data);
+  // }
 }

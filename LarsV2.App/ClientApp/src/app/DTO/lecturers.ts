@@ -1,7 +1,7 @@
 import { iCourses } from "./courses";
 import { iSubject } from "./subject";
 
-export interface iLecturers {
+export interface iLecturer {
 	id: number
 	name: string;
 	email: string;
@@ -13,7 +13,7 @@ export interface iLecturers {
 	courses: iCourses[];
 }
 
-export class Lecturers implements iLecturers {
+export class Lecturer implements iLecturer {
 	id: number;
 	name: string;
 	email: string;
@@ -38,7 +38,7 @@ export class Lecturers implements iLecturers {
 	
 }
 
-export class NullLecturers extends Lecturers {
+export class NullLecturer extends Lecturer {
 	constructor(){
 		super(-1,"","","",false, "", "", [], []);
 	}
