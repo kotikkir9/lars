@@ -30,6 +30,14 @@ export class LecturersService {
       });
   }
 
+  getAllData(filter:iEducationSubject = new NullEducationSubject): Observable<iLecturersServiceData> {
+      return this.http.get<iLecturersServiceData>(this.url, {
+        params: new HttpParams()
+          .set("Subject", filter.subject.subject)
+          .set("Education", filter.education)
+      });
+  }
+
   getThisLecturer(id: number): Observable<iLecturer> {
     return this.http.get<iLecturer>(this.url + `/${id}`);
   }

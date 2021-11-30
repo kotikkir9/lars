@@ -23,6 +23,10 @@ import { UdbudPageComponent } from './page/udbud-page/udbud-page.component';
 import { UdbudTableComponent } from './component/udbud-table/udbud-table.component';
 import { CoursesService } from './service/courses.service';
 import { UdbudProfilePageComponent } from './page/udbud-profile-page/udbud-profile-page.component';
+import { CreateUdbudPageComponent } from './page/create-udbud-page/create-udbud-page.component';
+import { CreateUdbudComponent } from './component/create-udbud/create-udbud.component';
+import { TeacherDropdownComponent } from './component/teacher-dropdown/teacher-dropdown.component';
+import { DatepickerChipsInputComponent } from './component/datepicker-chips-input/datepicker-chips-input.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,11 @@ import { UdbudProfilePageComponent } from './page/udbud-profile-page/udbud-profi
     PageNotFoundComponent,
     UdbudPageComponent,
     UdbudTableComponent,
-    UdbudProfilePageComponent
+    UdbudProfilePageComponent,
+    CreateUdbudPageComponent,
+    CreateUdbudComponent,
+    TeacherDropdownComponent,
+    DatepickerChipsInputComponent
   ],
   imports: [
     BrowserModule,

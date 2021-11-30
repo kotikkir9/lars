@@ -3,12 +3,23 @@
 	<span class="spacer"></span>
 	<button mat-button [matMenuTriggerFor]="menu">Debug menu</button>
 	<mat-menu #menu="matMenu">
+		<button mat-menu-item [matMenuTriggerFor]="opret">Opret</button>
+		<button mat-menu-item [matMenuTriggerFor]="profile">Profile</button>
+		<button mat-menu-item [matMenuTriggerFor]="find">Find</button>
+
+		<a mat-menu-item [routerLink]="['/test']">test</a>
+	</mat-menu>
+	<mat-menu #opret="matMenu">
 		<a mat-menu-item [routerLink]="['/opret']">Opret Underviser</a>
+		<a mat-menu-item [routerLink]="['/opret-udbud']">Opret Udbud</a>
+	</mat-menu>
+	<mat-menu #profile="matMenu">
 		<a mat-menu-item [routerLink]="['/profile', 1]">Underviser profile</a>
 		<a mat-menu-item [routerLink]="['/udbud-profile', 1]">Udbud profile</a>
+	</mat-menu>
+	<mat-menu #find="matMenu">
 		<a mat-menu-item [routerLink]="['/find']">Find Underviser</a>
-		<a mat-menu-item [routerLink]="['/udbud']">Udbud</a>
-		<a mat-menu-item [routerLink]="['/test']">test</a>
+		<a mat-menu-item [routerLink]="['/udbud']">Find Udbud</a>
 	</mat-menu>
 </mat-toolbar>
 <div id="body">
