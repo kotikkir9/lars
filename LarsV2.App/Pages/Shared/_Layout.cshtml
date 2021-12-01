@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin</title>
+        <meta name="viewport" content="width=device-width" />
+        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
+    </head>
+    <body>
+        <nav class="navbar mb-4" style="background-color: #3F51B5;">
+            <div class="container text-white">
+                <a asp-page="Users" style="text-decoration:none; color:white;">
+                    <h1>Admin Tools</h1>
+                </a>
+            </div>
+        </nav>
+        <div class="container">
+            @RenderBody()
+        </div>
+
+        @await RenderSectionAsync("Scripts", false)
+    </body>
+</html>

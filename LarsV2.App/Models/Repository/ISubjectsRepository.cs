@@ -8,7 +8,7 @@ namespace LarsV2.Models.Repository
     {
         PagedList<Subject> GetSubjects(SubjectResourceParameters parameters);
         Subject GetSubject(int id);
-        void AddSubject(Subject subject);
+        //void AddSubject(Subject subject);
         void UpdateSubject(Subject subject);
         void DeleteSubject(Subject subject);
     }

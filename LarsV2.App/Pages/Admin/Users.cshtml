@@ -1,0 +1,74 @@
+﻿@page 
+@model UsersModel
+
+<h3>Administration af brugere</h3>
+<hr />
+
+<table class="table table-hover table-light table-striped table-sm">
+    <tr class="bg-warning" style="height:35px;">
+        <th>Brugernavn</th>
+        <th>Email</th>
+        <th style="width:10%"></th>
+        <th style="width:10%"></th>
+    </tr>
+    @if (Model.Users == null || !Model.Users.Any())
+    {
+        <tr><td colspan="4" class="text-center">Ingen brugere i systemet</td></tr>
+    }
+    else
+    {
+        foreach (IdentityUser user in @Model.Users)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td class="text-center">
+                    <a class="invincible-button" asp-page="EditUser" asp-route-id="@user.Id" asp-route-mode="edit">
+                        <img src="~/images/icons/edit.png" width="25" height="25" alt="Delete" rel="fuck"/>
+                    </a>
+                </td>
+                <td class="text-center">
+                    <form method="post" asp-route-id="@user.Id">
+                        <button class="invincible-button" onclick="return confirm('Er du sikker på at du vil slette brugeren @user.UserName?')">
+                            <img src="~/images/icons/remove.png" width="25" height="25" alt="Delete" />
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    }
+</table>
+<hr />
+<a class="btn btn-success" asp-page="CreateUser">Tilføj ny bruger</a>
+
+
+@functions
+{
+    public class UsersModel : AdminPageModel
+    {
+        public UserManager<IdentityUser> UserManager;
+
+        public UsersModel(UserManager<IdentityUser> userManager)
+        {
+            UserManager = userManager;
+        }
+
+        public IEnumerable<IdentityUser> Users { get; set; }
+
+        public void OnGet()
+        {
+            Users = UserManager.Users.Where(e => e.UserName.ToLower() != "admin");
+        }
+
+        public async Task<IActionResult> OnPostAsync(string id)
+        {
+            IdentityUser user = await UserManager.FindByIdAsync(id);
+            if(user != null)
+            {
+                await UserManager.DeleteAsync(user);
+            }
+            return RedirectToPage();
+
+        }
+    }
+}
