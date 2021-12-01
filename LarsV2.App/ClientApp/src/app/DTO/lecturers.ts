@@ -2,7 +2,7 @@ import { iCourses } from "./courses";
 import { iSubject } from "./subject";
 
 interface iLecturerExtends {
-	id: number
+	id: number | null;
 	email: string;
 	phoneNumber: string;
 	cvPath: string;
@@ -21,12 +21,8 @@ export interface iLecturerSend extends iLecturerExtends {
 	lastName: string;
 }
 
-export interface iLecturer {
-
-}
-
 export class Lecturer implements iLecturer {
-	id: number;
+	id: number | null;
 	name: string;
 	email: string;
 	phoneNumber: string;
@@ -36,7 +32,7 @@ export class Lecturer implements iLecturer {
 	subjects: iSubject[];
 	courses: iCourses[];
 
-	constructor(id: number, name: string, email: string, phoneNumber: string, isExternal: boolean, cvPath: string, imagePath: string, subjects: iSubject[], courses: iCourses[]) {
+	constructor(id: number | null, name: string, email: string, phoneNumber: string, isExternal: boolean, cvPath: string, imagePath: string, subjects: iSubject[], courses: iCourses[]) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -52,6 +48,6 @@ export class Lecturer implements iLecturer {
 
 export class NullLecturer extends Lecturer {
 	constructor(){
-		super(-1,"","","",false, "", "", [], []);
+		super(null,"","","",false, "", "", [], []);
 	}
 }

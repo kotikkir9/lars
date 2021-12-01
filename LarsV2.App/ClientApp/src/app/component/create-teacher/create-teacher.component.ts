@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { iEducationSubject } from 'src/app/DTO/educationSubject';
+import { iLecturerSend } from 'src/app/DTO/lecturers';
+import { Subject } from 'src/app/DTO/subject';
+import { LecturersService } from 'src/app/service/lecturers.service';
 
 @Component({
   selector: 'app-create-teacher',
@@ -13,7 +16,7 @@ export class CreateTeacherComponent implements OnInit {
 
   educationSubject: iEducationSubject[] = [];
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder, private socket: LecturersService) {}
 
   addEducationSubject(data: iEducationSubject): void {
     this.educationSubject.push(data);
@@ -32,6 +35,31 @@ export class CreateTeacherComponent implements OnInit {
       email: ['', [Validators.email, Validators.required]],
       phoneNumber: ['', Validators.required],
     });
+  }
+
+  sendData(): void {
+    if(!this.firstFormGroup.valid)
+      return
+
+    let inputData = this.firstFormGroup.value;
+
+    let teacher: iLecturerSend = {
+      firstName: inputData.firstName,
+      lastName: inputData.lastName,
+      id: null,
+      email: inputData.email,
+      phoneNumber: inputData.phoneNumber,
+      cvPath: null,
+      imagePath: null,
+      isExternal: false,
+      subjects: []
+    }
+
+    this.educationSubject.forEach(sub => {
+      teacher.subjects.push(new Subject(sub.subject.id, sub.subject.subject, sub.education, null));
+    });
+
+    this.socket.createLecturer(teacher);
   }
 
 }

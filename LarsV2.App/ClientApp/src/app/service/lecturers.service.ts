@@ -43,6 +43,8 @@ export class LecturersService {
   }
 
   createLecturer(data: iLecturerSend): void {
-    this.http.post(this.url, data);
+    this.http.post(this.url, data).subscribe(data1 => {
+      // console.log(data1)
+    }, err => console.error(err));
   }
 }

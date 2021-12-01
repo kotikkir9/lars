@@ -5,7 +5,7 @@ export interface iSubject{
 	description: string;
 }
 
-class Subject implements iSubject {
+export class Subject implements iSubject {
 	id: number | null;
 	title: string;
 	education: string;
