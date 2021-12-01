@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { iEducationSubject, NullEducationSubject } from '../DTO/educationSubject';
-import { iLecturer } from '../DTO/lecturers';
+import { iLecturer, iLecturerSend } from '../DTO/lecturers';
 import { iMetadata } from '../DTO/metadata';
 
 export interface iLecturersServiceData {
@@ -42,7 +42,7 @@ export class LecturersService {
     return this.http.get<iLecturer>(this.url + `/${id}`);
   }
 
-  // createLecturer(data: iLecturer): void {
-  //   this.http.post(this.url, data);
-  // }
+  createLecturer(data: iLecturerSend): void {
+    this.http.post(this.url, data);
+  }
 }

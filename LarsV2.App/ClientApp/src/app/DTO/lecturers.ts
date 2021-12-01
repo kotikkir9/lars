@@ -1,16 +1,28 @@
 import { iCourses } from "./courses";
 import { iSubject } from "./subject";
 
-export interface iLecturer {
+interface iLecturerExtends {
 	id: number
-	name: string;
 	email: string;
 	phoneNumber: string;
 	cvPath: string;
 	imagePath: string;
 	isExternal: boolean;
 	subjects: iSubject[];
+}
+
+export interface iLecturer extends iLecturerExtends {
+	name: string;
 	courses: iCourses[];
+}
+
+export interface iLecturerSend extends iLecturerExtends {
+	firstName: string;
+	lastName: string;
+}
+
+export interface iLecturer {
+
 }
 
 export class Lecturer implements iLecturer {
