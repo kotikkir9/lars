@@ -98,7 +98,8 @@ namespace LarsV2.Models.Repository
                         _context.SaveChanges();
                     }
 
-                    _context.LecturerSubject.Add(new LecturerSubject { LecturerId = lecturer.Id, SubjectId = subject.Id, Subject = subject });
+                    _context.LecturerSubject.Add(new LecturerSubject { LecturerId = lecturer.Id, SubjectId = subject.Id });
+                    _context.SaveChanges();
                 }
             }
         }
