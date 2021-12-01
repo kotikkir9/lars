@@ -28,7 +28,7 @@ export class UdbudPageComponent implements OnInit {
   }
 
   resetFilter(): void {
-    this.filterInputRef.reset();
+    this.filterInputRef.resetAll();
 
     this.udbudTableInputData = new NullUdbudTableInput;
     this.searchInputRef = "";

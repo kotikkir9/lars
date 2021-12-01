@@ -27,7 +27,7 @@ export class FindLecturersPageComponent implements OnInit {
   }
 
   resetFilter(): void {
-    this.filterInputRef.reset();
+    this.filterInputRef.resetAll();
     this.filterData = new NullEducationSubject;
     this.searchData = "";
     this.searchInputRef = "";

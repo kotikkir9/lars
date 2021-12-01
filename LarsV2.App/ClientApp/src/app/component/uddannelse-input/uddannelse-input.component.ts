@@ -1,9 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormBuilder, FormGroup } from '@angular/forms';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators'
-import { EducationSubject, iEducationSubject } from 'src/app/DTO/educationSubject';
+import { EducationSubject, iEducationSubject, NullEducationSubject } from 'src/app/DTO/educationSubject';
 import { iEducationServiceData, EducationService } from 'src/app/service/education.service';
 
 enum eFilterBy {
@@ -18,14 +18,30 @@ enum eFilterBy {
 })
 export class UddannelseInputComponent implements OnInit {
 
+  // valueData: iEducationSubject = new NullEducationSubject;
+
+  // get value(): iEducationSubject {
+  //   return this.valueData;
+  // }
+
   @Output() addEducationSubjectEvent = new EventEmitter<iEducationSubject>();
 
   uddannelseFormGroup: FormGroup;
   data: iEducationServiceData;
   filteredUddannelse: Observable<string[]>;
   filteredFag: Observable<iEducationSubject[]>;
-  
+
   constructor(private _formBuilder: FormBuilder, private us: EducationService) {}
+
+  // writeValue(obj: iEducationSubject): void {
+  //   this.valueData = obj;
+  // }
+  // registerOnChange(fn: iEducationSubject): void { }
+  // registerOnTouched(fn: any): void { }
+  // setDisabledState?(isDisabled: boolean): void {
+  //   this.uddannelseFormGroup.controls["uddannelse"].disable({onlySelf: isDisabled});
+  //   this.uddannelseFormGroup.controls["fag"].disable({onlySelf: isDisabled});
+  // }
 
   async ngOnInit(): Promise<void> {
     
@@ -58,9 +74,13 @@ export class UddannelseInputComponent implements OnInit {
     this.uddannelseFormGroup.controls["fag"].setValue(data.subject.subject);
   }
 
-  reset(){
+  resetAll(){
     this.uddannelseFormGroup.controls["fag"].setValue("");
     this.uddannelseFormGroup.controls["uddannelse"].setValue("");
+  }
+  
+  resetFag(){
+    this.uddannelseFormGroup.controls["fag"].setValue("");
   }
 
   getDataFormInput(reset: boolean = true, checkAllSet: boolean = true):void {
@@ -81,7 +101,7 @@ export class UddannelseInputComponent implements OnInit {
 
     this.addEducationSubjectEvent.emit(data);
     if(reset)
-      this.reset();
+      this.resetAll();
   }
 
   private _filteredFag(value: string): iEducationSubject[] {

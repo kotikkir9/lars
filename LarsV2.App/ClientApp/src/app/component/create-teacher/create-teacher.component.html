@@ -47,8 +47,9 @@
 			<app-uddannelse-input #uddannelseInput (addEducationSubjectEvent)="addEducationSubject($event)"></app-uddannelse-input>
 			<span class="spacer"></span>
 			<div class="button-gruppe">
-				<button mat-button (click)="uddannelseInput.getDataFormInput()">Add</button>
-				<button mat-button (click)="uddannelseInput.reset()">Reset</button>
+				<button mat-mini-fab color="primary" (click)="uddannelseInput.getDataFormInput()">
+					<mat-icon>add</mat-icon>
+				</button>
 			</div>
 		</div>
 		<table>
