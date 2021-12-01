@@ -78,7 +78,7 @@ namespace LarsV2.Models.Repository
             return lecturer;
         }
 
-        public void AddLecturer(Lecturer lecturer)
+        public void AddLecturer(Lecturer lecturer, IEnumerable<Subject> subjects)
         {
             if(lecturer == null)
             {
@@ -86,6 +86,22 @@ namespace LarsV2.Models.Repository
             }
 
             _context.Lecturers.Add(lecturer);
+            _context.SaveChanges();
+
+            if (subjects != null)
+            {
+                foreach (var subject in subjects)
+                {
+                    if (subject.Id == 0)
+                    {
+                        _context.Subjects.Add(subject);
+                        _context.SaveChanges();
+                    }
+                    
+                    _context.LecturerSubject.Add(new LecturerSubject { LecturerId = lecturer.Id, SubjectId = subject.Id });
+                }
+                _context.SaveChanges();
+            }
         }
 
         public void DeleteLecturer(Lecturer lecturer)

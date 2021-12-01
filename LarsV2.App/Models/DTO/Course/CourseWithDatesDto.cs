@@ -13,6 +13,7 @@ namespace LarsV2.Models.DTO
         public SubjectDto Subject { get; set; }
         public LecturerDto Lecturer { get; set; }
         public string Description { get; set; }
+        public string Status { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public ICollection<CourseDateTimeOffsetsDto> CourseDates { get; set; }

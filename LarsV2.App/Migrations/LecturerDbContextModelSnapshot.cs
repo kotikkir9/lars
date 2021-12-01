@@ -54,7 +54,9 @@ namespace LarsV2.Migrations
                         new
                         {
                             Id = 1,
+                            EndDate = new DateTimeOffset(new DateTime(2031, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)),
                             LecturerId = 1,
+                            StartDate = new DateTimeOffset(new DateTime(2021, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)),
                             SubjectId = 1
                         });
                 });

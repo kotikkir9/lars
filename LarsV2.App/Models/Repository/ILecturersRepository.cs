@@ -11,7 +11,7 @@ namespace LarsV2.Models.Repository
         PagedList<Lecturer> GetLecturers(LecturerResourceParameters parameters);
         Lecturer GetLecturer(int id);
         Task<Lecturer> GetFullLecturer(int id);
-        void AddLecturer(Lecturer lecturer);
+        void AddLecturer(Lecturer lecturer, IEnumerable<Subject> subjects);
         void UpdateLecturer(Lecturer lecturer);
         void DeleteLecturer(Lecturer lecturer);
         IEnumerable<Course> GetCoursesForLecturer(int id);

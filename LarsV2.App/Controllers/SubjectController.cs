@@ -14,13 +14,11 @@ namespace LarsV2.Controllers
     public class SubjectController : Controller
     {
         private readonly ISubjectsRepository _repository;
-        private readonly ILecturerSubjectRepository _LSRepository;
         private readonly IMapper _mapper;
 
-        public SubjectController(ISubjectsRepository repository, ILecturerSubjectRepository LSRepository, IMapper mapper)
+        public SubjectController(ISubjectsRepository repository, IMapper mapper)
         {
             _repository = repository;
-            _LSRepository = LSRepository;
             _mapper = mapper;
         }
 
@@ -119,7 +117,7 @@ namespace LarsV2.Controllers
 
             foreach (var id in lecturerIds.Ids)
             {
-                if (!_LSRepository.ToggleLecturerSubjectRelation(id, subjectId))
+                if (!_repository.ToggleLecturerSubjectRelation(id, subjectId))
                 {
                     return NotFound();
                 }

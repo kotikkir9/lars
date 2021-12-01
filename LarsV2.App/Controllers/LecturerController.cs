@@ -21,15 +21,13 @@ namespace Api.Controllers
     public class LecturerController : Controller
     {
         private readonly ILecturersRepository _repository;
-        private readonly ILecturerSubjectRepository _LSRepository;
         private readonly IMapper _mapper;
         private readonly FileHandler _fileHandler;
         private readonly string CVPath = "files/cv";
 
-        public LecturerController(ILecturersRepository repository, ILecturerSubjectRepository lsRepository, IMapper mapper, IWebHostEnvironment hostEnv)
+        public LecturerController(ILecturersRepository repository, IMapper mapper, IWebHostEnvironment hostEnv)
         {
             _repository = repository;
-            _LSRepository = lsRepository;
             _mapper = mapper;
             _fileHandler = new FileHandler(hostEnv);
         }
@@ -88,8 +86,7 @@ namespace Api.Controllers
                 lecturer.CVPath = await _fileHandler.UploadDocument(lecturerDto.CVFile, CVPath);
             }
 
-            _repository.AddLecturer(lecturer);
-            _repository.Save();
+            _repository.AddLecturer(lecturer, lecturerDto.Subjects);
 
             return CreatedAtRoute("GetLecturer", new { lecturerId = lecturer.Id }, lecturer);
         }
@@ -140,7 +137,7 @@ namespace Api.Controllers
 
             foreach (var id in subjectIds.Ids)
             {
-                if (!_LSRepository.ToggleLecturerSubjectRelation(lecturerId, id))
+                if (!_repository.ToggleLecturerSubjectRelation(lecturerId, id))
                 {
                     return NotFound();
                 }

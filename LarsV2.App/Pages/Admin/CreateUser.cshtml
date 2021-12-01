@@ -1,0 +1,91 @@
+﻿@page 
+@model CreateModel
+
+@section Scripts
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+}
+
+<h3>Opret en ny bruger</h3>
+<hr />
+
+<form enctype="multipart/form-data" method="post">
+    <div asp-validation-summary="ModelOnly" class="font-weight-bold text-danger"></div>
+    <div class="form-group">
+        <label asp-for="UserName" style="font-weight: bold;">Brugernavn</label>
+        <span class="text-danger p-2" asp-validation-for="UserName" style="font-weight:bold" ;></span>
+        <input asp-for="UserName" class="form-control" placeholder="Brugernavn" value="@Model.UserName" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" style="font-weight: bold;"></label>
+        <span class="text-danger p-2" asp-validation-for="Email" style="font-weight:bold;"></span>
+        <input asp-for="Email" class="form-control" placeholder="Email" value="@Model.Email"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" style="font-weight: bold;">Kodeord</label>
+        <span class="text-danger p-2" asp-validation-for="Password" style="font-weight:bold" ;></span>
+        <input asp-for="Password" class="form-control" placeholder="Kodeord" value="@Model.Password"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="PasswordConfirm" style="font-weight: bold;">Gentag Kodeord</label>
+        <span class="text-danger p-2" asp-validation-for="PasswordConfirm" style="font-weight:bold" ;></span>
+        <input asp-for="PasswordConfirm" class="form-control" placeholder="Gentag kodeord" />
+    </div>
+    <hr />
+    <button type="submit" class="btn btn-success">Opret bruger</button>
+</form>
+
+
+@functions
+{
+    public class CreateModel : AdminPageModel
+    {
+        public UserManager<IdentityUser> UserManager;
+
+        public CreateModel(UserManager<IdentityUser> userManager)
+        {
+            UserManager = userManager;
+        }
+
+        [BindProperty]
+        [Required(ErrorMessage = "Feltet mangler at blive udfyldt")]
+        public string UserName { get; set; }
+
+        [BindProperty]
+        [Required(ErrorMessage = "Feltet mangler at blive udfyldt")]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [BindProperty]
+        [Required(ErrorMessage = "Feltet mangler at blive udfyldt")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [BindProperty][DataType(DataType.Password)]
+        [Required(ErrorMessage = "Feltet mangler at blive udfyldt")]
+        [Compare("Password", ErrorMessage = "Kodeord matcher ikke")]
+        public string PasswordConfirm { get; set; }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if(ModelState.IsValid)
+            {
+                IdentityUser user = new IdentityUser { UserName = UserName, Email = Email };
+                IdentityResult result = await UserManager.CreateAsync(user, Password);
+
+                if(result.Succeeded)
+                {
+                    return RedirectToPage("Users");               
+                }
+
+                foreach(var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+            return Page();
+        }
+    }
+}

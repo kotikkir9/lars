@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LarsV2.Models.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,6 +25,6 @@ namespace LarsV2.Models.DTO
         public string PhoneNumber { get; set; }
         public bool IsExternal { get; set; } = false;
         public IFormFile CVFile { get; set; }
-
+        public IEnumerable<Subject> Subjects { get; set; }
     }
 }

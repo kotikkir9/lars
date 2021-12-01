@@ -34,6 +34,7 @@ namespace LarsV2
         {
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(cfg => cfg.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddRazorPages();
                
             services.AddDbContextPool<LecturerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CoursesConnection"))
                                                                            .LogTo(Console.WriteLine, LogLevel.Information));
@@ -43,7 +44,6 @@ namespace LarsV2
            
             services.AddScoped<ILecturersRepository, LecturersRepository>();
             services.AddScoped<ISubjectsRepository, SubjectsRepository>();
-            services.AddScoped<ILecturerSubjectRepository, LecturerSubjectRepository>();
             services.AddScoped<ICoursesRepository, CoursesRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -119,6 +119,7 @@ namespace LarsV2
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
             app.UseSpa(spa => {
