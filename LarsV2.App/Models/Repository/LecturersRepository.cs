@@ -97,10 +97,10 @@ namespace LarsV2.Models.Repository
                         _context.Subjects.Add(subject);
                         _context.SaveChanges();
                     }
-
+                    
                     _context.LecturerSubject.Add(new LecturerSubject { LecturerId = lecturer.Id, SubjectId = subject.Id });
-                    _context.SaveChanges();
                 }
+                _context.SaveChanges();
             }
         }
 
