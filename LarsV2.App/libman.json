@@ -181,6 +181,33 @@
       "provider": "unpkg",
       "library": "jquery-validation-unobtrusive@3.2.12",
       "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "@popperjs/core@2.11.0",
+      "destination": "wwwroot/lib/popperjs/core/",
+      "files": [
+        "dist/umd/enums.js",
+        "dist/umd/enums.js.map",
+        "dist/umd/enums.min.js",
+        "dist/umd/enums.min.js.flow",
+        "dist/umd/enums.min.js.map",
+        "dist/umd/popper-base.js",
+        "dist/umd/popper-base.js.map",
+        "dist/umd/popper-base.min.js",
+        "dist/umd/popper-base.min.js.flow",
+        "dist/umd/popper-base.min.js.map",
+        "dist/umd/popper-lite.js",
+        "dist/umd/popper-lite.js.map",
+        "dist/umd/popper-lite.min.js",
+        "dist/umd/popper-lite.min.js.flow",
+        "dist/umd/popper-lite.min.js.map",
+        "dist/umd/popper.js",
+        "dist/umd/popper.js.map",
+        "dist/umd/popper.min.js",
+        "dist/umd/popper.min.js.flow",
+        "dist/umd/popper.min.js.map"
+      ]
     }
   ]
 }

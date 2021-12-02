@@ -1,0 +1,89 @@
+﻿@page
+@model LoginModel
+
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="font-weight-bold text-danger"></div>
+            <input type="hidden" asp-for="ReturnUrl" value="@Model.ReturnUrl"/>
+            <div class="form-group">
+                <label asp-for="UserName" class="font-weight-bold">Brugernavn</label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger font-weight-bold"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="font-weight-bold">Kodeord</label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger font-weight-bold"></span>
+            </div> 
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@functions
+{
+    public class LoginModel : PageModel
+    {
+        private SignInManager<IdentityUser> signInManager;
+        private UserManager<IdentityUser> userManager;
+
+        public LoginModel(SignInManager<IdentityUser> signInMgr, UserManager<IdentityUser> usrManager)
+        {
+            signInManager = signInMgr;
+            userManager = usrManager;
+        }
+
+        [BindProperty]
+        [Required(ErrorMessage = "Feltet mangler at blive udfyldt")]
+        public string UserName { get; set; }
+
+        [BindProperty]
+        [Required(ErrorMessage = "Feltet mangler at blive udfyldt")]
+        public string Password { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string ReturnUrl { get; set; }
+
+        public IActionResult OnGetAsync()
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("/admin/users");
+            }
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if(ModelState.IsValid)
+            {
+                var user = await userManager.FindByNameAsync(UserName);
+
+                if(user!= null)
+                {
+                    if(await userManager.CheckPasswordAsync(user, Password))
+                    {
+                        if(!await userManager.IsInRoleAsync(user, "Admin"))
+                        {
+                            ModelState.AddModelError("", "Du har ikke adgang til denne side");
+                            return Page();
+                        }                      
+                    }
+                }
+
+                Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(UserName, Password, false, false);
+                if(result.Succeeded)
+                {
+                    return Redirect(ReturnUrl ?? "/admin/users");
+                }
+                ModelState.AddModelError("", "Ugyldig brugernavn eller adgangskode");
+            }
+            return Page();
+        }
+    }
+}

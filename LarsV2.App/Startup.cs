@@ -55,6 +55,7 @@ namespace LarsV2
             });
 
             services.AddAuthentication()
+                .AddCookie()
                 .AddJwtBearer(cfg =>
                 {
                     cfg.RequireHttpsMetadata = false;

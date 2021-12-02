@@ -1,0 +1,21 @@
+﻿@page
+@model LogoutModel
+
+@functions
+{
+    public class LogoutModel : PageModel
+    {
+        private SignInManager<IdentityUser> signInManager;
+
+        public LogoutModel(SignInManager<IdentityUser> signInMgr)
+        {
+            signInManager = signInMgr;
+        }
+
+        public async Task<IActionResult> OnGetAsync()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToPage("Login");
+        }
+    }
+}

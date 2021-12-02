@@ -109,6 +109,7 @@ namespace LarsV2.Models.Repository
             if(lecturer != null)
             {
                 _context.Lecturers.Remove(lecturer);
+                _context.SaveChanges();
             }   
         }
 
@@ -125,6 +126,7 @@ namespace LarsV2.Models.Repository
         public void UpdateLecturer(Lecturer lecturer)
         {
             // No implementation needed
+            _context.SaveChanges();
         }  
     }
 }

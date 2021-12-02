@@ -29,16 +29,6 @@ namespace LarsV2.Models.Repository
             return _context.Subjects.Any(e => e.Id == id);
         }
 
-        public void AddSubject(Subject subject)
-        {
-            if (subject == null)
-            {
-                throw new ArgumentNullException(nameof(subject));
-            }
-
-            _context.Subjects.Add(subject);
-        }
-
         public bool ToggleLecturerSubjectRelation(int lecturerId, int subjectId)
         {
             var lecturerSubject = _context.LecturerSubject.FirstOrDefault(e => e.LecturerId == lecturerId && e.SubjectId == subjectId);

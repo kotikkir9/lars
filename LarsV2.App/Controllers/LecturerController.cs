@@ -104,9 +104,7 @@ namespace Api.Controllers
 
             lecturer.Id = lecturerId;
             _mapper.Map(lecturer, lecturerToUpdate);
-
             _repository.UpdateLecturer(lecturerToUpdate);
-            _repository.Save();
 
             return NoContent();
         }
@@ -122,7 +120,6 @@ namespace Api.Controllers
             }
 
             _repository.DeleteLecturer(lecturerToDelete);
-            _repository.Save();
 
             return NoContent();
         }

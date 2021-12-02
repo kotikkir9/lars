@@ -3,7 +3,6 @@
 
 @section Scripts
 {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
 }
@@ -24,14 +23,14 @@
         <input asp-for="Email" class="form-control" placeholder="Email" value="@Model.Email"/>
     </div>
     <div class="form-group">
-        <label asp-for="Password" style="font-weight: bold;">Kodeord</label>
+        <label asp-for="Password" style="font-weight: bold;">Adgangskode</label>
         <span class="text-danger p-2" asp-validation-for="Password" style="font-weight:bold" ;></span>
-        <input asp-for="Password" class="form-control" placeholder="Kodeord" value="@Model.Password"/>
+        <input asp-for="Password" class="form-control" value="@Model.Password"/>
     </div>
     <div class="form-group">
-        <label asp-for="PasswordConfirm" style="font-weight: bold;">Gentag Kodeord</label>
+        <label asp-for="PasswordConfirm" style="font-weight: bold;">Genindtast adgangskode</label>
         <span class="text-danger p-2" asp-validation-for="PasswordConfirm" style="font-weight:bold" ;></span>
-        <input asp-for="PasswordConfirm" class="form-control" placeholder="Gentag kodeord" />
+        <input asp-for="PasswordConfirm" class="form-control" />
     </div>
     <hr />
     <button type="submit" class="btn btn-success">Opret bruger</button>
@@ -65,7 +64,7 @@
 
         [BindProperty][DataType(DataType.Password)]
         [Required(ErrorMessage = "Feltet mangler at blive udfyldt")]
-        [Compare("Password", ErrorMessage = "Kodeord matcher ikke")]
+        [Compare("Password", ErrorMessage = "Adgangskoder er ikke ens")]
         public string PasswordConfirm { get; set; }
 
         public async Task<IActionResult> OnPostAsync()

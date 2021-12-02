@@ -53,15 +53,15 @@ namespace LarsV2.Models.Repository
             return subject;
         }
 
-        //public void AddSubject(Subject subject)
-        //{
-        //    if (subject == null)
-        //    {
-        //        throw new ArgumentNullException(nameof(subject));
-        //    }
+        public void AddSubject(Subject subject)
+        {
+            if (subject == null)
+            {
+                throw new ArgumentNullException(nameof(subject));
+            }
 
-        //    _context.Subjects.Add(subject);
-        //}
+            _context.Subjects.Add(subject);
+        }
 
         public void DeleteSubject(Subject subject)
         {
