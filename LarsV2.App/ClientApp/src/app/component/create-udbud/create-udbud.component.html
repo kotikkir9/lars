@@ -1,6 +1,40 @@
-<div>
-	<app-uddannelse-input #uddannelseInput (addEducationSubjectEvent)="addEducationSubject($event)"></app-uddannelse-input>
-	<app-teacher-dropdown></app-teacher-dropdown>
-	<br>
-	<app-datepicker-chips-input></app-datepicker-chips-input>
-</div>
+<mat-horizontal-stepper #stepper>
+	<mat-step>
+		<ng-template matStepLabel>Fag og Uddannelse</ng-template>
+		<app-uddannelse-input #uddannelseInput [noCreate]="true" [formControl]="uddannelseInputCtl"></app-uddannelse-input>
+		<div>
+			<button mat-button matStepperPrevious>Tilbage</button>
+			<button mat-button matStepperNext>Næste</button>
+		</div>
+	</mat-step>
+	<mat-step>
+		<ng-template matStepLabel>Undervister</ng-template>
+		<app-teacher-dropdown [filter]="uddannelseInputCtl.value"></app-teacher-dropdown>
+
+		<div>
+			<button mat-button matStepperPrevious>Tilbage</button>
+			<button mat-button matStepperNext>Næste</button>
+		</div>
+	</mat-step>
+	<mat-step>
+		<ng-template matStepLabel>Dato</ng-template>
+		<app-datepicker-chips-input></app-datepicker-chips-input>
+
+		<div>
+			<button mat-button matStepperPrevious>Tilbage</button>
+			<button mat-button matStepperNext>Næste</button>
+		</div>
+	</mat-step>
+	<mat-step>
+		<ng-template matStepLabel>Done</ng-template>
+		
+		<!-- <p><mat-icon>person</mat-icon> {{firstFormGroup.controls['firstName'].value}} {{firstFormGroup.controls['lastName'].value}}</p>
+		<p><mat-icon>email</mat-icon> {{firstFormGroup.controls['email'].value}}</p>
+		<p><mat-icon>phone</mat-icon> {{firstFormGroup.controls['phoneNumber'].value | phone}}</p> -->
+
+		<div>
+			<button mat-button matStepperPrevious>Tilbage</button>
+			<button mat-button (click)="stepper.reset()">Nulstil</button>
+		</div>
+	</mat-step>
+</mat-horizontal-stepper>
