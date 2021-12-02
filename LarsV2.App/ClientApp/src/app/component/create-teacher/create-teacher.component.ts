@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { iEducationSubject } from 'src/app/DTO/educationSubject';
 import { iLecturerSend } from 'src/app/DTO/lecturers';
 import { Subject } from 'src/app/DTO/subject';
 import { LecturersService } from 'src/app/service/lecturers.service';
+import { UddannelseInputComponent } from '../uddannelse-input/uddannelse-input.component';
 
 @Component({
   selector: 'app-create-teacher',
@@ -12,14 +13,20 @@ import { LecturersService } from 'src/app/service/lecturers.service';
 })
 export class CreateTeacherComponent implements OnInit {
 
+  @ViewChild("uddannelseInput") uddannelseInputRef: UddannelseInputComponent;
+  uddannelseInputCtl: FormControl = new FormControl;
+
   firstFormGroup: FormGroup;
 
   educationSubject: iEducationSubject[] = [];
 
   constructor(private _formBuilder: FormBuilder, private socket: LecturersService) {}
 
-  addEducationSubject(data: iEducationSubject): void {
+  addEducationSubject(): void {
+    let data: iEducationSubject = this.uddannelseInputCtl.value;
+    console.log(data);
     this.educationSubject.push(data);
+    this.uddannelseInputRef.resetAll();
   }
 
   removeEducationSubject(data: iEducationSubject): void {

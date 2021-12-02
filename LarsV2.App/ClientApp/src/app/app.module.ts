@@ -19,7 +19,7 @@ import { PhonePipe } from './pipe/phone.pipe';
 import { ProfilePageComponent } from './page/profile-page/profile-page.component';
 import { FindLecturersPageComponent } from './page/find-lecturers-page/find-lecturers-page.component';
 import { PageNotFoundComponent } from './page/page-not-found/page-not-found.component';
-import { UdbudPageComponent } from './page/udbud-page/udbud-page.component';
+import { FindUdbudPageComponent } from './page/find-udbud-page/find-udbud-page.component';
 import { UdbudTableComponent } from './component/udbud-table/udbud-table.component';
 import { CoursesService } from './service/courses.service';
 import { UdbudProfilePageComponent } from './page/udbud-profile-page/udbud-profile-page.component';
@@ -41,7 +41,7 @@ import { DatepickerChipsInputComponent } from './component/datepicker-chips-inpu
     ProfilePageComponent,
     FindLecturersPageComponent,
     PageNotFoundComponent,
-    UdbudPageComponent,
+    FindUdbudPageComponent,
     UdbudTableComponent,
     UdbudProfilePageComponent,
     CreateUdbudPageComponent,

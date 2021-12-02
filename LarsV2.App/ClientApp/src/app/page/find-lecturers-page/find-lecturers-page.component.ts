@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { UddannelseInputComponent } from 'src/app/component/uddannelse-input/uddannelse-input.component';
 import { iEducationSubject, NullEducationSubject } from 'src/app/DTO/educationSubject';
 
@@ -16,14 +17,11 @@ export class FindLecturersPageComponent implements OnInit {
   searchInputRef: string;
 
   @ViewChild('uddannelseInput') filterInputRef: UddannelseInputComponent;
+  uddannelseInputCtl: FormControl = new FormControl;
 
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  addEducationSubject(data: iEducationSubject): void {
-    this.filterData = data;
   }
 
   resetFilter(): void {
@@ -34,7 +32,7 @@ export class FindLecturersPageComponent implements OnInit {
   }
 
   searchButton(): void {
-    this.filterInputRef.getDataFormInput(false, false);
+    this.filterData = this.uddannelseInputCtl.value;
     this.searchData = this.searchInputRef;
   }
 

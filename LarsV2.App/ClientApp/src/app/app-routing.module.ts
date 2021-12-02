@@ -7,7 +7,7 @@ import { HomePageComponent } from './page/home-page/home-page.component';
 import { PageNotFoundComponent } from './page/page-not-found/page-not-found.component';
 import { ProfilePageComponent } from './page/profile-page/profile-page.component';
 import { TestPageComponent } from './page/test-page/test-page.component';
-import { UdbudPageComponent } from './page/udbud-page/udbud-page.component';
+import { FindUdbudPageComponent } from './page/find-udbud-page/find-udbud-page.component';
 import { UdbudProfilePageComponent } from './page/udbud-profile-page/udbud-profile-page.component';
 
 
@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: "profile/:id", component: ProfilePageComponent},
   {path: "find", component: FindLecturersPageComponent},
   {path: "test", component: TestPageComponent},
-  {path: "udbud", component: UdbudPageComponent},
+  {path: "udbud", component: FindUdbudPageComponent},
   {path: "udbud-profile/:id", component: UdbudProfilePageComponent},
   {path: "**", component: PageNotFoundComponent}
 ];

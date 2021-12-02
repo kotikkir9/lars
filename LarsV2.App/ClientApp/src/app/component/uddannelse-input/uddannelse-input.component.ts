@@ -1,9 +1,9 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators'
-import { EducationSubject, iEducationSubject, NullEducationSubject } from 'src/app/DTO/educationSubject';
+import { EducationSubject, iEducationSubject } from 'src/app/DTO/educationSubject';
 import { iEducationServiceData, EducationService } from 'src/app/service/education.service';
 
 enum eFilterBy {
@@ -24,39 +24,36 @@ enum eFilterBy {
   ]
 })
 export class UddannelseInputComponent implements OnInit, ControlValueAccessor {
-
-  valueData: iEducationSubject = new NullEducationSubject;
-
-  get value(): iEducationSubject {
-    return this.valueData;
-  }
-
-  @Output() addEducationSubjectEvent = new EventEmitter<iEducationSubject>();
+  @Input() disableRemoveButton: boolean = false
+  @Input() noCreate: boolean = false
 
   uddannelseFormGroup: FormGroup;
   data: iEducationServiceData;
   filteredUddannelse: Observable<string[]>;
   filteredFag: Observable<iEducationSubject[]>;
 
+  private onChange: (data: iEducationSubject) => void;
+  private onTouched: () => void;
+  
   constructor(private _formBuilder: FormBuilder, private us: EducationService) {}
-
-  onChange = (EducationSubject:iEducationSubject) => {}
-
+  
   writeValue(obj: iEducationSubject): void {
-    this.valueData = obj;
-    this.onChange(this.value);
+    if(obj){
+      this.uddannelseFormGroup.controls["fag"].setValue(obj.subject.subject);
+      this.uddannelseFormGroup.controls["uddannelse"].setValue(obj.education);
+    }
   }
-  registerOnChange(fn: (EducationSubject: iEducationSubject) => void): void {
+  registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-  registerOnTouched(fn: () => void): void {}
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
   setDisabledState?(isDisabled: boolean): void {
     if(isDisabled){
-      this.uddannelseFormGroup.controls["uddannelse"].disable();
-      this.uddannelseFormGroup.controls["fag"].disable();
+      this.uddannelseFormGroup.disable();
     } else {
-      this.uddannelseFormGroup.controls["uddannelse"].enable();
-      this.uddannelseFormGroup.controls["fag"].enable();
+      this.uddannelseFormGroup.enable();
     }
   }
 
@@ -100,14 +97,16 @@ export class UddannelseInputComponent implements OnInit, ControlValueAccessor {
     this.uddannelseFormGroup.controls["fag"].setValue("");
   }
 
-  getDataFormInput(reset: boolean = true, checkAllSet: boolean = true):void {
+  doSelection(event: MatOptionSelectionChange){
+    if(event.isUserInput)
+      this.doInput();
+  }
+
+  doInput() {
     let fag:string = this.uddannelseFormGroup.controls["fag"].value;
     let uddannelse:string = this.uddannelseFormGroup.controls["uddannelse"].value;
 
     let data:iEducationSubject = new EducationSubject(uddannelse, fag);
-
-    if(checkAllSet && (fag === "" || uddannelse === ""))
-      return;
       
     let formList = this.data.EducationSubject.find(item => {
       return data.education === item.education && data.subject.subject === item.subject.subject;
@@ -116,10 +115,17 @@ export class UddannelseInputComponent implements OnInit, ControlValueAccessor {
     if(formList)
       data = formList;
 
-    this.addEducationSubjectEvent.emit(data);
-    if(reset)
-      this.resetAll();
+    if(this.noCreate){
+      this.onChange(formList);
+    }else{
+      this.onChange(data);
+    }
   }
+
+  doBlur() {
+    this.onTouched();
+  }
+
 
   private _filteredFag(value: string): iEducationSubject[] {
     const filterValue = value.toLowerCase();

@@ -1,6 +1,5 @@
 <div id="uddannelseInput">
-	<app-uddannelse-input #uddannelseInput (addEducationSubjectEvent)="addEducationSubject($event)">
-	</app-uddannelse-input>
+	<app-uddannelse-input #uddannelseInput [formControl]="uddannelseInputCtl" [disableRemoveButton]="true"></app-uddannelse-input>
 
 	<button (click)="resetFilter()" mat-icon-button>
 		<mat-icon>close</mat-icon>

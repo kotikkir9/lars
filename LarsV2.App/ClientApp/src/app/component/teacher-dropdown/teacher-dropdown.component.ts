@@ -61,15 +61,11 @@ export class TeacherDropdownComponent implements OnInit, ControlValueAccessor {
 
   doInput() {
     let teacherName = this.selectCtl.value;
-    let teacherList: iLecturer[] = this.lecturers.filter(data => {
+    let teacherList: iLecturer = this.lecturers.find(data => {
       return data.name === teacherName;
     });
-
-    if(teacherList.length != 0){
-      this.onChange(teacherList[0]);
-    }else{
-      this.onChange(null);
-    }
+    
+    this.onChange(teacherList);
   }
 
   doBlur() {

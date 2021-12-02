@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UdbudPageComponent } from './udbud-page.component';
+import { FindUdbudPageComponent } from './find-udbud-page.component';
 
 describe('UdbudPageComponent', () => {
-  let component: UdbudPageComponent;
-  let fixture: ComponentFixture<UdbudPageComponent>;
+  let component: FindUdbudPageComponent;
+  let fixture: ComponentFixture<FindUdbudPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UdbudPageComponent ]
+      declarations: [ FindUdbudPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UdbudPageComponent);
+    fixture = TestBed.createComponent(FindUdbudPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
