@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { LecturersService } from 'src/app/service/lecturers.service';
 
 @Component({
@@ -8,13 +9,19 @@ import { LecturersService } from 'src/app/service/lecturers.service';
 })
 export class TestPageComponent implements OnInit {
 
+  dropdownCtl: FormControl = new FormControl;
+
   constructor(private socket: LecturersService) { }
 
   ngOnInit(): void {
   }
 
-  async buttonPush(){
-    console.log(await this.socket.getThisLecturer(1).toPromise());
+  test(){
+    if(this.dropdownCtl.enabled){
+      this.dropdownCtl.disable();
+    } else {
+      this.dropdownCtl.enable();
+    }
   }
 
 }

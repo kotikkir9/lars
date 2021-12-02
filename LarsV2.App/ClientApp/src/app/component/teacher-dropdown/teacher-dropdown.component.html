@@ -1,6 +1,6 @@
 <mat-form-field>
 	<mat-label>Underviser</mat-label>
-	<mat-select [(ngModel)]="selectedValue" name="underviser">
+	<mat-select (input)="doInput()" (blur)="doBlur()" [formControl]="selectCtl" name="underviser">
 		<mat-option *ngFor="let l of lecturers" [value]="l.name">
 			{{l.name}}
 		</mat-option>
