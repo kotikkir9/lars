@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators'
@@ -14,15 +14,22 @@ enum eFilterBy {
 @Component({
   selector: 'app-uddannelse-input',
   templateUrl: './uddannelse-input.component.html',
-  styleUrls: ['./uddannelse-input.component.scss']
+  styleUrls: ['./uddannelse-input.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: forwardRef(() => UddannelseInputComponent)
+    }
+  ]
 })
-export class UddannelseInputComponent implements OnInit {
+export class UddannelseInputComponent implements OnInit, ControlValueAccessor {
 
-  // valueData: iEducationSubject = new NullEducationSubject;
+  valueData: iEducationSubject = new NullEducationSubject;
 
-  // get value(): iEducationSubject {
-  //   return this.valueData;
-  // }
+  get value(): iEducationSubject {
+    return this.valueData;
+  }
 
   @Output() addEducationSubjectEvent = new EventEmitter<iEducationSubject>();
 
@@ -33,15 +40,25 @@ export class UddannelseInputComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private us: EducationService) {}
 
-  // writeValue(obj: iEducationSubject): void {
-  //   this.valueData = obj;
-  // }
-  // registerOnChange(fn: iEducationSubject): void { }
-  // registerOnTouched(fn: any): void { }
-  // setDisabledState?(isDisabled: boolean): void {
-  //   this.uddannelseFormGroup.controls["uddannelse"].disable({onlySelf: isDisabled});
-  //   this.uddannelseFormGroup.controls["fag"].disable({onlySelf: isDisabled});
-  // }
+  onChange = (EducationSubject:iEducationSubject) => {}
+
+  writeValue(obj: iEducationSubject): void {
+    this.valueData = obj;
+    this.onChange(this.value);
+  }
+  registerOnChange(fn: (EducationSubject: iEducationSubject) => void): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: () => void): void {}
+  setDisabledState?(isDisabled: boolean): void {
+    if(isDisabled){
+      this.uddannelseFormGroup.controls["uddannelse"].disable();
+      this.uddannelseFormGroup.controls["fag"].disable();
+    } else {
+      this.uddannelseFormGroup.controls["uddannelse"].enable();
+      this.uddannelseFormGroup.controls["fag"].enable();
+    }
+  }
 
   async ngOnInit(): Promise<void> {
     
@@ -78,7 +95,7 @@ export class UddannelseInputComponent implements OnInit {
     this.uddannelseFormGroup.controls["fag"].setValue("");
     this.uddannelseFormGroup.controls["uddannelse"].setValue("");
   }
-  
+
   resetFag(){
     this.uddannelseFormGroup.controls["fag"].setValue("");
   }
