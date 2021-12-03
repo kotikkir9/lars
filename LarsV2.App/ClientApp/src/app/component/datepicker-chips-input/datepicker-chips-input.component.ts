@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { FormControl } from '@angular/forms';
@@ -10,6 +10,8 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
   styleUrls: ['./datepicker-chips-input.component.scss']
 })
 export class DatepickerChipsInputComponent implements OnInit {
+  invalidDate: boolean = false;
+
   selectable = true;
   removable = true;
   addOnBlur = true;
@@ -22,14 +24,16 @@ export class DatepickerChipsInputComponent implements OnInit {
     const value = (event.value || '').trim();
 
     if (value) {
-      this.dateList.push(value);
+      let date: Date = new Date(value)
+      if(date.toString() != "Invalid Date"){
+        this.invalidDate = false;
+        this.dateList.push(date.toJSON());
+      }else{
+        this.invalidDate = true;
+        return;
+      }
     }
 
-    this.dateCtrl.setValue(null);
-  }
-
-  addDate(event: MatDatepickerInputEvent<Date>){
-    this.dateList.push(event.value.toJSON());
     this.dateCtrl.setValue(null);
   }
 

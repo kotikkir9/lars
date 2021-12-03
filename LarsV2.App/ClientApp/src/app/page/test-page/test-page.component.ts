@@ -9,19 +9,9 @@ import { LecturersService } from 'src/app/service/lecturers.service';
 })
 export class TestPageComponent implements OnInit {
 
-  dropdownCtl: FormControl = new FormControl;
-
   constructor(private socket: LecturersService) { }
 
   ngOnInit(): void {
-  }
-
-  test(){
-    if(this.dropdownCtl.enabled){
-      this.dropdownCtl.disable();
-    } else {
-      this.dropdownCtl.enable();
-    }
   }
 
 }

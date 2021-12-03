@@ -1,21 +1,19 @@
-<mat-form-field class="example-chip-list">
+<mat-form-field>
 	<mat-label>Dato</mat-label>
 	<mat-chip-list #chipList>
-	  <mat-chip *ngFor="let date of dateList" [selectable]="selectable"
-			   [removable]="removable" (removed)="remove(date)">
-		{{date | date}}
-		<button matChipRemove *ngIf="removable">
-		  <mat-icon>cancel</mat-icon>
-		</button>
-	  </mat-chip>
-	  <input placeholder="Ny dato..."
-	  		 [formControl]="dateCtrl"
-			 [matChipInputFor]="chipList"
-			 [matDatepicker]="datepicker"
-			 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-			 [matChipInputAddOnBlur]="addOnBlur"
-			 (dateInput)="addDate($event)"
-			 (matChipInputTokenEnd)="add($event)">
+		<mat-chip *ngFor="let date of dateList" [selectable]="selectable" [removable]="removable"
+			(removed)="remove(date)">
+			{{date | date:'dd-MM-yyyy'}}
+			<button class="chip-button" matChipRemove *ngIf="removable">
+				<mat-icon>cancel</mat-icon>
+			</button>
+		</mat-chip>
+		<input placeholder="Ny dato..." [formControl]="dateCtrl" [matChipInputFor]="chipList"
+			[matDatepicker]="datepicker" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+			[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+		<mat-error *ngIf="invalidDate">
+			Forkert <strong>dato</strong>
+		</mat-error>
 	</mat-chip-list>
 	<mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
 	<mat-datepicker #datepicker></mat-datepicker>
