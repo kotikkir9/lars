@@ -9,11 +9,13 @@ import { ProfilePageComponent } from './page/profile-page/profile-page.component
 import { TestPageComponent } from './page/test-page/test-page.component';
 import { FindUdbudPageComponent } from './page/find-udbud-page/find-udbud-page.component';
 import { UdbudProfilePageComponent } from './page/udbud-profile-page/udbud-profile-page.component';
+import { LoginPageComponent } from './page/login-page/login-page.component';
 
 
 const routes: Routes = [
   {path: "", component: HomePageComponent},
   {path: "opret", component: CreateTeacherPageComponent},
+  {path: "login", component: LoginPageComponent},
   {path: "opret-udbud", component: CreateUdbudPageComponent},
   {path: "profile/:id", component: ProfilePageComponent},
   {path: "find", component: FindLecturersPageComponent},

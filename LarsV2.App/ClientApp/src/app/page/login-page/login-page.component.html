@@ -1,0 +1,21 @@
+<div id="main">
+	<mat-card>
+		<mat-card-title>Login</mat-card-title>
+		<mat-card-content>
+			<form [formGroup]="loginFormGroup">
+				<mat-form-field>
+					<mat-label>Brugernavn</mat-label>
+					<input matInput formControlName="username" required>
+				</mat-form-field>
+				<br>
+				<mat-form-field>
+					<mat-label>Password</mat-label>
+					<input matInput type="password" formControlName="password" required>
+				</mat-form-field>
+			</form>
+		</mat-card-content>
+		<mat-card-actions align="end">
+			<button mat-button (click)="login()">Login</button>
+		</mat-card-actions>
+	</mat-card>
+</div>

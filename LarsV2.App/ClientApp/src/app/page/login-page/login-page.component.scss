@@ -1,0 +1,19 @@
+#main {
+	position: absolute;
+	bottom: 15px;
+	// top: 64px;
+	top: 0;
+	left: 15px;
+	right: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.mat-card {
+	width: 250px;
+}
+
+.mat-form-field{
+	width: 100%;
+}
