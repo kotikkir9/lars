@@ -1,10 +1,14 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { iCourses } from '../DTO/courses';
+import { iCoursesSearchParmas } from '../DTO/coursesSearchParmas';
+import { iEducationSubject, NullEducationSubject } from '../DTO/educationSubject';
+import { iMetadata } from '../DTO/metadata';
 
-export interface iCourses {
-  key1: string[];
-  key2: string[];
+export interface iCoursesServiceData {
+  metadata: iMetadata;
+  records: iCourses[];
 }
 
 @Injectable({
@@ -12,10 +16,24 @@ export interface iCourses {
 })
 export class CoursesService {
 
-  constructor(private http: HttpClient) {
+  private readonly url = "/api/courses";
+
+  constructor(private http: HttpClient) { }
+
+  getData(data: iCoursesSearchParmas): Observable<iCoursesServiceData> {
+    return this.http.get<iCoursesServiceData>(this.url, {
+      params: new HttpParams()
+        .set("PageSize", data.pageSize.toString())
+        .set("PageNumber", (data.pageIndex + 1).toString())
+        .set("Subject", data.filter.subject.subject)
+        .set("Education", data.filter.education)
+        .set("SearchQuery", data.search)
+        .set("FromDate", data.fromDate)
+        .set("ToDate", data.toDate)
+    });
   }
 
-  getData(): Observable<iCourses> {
-    return this.http.get<iCourses>("/api/courses");
+  getThisCourses(id: number): Observable<iCourses> {
+    return this.http.get<iCourses>(this.url + `/${id}`);
   }
 }

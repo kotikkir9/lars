@@ -1,0 +1,9 @@
+.spacer {
+	flex: 1 1 auto;
+}
+
+#body {
+	display: grid;
+	grid-template-columns: 1fr 3fr 1fr;
+	margin-top: 25px;
+}

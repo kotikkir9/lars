@@ -1,0 +1,27 @@
+<form [formGroup]="uddannelseFormGroup">
+	<mat-form-field [id]="'uddannelse'">
+		<mat-label>Uddannelse</mat-label>
+		<input matInput [matAutocomplete]="auto" (input)="doInput()" (blur)="doBlur()" formControlName="uddannelse">
+		<button *ngIf="uddannelseFormGroup.controls['uddannelse'].value !== '' && !disableRemoveButton" matSuffix mat-icon-button aria-label="Clear" (click)="resetAll()">
+			<mat-icon>close</mat-icon>
+		</button>
+		<mat-autocomplete #auto="matAutocomplete">
+			<mat-option *ngFor="let ug of filteredUddannelse | async" [value]="ug" (onSelectionChange)="doSelection($event)">
+				<span>{{ug}}</span>
+			</mat-option>
+		</mat-autocomplete>
+	</mat-form-field>
+	<mat-form-field [id]="'fag'">
+		<mat-label>Fag</mat-label>
+		<input matInput [matAutocomplete]="auto1" (input)="doInput()" (blur)="doBlur()" formControlName="fag">
+		<button *ngIf="uddannelseFormGroup.controls['fag'].value !== '' && !disableRemoveButton" matSuffix mat-icon-button aria-label="Clear" (click)="resetFag()">
+			<mat-icon>close</mat-icon>
+		</button>
+		<mat-autocomplete #auto1="matAutocomplete" >
+			<mat-option class="big-option" *ngFor="let ug of filteredFag | async" [value]="ug.subject.subject" (onSelectionChange)="selectionChangeFag(ug, $event); doSelection($event)">
+				<span>{{ug.subject.subject}}</span><br>
+				<small>{{ug.education}}</small>
+			</mat-option>
+		</mat-autocomplete>
+	</mat-form-field>
+</form>

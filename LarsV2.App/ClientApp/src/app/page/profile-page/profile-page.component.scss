@@ -1,0 +1,59 @@
+#main-profile {
+	display: grid;
+	grid-template-columns: 300px auto;
+}
+
+#profile-card {
+	position: relative;
+	overflow: hidden;
+}
+
+#external-profile {
+	text-align: center;
+	font-size: 24px;
+	position: absolute;
+	background-color: red;
+	color: white;
+	width: 200px;
+	transform: translate(-63px, 8px) rotate(-35deg);
+	z-index: 1;
+}
+
+#time-profile {
+	padding: 0 25px;
+}
+
+#profile-table{
+	width: 100%;
+	border-collapse: collapse;
+	h2 {
+		margin: 0;
+		text-align: center;
+	}
+}
+
+#fag-table, #udbud-table {
+	border-collapse: collapse;
+	width: 100%;
+	th, td {
+		border-bottom: 1px solid #ddd;
+		padding: 10px 5px;
+	}
+
+	tr:last-child td {
+		border: none;
+	}
+
+	tr:hover {background-color: whitesmoke;}
+
+	td {
+		font-size: 1.2rem;
+		small {
+			font-size: 0.8em;
+		}
+	}
+}
+
+#udbud-table tr {
+	cursor: pointer;
+}

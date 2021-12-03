@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OpretUdbudComponent } from './opret-udbud.component';
+import { UdbudTableComponent } from './udbud-table.component';
 
-describe('OpretUdbudComponent', () => {
-  let component: OpretUdbudComponent;
-  let fixture: ComponentFixture<OpretUdbudComponent>;
+describe('UdbudTableComponent', () => {
+  let component: UdbudTableComponent;
+  let fixture: ComponentFixture<UdbudTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OpretUdbudComponent ]
+      declarations: [ UdbudTableComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OpretUdbudComponent);
+    fixture = TestBed.createComponent(UdbudTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

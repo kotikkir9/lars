@@ -1,0 +1,32 @@
+<div id="uddannelseInput">
+	<app-uddannelse-input #uddannelseInput [formControl]="uddannelseInputCtl" [disableRemoveButton]="true">
+	</app-uddannelse-input>
+
+	<button (click)="resetFilter()" mat-icon-button>
+		<mat-icon>close</mat-icon>
+	</button>
+	<span class="spacer"></span>
+	<div>
+		<button (click)="searchButton()" mat-mini-fab color="primary"
+			aria-label="Example icon button with a delete icon">
+			<mat-icon>search</mat-icon>
+		</button>
+	</div>
+</div>
+<mat-form-field Id="searchInput">
+	<mat-label>Søg</mat-label>
+	<input [(ngModel)]="searchInputRef" matInput type="text">
+</mat-form-field>
+<mat-form-field id="Startdato">
+	<mat-label>Startdato</mat-label>
+	<input matInput [(ngModel)]="startdatoInputRef" [matDatepicker]="datepickerStart">
+	<mat-datepicker-toggle matSuffix [for]="datepickerStart"></mat-datepicker-toggle>
+	<mat-datepicker #datepickerStart></mat-datepicker>
+</mat-form-field>
+<mat-form-field id="Slutdato">
+	<mat-label>Slutdato</mat-label>
+	<input matInput [(ngModel)]="slutdatoInputRef" [matDatepicker]="datepickerSlut">
+	<mat-datepicker-toggle matSuffix [for]="datepickerSlut"></mat-datepicker-toggle>
+	<mat-datepicker #datepickerSlut></mat-datepicker>
+</mat-form-field>
+<app-udbud-table [_udbudTableInputData]="udbudTableInputData"></app-udbud-table>

@@ -1,0 +1,59 @@
+<!-- <mat-card>
+	<mat-card-header>
+	  <mat-card-title>{{coursesData.subject.education}}</mat-card-title>
+	  <mat-card-subtitle>{{coursesData.subject.title}}</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+	</mat-card-content>
+  </mat-card> -->
+<mat-accordion multi>
+	<mat-expansion-panel>
+		<mat-expansion-panel-header>
+			<mat-panel-title>
+				Fag og Uddannelse
+			</mat-panel-title>
+			<!-- <mat-panel-description>
+			
+		</mat-panel-description> -->
+		</mat-expansion-panel-header>
+		<p>{{coursesData.subject.education}} - {{coursesData.subject.title}}</p>
+		<ul>
+			<li *ngFor="let cd of coursesData.courseDates">{{cd.courseDateTime | date}}</li>
+		</ul>
+	</mat-expansion-panel>
+	<mat-expansion-panel id="underviser">
+		<mat-expansion-panel-header>
+			<mat-panel-title>
+				Underviser
+			</mat-panel-title>
+			<!-- <mat-panel-description>
+			
+		</mat-panel-description> -->
+		</mat-expansion-panel-header>
+		<div>
+			<img src="/assets/default-profile-icon-16.jpg" alt="Default profile">
+			<table id="profile-table">
+				<tr>
+					<td colspan="2">
+						<h2>{{coursesData.lecturer.name}}</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<mat-icon>email</mat-icon>
+					</td>
+					<td>{{coursesData.lecturer.email}}</td>
+				</tr>
+				<tr>
+					<td>
+						<mat-icon>phone</mat-icon>
+					</td>
+					<td>{{coursesData.lecturer.phoneNumber | phone}}</td>
+				</tr>
+				<tr>
+					<td colspan="2"><a mat-icon-button [routerLink]="['/profile', coursesData.lecturer.id]"><mat-icon>reply</mat-icon></a></td>
+				</tr>
+			</table>
+		</div>
+	</mat-expansion-panel>
+</mat-accordion>

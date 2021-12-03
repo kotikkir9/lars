@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LarsV2.Migrations
 {
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,7 +50,9 @@ namespace LarsV2.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SubjectId = table.Column<int>(type: "int", nullable: false),
                     LecturerId = table.Column<int>(type: "int", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StartDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    EndDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -162,8 +164,8 @@ namespace LarsV2.Migrations
 
             migrationBuilder.InsertData(
                 table: "Courses",
-                columns: new[] { "Id", "Description", "LecturerId", "SubjectId" },
-                values: new object[] { 1, null, 1, 1 });
+                columns: new[] { "Id", "Description", "EndDate", "LecturerId", "StartDate", "SubjectId" },
+                values: new object[] { 1, null, null, 1, null, 1 });
 
             migrationBuilder.InsertData(
                 table: "LecturerSubject",

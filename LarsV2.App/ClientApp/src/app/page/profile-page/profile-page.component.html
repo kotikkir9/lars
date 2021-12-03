@@ -1,0 +1,62 @@
+<div id="main-profile">
+	<div id="side-profile">
+		<mat-card id="profile-card">
+			<div id="external-profile" *ngIf="lecturesData.isExternal">Ekstern</div>
+			<img mat-card-image src="/assets/default-profile-icon-16.jpg" alt="Default profile">
+			<mat-card-content>
+				<table id="profile-table">
+					<tr>
+						<td colspan="2">
+							<h2>{{lecturesData.name}}</h2>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<mat-icon>email</mat-icon>
+						</td>
+						<td>{{lecturesData.email}}</td>
+					</tr>
+					<tr>
+						<td>
+							<mat-icon>phone</mat-icon>
+						</td>
+						<td>{{lecturesData.phoneNumber | phone}}</td>
+					</tr>
+				</table>
+				<a mat-raised-button target="_blank" [href]="lecturesData.cvPath" color="primary">CV</a>
+			</mat-card-content>
+		</mat-card>
+	</div>
+	<div id="time-profile">
+		<mat-accordion multi>
+			<mat-expansion-panel>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						Fag og Uddannelse
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<table id="fag-table">
+					<tr *ngFor="let ug of lecturesData.subjects">
+						<td>
+							<b>{{ug.title}}</b> <br> <small>{{ug.education}}</small>
+						</td>
+					</tr>
+				</table>
+			</mat-expansion-panel>
+			<mat-expansion-panel>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						Udbud
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<table id="udbud-table">
+					<tr *ngFor="let c of lecturesData.courses" [routerLink]="['/udbud-profile', c.id]">
+						<td>
+							<b>{{c.subject.title}}</b> <br> <small>{{c.subject.education}}</small>
+						</td>
+					</tr>
+				</table>
+			</mat-expansion-panel>
+		</mat-accordion>
+	</div>
+</div>
