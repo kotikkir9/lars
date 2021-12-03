@@ -32,7 +32,7 @@ export class FindLecturersPageComponent implements OnInit {
   }
 
   searchButton(): void {
-    this.filterData = this.uddannelseInputCtl.value;
+    this.filterData = this.uddannelseInputCtl.value ? this.uddannelseInputCtl.value : new NullEducationSubject;
     this.searchData = this.searchInputRef;
   }
 

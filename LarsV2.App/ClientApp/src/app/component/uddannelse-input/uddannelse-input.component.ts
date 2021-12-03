@@ -24,8 +24,8 @@ enum eFilterBy {
   ]
 })
 export class UddannelseInputComponent implements OnInit, ControlValueAccessor {
-  @Input() disableRemoveButton: boolean = false
-  @Input() noCreate: boolean = false
+  @Input() disableRemoveButton: boolean = false;
+  @Input() noCreate: boolean = false;
 
   uddannelseFormGroup: FormGroup;
   data: iEducationServiceData;
