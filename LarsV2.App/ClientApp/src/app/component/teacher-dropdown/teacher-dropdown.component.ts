@@ -1,5 +1,6 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatOptionSelectionChange } from '@angular/material/core';
 import { take } from 'rxjs/operators';
 import { iEducationSubject, NullEducationSubject } from 'src/app/DTO/educationSubject';
 import { iLecturer } from 'src/app/DTO/lecturers';
@@ -26,13 +27,16 @@ export class TeacherDropdownComponent implements OnInit, ControlValueAccessor {
   private onTouched: () => void;
 
   @Input() set filter(data: iEducationSubject){
-    this.loadData(data);
+    if(data)
+      this.loadData(data);
   }
 
   constructor(private socket: LecturersService) { }
   writeValue(obj: iLecturer): void {
     if(obj){
       this.selectCtl.setValue(obj.name);
+    }else{
+      this.selectCtl.setValue('');
     }
   }
   registerOnChange(fn: any): void {
@@ -59,17 +63,22 @@ export class TeacherDropdownComponent implements OnInit, ControlValueAccessor {
     });
   }
 
-  doInput() {
-    let teacherName = this.selectCtl.value;
-    let teacherList: iLecturer = this.lecturers.find(data => {
-      return data.name === teacherName;
-    });
-    
-    this.onChange(teacherList);
+  doInput(event: MatOptionSelectionChange, teacher: iLecturer) {
+    if(event.isUserInput)
+      this.onChange(teacher);
   }
 
   doBlur() {
     this.onTouched();
   }
 
+}
+
+export function TeacherDropdownRequired(control: AbstractControl): {[key: string]: any} | null  {
+  let data: iLecturer = control.value;
+
+  if (!data || data.id == -1) {
+    return { 'TeacherDropdownInvalid': true };
+  }
+  return null;
 }

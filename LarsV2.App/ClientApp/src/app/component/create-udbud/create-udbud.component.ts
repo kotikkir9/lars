@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { TeacherDropdownRequired } from '../teacher-dropdown/teacher-dropdown.component';
+import { UddannelseInputRequired } from '../uddannelse-input/uddannelse-input.component';
 
 @Component({
   selector: 'app-create-udbud',
@@ -8,18 +10,18 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class CreateUdbudComponent implements OnInit {
 
-  // firstFormGroup: FormGroup;
-  uddannelseInputCtl: FormControl = new FormControl;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
 
   constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    // this.firstFormGroup = this._formBuilder.group({
-    //   firstName: ['', Validators.required],
-    //   lastName: ['', Validators.required],
-    //   email: ['', [Validators.email, Validators.required]],
-    //   phoneNumber: ['', Validators.required],
-    // });
-  }
+    this.firstFormGroup = this._formBuilder.group({
+      uddannelseInputCtl: [null, UddannelseInputRequired],
+    });
 
+    this.secondFormGroup = this._formBuilder.group({
+      teacherDropdownCtl: [null, TeacherDropdownRequired],
+    });
+  }
 }
