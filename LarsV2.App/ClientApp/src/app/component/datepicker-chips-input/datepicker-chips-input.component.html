@@ -10,7 +10,7 @@
 		</mat-chip>
 		<input placeholder="Ny dato..." [formControl]="dateCtrl" [matChipInputFor]="chipList"
 			[matDatepicker]="datepicker" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-			[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+			[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" (input)="doInput()" (blur)="doBlur()">
 		<mat-error *ngIf="invalidDate">
 			Forkert <strong>dato</strong>
 		</mat-error>
