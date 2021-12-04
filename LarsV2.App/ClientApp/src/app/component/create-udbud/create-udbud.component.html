@@ -20,9 +20,11 @@
 			<button mat-button matStepperNext>Næste</button>
 		</div>
 	</mat-step>
-	<mat-step>
+	<mat-step [stepControl]="treeFormGroup">
 		<ng-template matStepLabel>Dato</ng-template>
-		<app-datepicker-chips-input></app-datepicker-chips-input>
+		<form [formGroup]="treeFormGroup">
+			<app-datepicker-chips-input formControlName="datePickCtl"></app-datepicker-chips-input>
+		</form>
 
 		<div>
 			<button mat-button matStepperPrevious>Tilbage</button>
@@ -39,6 +41,7 @@
 		<div>
 			<button mat-button matStepperPrevious>Tilbage</button>
 			<button mat-button (click)="stepper.reset()">Nulstil</button>
+			<button mat-button (click)="send()">Don</button>
 		</div>
 	</mat-step>
 </mat-horizontal-stepper>

@@ -1,10 +1,18 @@
 import { iLecturer, NullLecturer } from "./lecturers";
 import { iSubject, NullSubject } from "./subject";
-export interface iCourses {
-	id: number;
+
+interface iCoursesExtends {
 	subject: iSubject;
 	lecturer: iLecturer;
 	description: string;
+}
+
+export interface iCoursesSend extends iCoursesExtends{
+	courseDates: string[]
+}
+
+export interface iCourses extends iCoursesExtends {
+	id: number;
 	startDate: string;
 	endDate: string;
 	courseDates: iCourseDate[];

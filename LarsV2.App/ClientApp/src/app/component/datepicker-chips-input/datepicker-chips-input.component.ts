@@ -31,9 +31,11 @@ export class DatepickerChipsInputComponent implements OnInit, ControlValueAccess
   dateCtrl = new FormControl();
 
   writeValue(obj: string[]): void {
-    console.log(obj);
-    if(obj)
+    if(obj){
       this.dateList = obj;
+    }else{
+      this.dateList = [];
+    }
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;
