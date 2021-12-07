@@ -1,24 +1,30 @@
-<mat-horizontal-stepper #stepper>
-	<mat-step>
-		<ng-template matStepLabel>Fag og Uddannelse</ng-template>
-		<app-uddannelse-input #uddannelseInput [noCreate]="true" [formControl]="uddannelseInputCtl"></app-uddannelse-input>
+<mat-horizontal-stepper linear #stepper>
+	<mat-step [stepControl]="firstFormGroup">
+		<form [formGroup]="firstFormGroup">
+			<ng-template matStepLabel>Fag og Uddannelse</ng-template>
+			<app-uddannelse-input #uddannelseInput [noCreate]="true" formControlName="uddannelseInputCtl"></app-uddannelse-input>
+		</form>
 		<div>
 			<button mat-button matStepperPrevious>Tilbage</button>
 			<button mat-button matStepperNext>Næste</button>
 		</div>
 	</mat-step>
-	<mat-step>
-		<ng-template matStepLabel>Undervister</ng-template>
-		<app-teacher-dropdown [filter]="uddannelseInputCtl.value"></app-teacher-dropdown>
+	<mat-step [stepControl]="secondFormGroup">
+		<form [formGroup]="secondFormGroup">
+			<ng-template matStepLabel>Undervister</ng-template>
+			<app-teacher-dropdown formControlName="teacherDropdownCtl" [filter]="firstFormGroup.controls['uddannelseInputCtl'].value"></app-teacher-dropdown>
+		</form>
 
 		<div>
 			<button mat-button matStepperPrevious>Tilbage</button>
 			<button mat-button matStepperNext>Næste</button>
 		</div>
 	</mat-step>
-	<mat-step>
+	<mat-step [stepControl]="treeFormGroup">
 		<ng-template matStepLabel>Dato</ng-template>
-		<app-datepicker-chips-input></app-datepicker-chips-input>
+		<form [formGroup]="treeFormGroup">
+			<app-datepicker-chips-input formControlName="datePickCtl"></app-datepicker-chips-input>
+		</form>
 
 		<div>
 			<button mat-button matStepperPrevious>Tilbage</button>
@@ -35,6 +41,7 @@
 		<div>
 			<button mat-button matStepperPrevious>Tilbage</button>
 			<button mat-button (click)="stepper.reset()">Nulstil</button>
+			<button mat-button (click)="send()">Don</button>
 		</div>
 	</mat-step>
 </mat-horizontal-stepper>

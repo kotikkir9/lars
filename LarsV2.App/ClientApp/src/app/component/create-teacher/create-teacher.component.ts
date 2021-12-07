@@ -45,7 +45,7 @@ export class CreateTeacherComponent implements OnInit {
   }
 
   sendData(): void {
-    if(!this.firstFormGroup.valid)
+    if(this.firstFormGroup.invalid)
       return
 
     let inputData = this.firstFormGroup.value;

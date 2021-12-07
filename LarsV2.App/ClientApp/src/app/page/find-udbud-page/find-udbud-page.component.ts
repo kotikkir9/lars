@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { iUdbudTableInput, NullUdbudTableInput } from 'src/app/component/udbud-table/udbud-table.component';
 import { UddannelseInputComponent } from 'src/app/component/uddannelse-input/uddannelse-input.component';
-import { iEducationSubject } from 'src/app/DTO/educationSubject';
+import { iEducationSubject, NullEducationSubject } from 'src/app/DTO/educationSubject';
 
 @Component({
   selector: 'app-find-udbud-page',
@@ -35,7 +35,7 @@ export class FindUdbudPageComponent implements OnInit {
   }
 
   searchButton(): void {
-    this.udbudTableInputData.filterData = this.uddannelseInputCtl.value;
+    this.udbudTableInputData.filterData = this.uddannelseInputCtl.value ? this.uddannelseInputCtl.value : new NullEducationSubject;
     this.udbudTableInputData.searchData = this.searchInputRef;
     this.udbudTableInputData.toDate = this.slutdatoInputRef;
     this.udbudTableInputData.fromDate = this.startdatoInputRef;

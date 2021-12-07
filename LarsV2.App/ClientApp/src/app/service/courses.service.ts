@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { iCourses } from '../DTO/courses';
+import { iCourses, iCoursesSend } from '../DTO/courses';
 import { iCoursesSearchParmas } from '../DTO/coursesSearchParmas';
 import { iEducationSubject, NullEducationSubject } from '../DTO/educationSubject';
 import { iMetadata } from '../DTO/metadata';
@@ -35,5 +35,17 @@ export class CoursesService {
 
   getThisCourses(id: number): Observable<iCourses> {
     return this.http.get<iCourses>(this.url + `/${id}`);
+  }
+
+  createCourses(data: iCoursesSend): void {
+    this.http.post(this.url, 
+      {
+        LecturerId: data.lecturer.id,
+        SubjectId: data.subject.id,
+        Dates: data.courseDates
+      }
+      ).subscribe(data1 => {
+      // console.log(data1)
+    }, err => console.error(err));
   }
 }

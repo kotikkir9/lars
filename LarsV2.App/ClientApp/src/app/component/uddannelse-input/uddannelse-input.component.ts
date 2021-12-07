@@ -24,8 +24,8 @@ enum eFilterBy {
   ]
 })
 export class UddannelseInputComponent implements OnInit, ControlValueAccessor {
-  @Input() disableRemoveButton: boolean = false
-  @Input() noCreate: boolean = false
+  @Input() disableRemoveButton: boolean = false;
+  @Input() noCreate: boolean = false;
 
   uddannelseFormGroup: FormGroup;
   data: iEducationServiceData;
@@ -41,6 +41,8 @@ export class UddannelseInputComponent implements OnInit, ControlValueAccessor {
     if(obj){
       this.uddannelseFormGroup.controls["fag"].setValue(obj.subject.subject);
       this.uddannelseFormGroup.controls["uddannelse"].setValue(obj.education);
+    }else{
+      this.resetAll();
     }
   }
   registerOnChange(fn: any): void {
@@ -159,4 +161,13 @@ export class UddannelseInputComponent implements OnInit, ControlValueAccessor {
     ctl.setValue(ctl.value);
   }
 
+}
+
+export function UddannelseInputRequired(control: AbstractControl): {[key: string]: any} | null  {
+  let data: iEducationSubject = control.value;
+
+  if (!data || data.education === "" || data.subject.subject === "") {
+    return { 'UddannelseInputInvalid': true };
+  }
+  return null;
 }

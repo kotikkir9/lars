@@ -27,6 +27,7 @@ import { CreateUdbudPageComponent } from './page/create-udbud-page/create-udbud-
 import { CreateUdbudComponent } from './component/create-udbud/create-udbud.component';
 import { TeacherDropdownComponent } from './component/teacher-dropdown/teacher-dropdown.component';
 import { DatepickerChipsInputComponent } from './component/datepicker-chips-input/datepicker-chips-input.component';
+import { LoginPageComponent } from './page/login-page/login-page.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { DatepickerChipsInputComponent } from './component/datepicker-chips-inpu
     CreateUdbudPageComponent,
     CreateUdbudComponent,
     TeacherDropdownComponent,
-    DatepickerChipsInputComponent
+    DatepickerChipsInputComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
