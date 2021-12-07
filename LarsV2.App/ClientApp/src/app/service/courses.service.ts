@@ -38,9 +38,13 @@ export class CoursesService {
   }
 
   createCourses(data: iCoursesSend): void {
-    console.log(data);
-    return; // Slet den her når API er klar.
-    this.http.post(this.url, data).subscribe(data1 => {
+    this.http.post(this.url, 
+      {
+        LecturerId: data.lecturer.id,
+        SubjectId: data.subject.id,
+        Dates: data.courseDates
+      }
+      ).subscribe(data1 => {
       // console.log(data1)
     }, err => console.error(err));
   }
