@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { iCourses, iCoursesSend } from '../DTO/courses';
 import { iCoursesSearchParmas } from '../DTO/coursesSearchParmas';
-import { iEducationSubject, NullEducationSubject } from '../DTO/educationSubject';
 import { iMetadata } from '../DTO/metadata';
 
 export interface iCoursesServiceData {
