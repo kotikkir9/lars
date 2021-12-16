@@ -7,3 +7,21 @@ services:
       - "80:80"
     # volumes:
     #   - './config.json:/app/appsettings.Development.json'
+  MsSQL:
+      image: mcr.microsoft.com/mssql/server:2019-latest
+      container_name: 'MsSQL'
+      hostname: 'MsSQL'
+      ports: 
+          - "1433:1433"
+
+      environment:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: '<YourStrong@Passw0rd>'
+
+      restart: always
+
+      volumes: 
+          - 'MsSQL_Data:/var/opt/mssql'
+        
+volumes: 
+    MsSQL_Data:
