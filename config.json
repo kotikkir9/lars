@@ -1,0 +1,18 @@
+{
+	"Logging": {
+	  "LogLevel": {
+		"Default": "Information",
+		"Microsoft": "Warning",
+		"Microsoft.Hosting.Lifetime": "Information"
+	  }
+	},
+	"ConnectionStrings": {
+	  "CoursesConnection": "Data Source=MsSQL;Initial Catalog=LecturerAdministration;User Id=SA;Password=<YourStrong@Passw0rd>;MultipleActiveResultSets=True",
+	  "IdentityConnection": "Data Source=MsSQL;Initial Catalog=LarsAppIdentity;User Id=SA;Password=<YourStrong@Passw0rd>;MultipleActiveResultSets=True"
+	},
+	"Token": {
+	  "Key": "ThisIsKeyForDevelopmentSoFuckYouHackerWhoFindsThisKeyOnGithubOrAzureDevOpsCuzYouCantUseThisKeyForShitFuckYouFuckingBitch123",
+	  "Issuer": "machine",
+	  "Audience": "people"
+	}
+}
